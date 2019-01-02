@@ -1,0 +1,7 @@
+// Takes you to Tiv's Forest
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.PlayPortalSound;
+  P.Warp(130010020, 'out00');
+end;

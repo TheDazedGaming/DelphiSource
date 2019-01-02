@@ -1,0 +1,5 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.IsQuestActive(1035) then
+    P.ShowWZEffect('UI/tutorial.img/20', 1);
+end;

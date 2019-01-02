@@ -1,0 +1,37 @@
+(*
+    NPC Name:    Shiny Stone
+    Map:         Nautilus Generator Room
+    Description: Used for a quest.
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if Status = 0 then
+  begin
+    if (C.IsQuestActive(2166)) and (C.GetQuestData(2166) = '') then
+      C.SendNext('I touched the shiny rock with my hand, and felt a mysterious power flowing into my body.')
+    else
+      C.SendNext('It''s a beautiful, shiny rock. I can feel the mysterious power surrounding it.')
+  end
+  else
+  begin
+    if (C.IsQuestActive(2166)) and (C.GetQuestData(2166) = '') then
+      C.UpdateQuest(2166, '5', True);   // 5 = stone was touched, quest can be completed.
+      
+    C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

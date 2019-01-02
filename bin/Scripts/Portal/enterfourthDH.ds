@@ -1,0 +1,4 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowInfo('The 4th Hall is only available to those that are training for the Level 110 skill.');
+end;

@@ -1,0 +1,8 @@
+// Called in first adventurer map (0)
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.LockUI(True);
+  P.DisableUI(True);
+  P.ShowWZEffect('Effect/Direction3.img/goAdventure/Scene' + Convert.ToString(P.Char.Gender), -1);
+end;

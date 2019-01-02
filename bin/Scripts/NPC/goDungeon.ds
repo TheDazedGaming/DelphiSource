@@ -1,0 +1,35 @@
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+  begin
+    C.Dispose;
+    Exit;
+  end;
+
+  if Status = 0 then
+    C.SendNext('Hey, you look like you want to go farther and deeper past this place. Over there, though, you''ll find yourself surrounded by aggressive, dangerous monsters, so even if you feel that you''re ready to go, please be careful. Long ago, a few brave men from our town went in wanting to eliminate anyone threatening the town, but never came back out...')
+  else if Status = 1 then
+  begin
+    if C.Char.Level >= 50 then
+      C.SendYesNo('If you are thinking of going in, I suggest you change your mind. But if you really want to go in...I''m only letting in the ones that are strong enough to stay alive in there. I do not wish to see anyone else die. Let''s see ... Hmmm ...! You look pretty strong. All right, do you want to go in?')
+    else
+      C.SendOK('If you are thinking of going in, I suggest you change your mind. But if you really want to go in...I''m only letting in the ones that are strong enough to stay alive in there. I do not wish to see anyone else die. Let''s see ... Hmmm ... you have not yet reached level 50. I can''t let you in, forget it.');
+  end
+  else if Status = 2 then
+  begin
+    if C.Char.Level >= 50 then
+      C.Warp(211040300, 'under00');
+    C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

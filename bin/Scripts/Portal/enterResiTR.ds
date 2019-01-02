@@ -1,0 +1,4 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.InvokeNPC(2151007);
+end;

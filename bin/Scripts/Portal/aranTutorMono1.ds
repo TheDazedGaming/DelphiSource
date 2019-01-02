@@ -1,0 +1,12 @@
+// Second speech bubble of Aran Intro
+// Text: What's this sound?
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.GetAreaInfo(21002).IndexOf('mo2=o') > 0 then
+    Exit;
+
+  P.PlayWZSound('Aran/balloon');
+  P.UpdateAreaInfo(21002, 'mo1=o;mo2=o');
+  P.ShowWZEffect('Effect/OnUserEff.img/guideEffect/aranTutorial/legendBalloon2', 1);
+end;

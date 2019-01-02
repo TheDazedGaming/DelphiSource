@@ -1,0 +1,38 @@
+// Quest: You Surpass Me [Wild Hunter]
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if (Mode = 1) or (Status = 5) then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    1: Q.SendNext('Well, if it isn''t the town hero, #h0#! It''s so wonderful to see you. Ah, even though it''s under the control of the Black Wings, I do so love Edelstein.');
+    2: Q.SendNextPrev('Are you feeling better?', 2);
+    3: Q.SendNextPrev('I still have a few aches and pains, but I''m fine. #p2151003# is the best healer around, after all. The only problem is...');
+    4: Q.SendNextPrev('What?! Are the Black Wings planning something?', 2);
+    5: Q.SendYesNo('Haha, no, no. Rest easy. The problem is...you! You''ve become so strong that don''t have much to do. I used to be the best Wild Hunter in the Resistance, but now I''m not even good enough to teach you. That''s why I want to give you an even more difficult mission!');
+    6:
+    begin
+      if Q.Char.Job = 3311 then
+      begin
+        Q.GainItem(1142245, 1);      // Special Training Superior
+        Q.StartQuest;
+        Q.FinishQuest;
+
+        Q.ChangeJob(3312);
+      end;
+      if Mode = 0 then
+        Q.SendNext('There''s no use refusing, I''ve already advanced you. I''ve also given you some skills that I know of but haven''t mastered yet. I have a hunch that you''ll be able master them. After all, you are are the most skilled member of the Resistance now!')
+      else
+        Q.SendNext('I''ve advanced you. I''ve also given you some skills that I know of but haven''t mastered yet. I have a hunch that you''ll be able master them. After all, you are are the most skilled member of the Resistance now!');
+    end;
+    7: Q.SendNextPrev('And with that, my lessons have...NOT come to an end. I can still be pretty useful, you know. There''s more I can teach you. Plus, we''re friends, right? So I''ll see at your next lesson... Whenever that might be...');
+    8: Q.SendPrev('Until then, I look forward to seeing what you accomplish.');
+    9: Q.Dispose;
+  end;
+end;

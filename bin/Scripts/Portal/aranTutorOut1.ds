@@ -1,0 +1,21 @@
+// Left Portal in second Aran map (914000100)
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if not P.IsQuestActive(21000) then
+  begin
+    P.ShowInfo('You can only exit after you accept the quest from Athena Pierce, who is to your right.');
+    P.UnblockPortal;   // Has only_once set - unblock, so it can be used when the quest is started
+    Exit;
+  end;
+
+  // Add Tutorial Skills
+  P.UpdateSkill(20000017, 0, -1, False);
+  P.UpdateSkill(20000018, 0, -1, False);
+  P.UpdateRemainingSP(0);
+  P.UpdateSkill(20000017, 1, 0, False);
+  P.UpdateRemainingSP(0);
+  P.UpdateSkill(20000018, 1, 0, False);
+
+  P.Warp(914000200, 1);
+end;

@@ -1,0 +1,7 @@
+// Called when you go to Lith Harbor
+// made by ogryzek
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowWZEffect('Effect/Direction3.img/goLith/Scene' + Convert.ToString(P.Char.Gender), -1)
+end;

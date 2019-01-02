@@ -1,0 +1,57 @@
+// Quest: A Box with Goodies Inside
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Status = 4) and (Mode = 0) then
+  begin
+    Q.SendNext('Hmm, was that too much to ask? Is it because you don''t know how to break Boxes? I''ll tell you how if you accept my Quest. Let me know if you change your mind.');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('#b(*clang clang*)#k');
+    2: Q.SendNextPrev('Whoa! Hey! You scared me. I didn''t know I had a visitor. You must be the Noblesse #p1102006# was talking about. Welcome! I''m #p1102007#, and my hobby is making #bChairs#k. I''m thinking about making you one as a welcome present.');
+    3: Q.SendNextPrev('But wait, I can''t make you one because I don''t have enough materials. Could you find me the materials I need? Around this area, you will find a lot of Boxes with items inside. Could you bring me back a #t4032267# and a #t4032268# found inside those Boxes?');
+    4: Q.SendNextPrev('Do you know how to get items from boxes? All you have to do is break the Boxes like you''re attacking a monster. The difference is that you can attack monsters using your Skills, but you can #bonly use Regular Attacks to break Boxes#k.');
+    5: Q.SendAcceptDecline('Please bring me 1 #b#t4032267##k and 1 #b#t4032268##k found inside those Boxes. I''ll make you an awesome Chair as soon as I have what I need. I''ll wait here!');
+    6:
+    begin
+      Q.StartQuest;
+      Q.ShowGuideEffect(9, 5000);
+
+      Q.Dispose;
+    end;
+  end;
+end;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    1: Q.SendNext('Did you bring me a Building Stone and a Drape? Let''s see. Ah, these are just what I need! They indeed are a #t4032267# and a #t4032268#! I''ll make you a Chair right away.');
+    2: Q.SendNextPrev('Here it is, a #t3010060#. What do you think? Nifty, huh? You can #bquickly recover your HP by sitting in this Chair#k. It will be stored in the #bSet-up#k window in your Inventory, so confirm that you''ve received the chair and head over to #b#p1102008##k. You''ll see him if you keep following the arrow to the left. \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i3010060# 1 #t3010060# \r\n#fUI/UIWindow.img/QuestIcon/8/0# 95 exp');
+    3:
+    begin
+      Q.GainItem(4032267, -1);
+      Q.GainItem(4032268, -1);
+      Q.GainItem(3010060, 1);
+      Q.FinishQuest;
+      Q.GainExp(95);
+      Q.ShowGuideEffect(10, 10000);
+      Q.Dispose;
+    end;
+  end;
+end;

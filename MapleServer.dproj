@@ -1,0 +1,261 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{0B714E1B-9A78-40AD-9699-CD2613FA9EA8}</ProjectGuid>
+			<ProjectVersion>12.3</ProjectVersion>
+			<MainSource>MapleServer.dpr</MainSource>
+			<Config Condition="'$(Config)'==''">v90</Config>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<Basis>True</Basis>
+			<Platform>Win32</Platform>
+			<AppType>Application</AppType>
+			<FrameworkType>VCL</FrameworkType>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Basis' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='EMSv63' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='v83' or '$(Cfg_6)'!=''">
+			<Cfg_6>true</Cfg_6>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='v90' or '$(Cfg_3)'!=''">
+			<Cfg_3>true</Cfg_3>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='v97' or '$(Cfg_4)'!=''">
+			<Cfg_4>true</Cfg_4>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='v99' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='v102' or '$(Cfg_5)'!=''">
+			<Cfg_5>true</Cfg_5>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_UsePackage>vcl;rtl;vclx;vclimg;vclactnband;dbrtl;vcldb;vcldbx;bdertl;vcltouch;xmlrtl;dsnap;dsnapcon;TeeUI;TeeDB;Tee;vclib;ibxpress;adortl;IndyCore;IndySystem;IndyProtocols;inet;intrawebdb_100_140;Intraweb_100_140;VclSmp;vclie;websnap;webdsnap;inetdb;inetdbbde;inetdbxpress;soaprtl;vclribbon;dbexpress;DbxCommonDriver;DataSnapIndy10ServerTransport;DataSnapProviderClient;DbxClientDriver;DataSnapServer;DBXInterBaseDriver;DBXMySQLDriver;dbxcds;DBXFirebirdDriver;DBXSybaseASEDriver;DBXSybaseASADriver;DBXOracleDriver;DBXMSSQLDriver;DBXInformixDriver;DBXDb2Driver;VirtualTreesD12;PBClpBrd;Label3DBorder;dwWin7Controls_2010</DCC_UsePackage>
+			<DCC_DebugDCUs>true</DCC_DebugDCUs>
+			<DCC_DcuOutput>lib</DCC_DcuOutput>
+			<DCC_ExeOutput>bin</DCC_ExeOutput>
+			<DCC_DependencyCheckOutputName>bin\MapleServer.exe</DCC_DependencyCheckOutputName>
+			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_Platform>x86</DCC_Platform>
+			<DCC_E>false</DCC_E>
+			<DCC_N>false</DCC_N>
+			<DCC_S>false</DCC_S>
+			<DCC_F>false</DCC_F>
+			<DCC_K>false</DCC_K>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_Define>EMS;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_6)'!=''">
+			<DCC_Define>VERSION83;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_3)'!=''">
+			<DCC_Define>VERSION88_UP;VERSION89_UP;VERSION90;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_4)'!=''">
+			<DCC_Define>VERSION88_UP;VERSION89_UP;VERSION97;BIGBANG;AFTERSHOCK;VERSION97_UP;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_Define>VERSION88_UP;VERSION89_UP;VERSION99;BIGBANG;AFTERSHOCK;VERSION97_UP;CHAOS;VERSION100_UP;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_5)'!=''">
+			<DCC_Define>VERSION88_UP;VERSION89_UP;BIGBANG;AFTERSHOCK;VERSION97_UP;CHAOS;VERSION100_UP;ASCENSION;VERSION102;FELLOWSHIP;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="MapleServer.dpr">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="Main.pas">
+				<Form>frmGUI</Form>
+			</DCCReference>
+			<DCCReference Include="Tools\BitTools.pas"/>
+			<DCCReference Include="Tools\MapleStream.pas"/>
+			<DCCReference Include="Tools\Utils.pas"/>
+			<DCCReference Include="DatabaseConnection.pas"/>
+			<DCCReference Include="Settings.pas">
+				<Form>frmSettings</Form>
+			</DCCReference>
+			<DCCReference Include="Packet\MapleCrypt.pas"/>
+			<DCCReference Include="Packet\MaplePacketCreator.pas"/>
+			<DCCReference Include="Packet\OpcodeHandler.pas"/>
+			<DCCReference Include="Packet\PacketProcessor.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\AfterLoginHandler.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\CharOperationHandler.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\AuthenticationHandler.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\PlayerLoggedinHandler.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\PlayerActionHandler.pas"/>
+			<DCCReference Include="Server\MapleMapObject.pas"/>
+			<DCCReference Include="Server\MapleNPC.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\NPCActionHandler.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\QuestActionHandler.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\ItemActionHandler.pas"/>
+			<DCCReference Include="Tools\GameLogic.pas"/>
+			<DCCReference Include="Server\CommandProcessor.pas"/>
+			<DCCReference Include="Server\CommandHandlers\WarpCommands.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\PlayerMiscHandler.pas"/>
+			<DCCReference Include="Server\DataProvider\QuestDataProvider.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\ClientStatusHandler.pas"/>
+			<DCCReference Include="Character\MapleCharacter.pas"/>
+			<DCCReference Include="Character\MapleInventory.pas"/>
+			<DCCReference Include="Character\MapleItem.pas"/>
+			<DCCReference Include="Character\MapleQuest.pas"/>
+			<DCCReference Include="Server\MovementParser.pas"/>
+			<DCCReference Include="Server\MapleMap.pas"/>
+			<DCCReference Include="Server\MaplePortal.pas"/>
+			<DCCReference Include="Server\DataProvider\ItemDataProvider.pas"/>
+			<DCCReference Include="Server\DataProvider\MapDataProvider.pas"/>
+			<DCCReference Include="Communication\ChannelServer.pas"/>
+			<DCCReference Include="Communication\MapleClient.pas"/>
+			<DCCReference Include="Communication\MapleServerHandler.pas"/>
+			<DCCReference Include="Server\AttackParser.pas"/>
+			<DCCReference Include="Server\MapleMonster.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\MonsterActionHandler.pas"/>
+			<DCCReference Include="Server\DataProvider\DropDataProvider.pas"/>
+			<DCCReference Include="Server\DropHandler.pas"/>
+			<DCCReference Include="Tools\MTRand.pas"/>
+			<DCCReference Include="CreateAccount.pas">
+				<Form>frmCreateAcc</Form>
+			</DCCReference>
+			<DCCReference Include="Packet\PacketHandlers\PlayerStatHandler.pas"/>
+			<DCCReference Include="Server\CommandHandlers\PlayerCommands.pas"/>
+			<DCCReference Include="Character\Skills.pas"/>
+			<DCCReference Include="Server\DataProvider\SkillDataProvider.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\UseSkillHandler.pas"/>
+			<DCCReference Include="Server\DataProvider\BuffDataProvider.pas"/>
+			<DCCReference Include="Character\Buffs.pas"/>
+			<DCCReference Include="Character\PlayerInventory.pas"/>
+			<DCCReference Include="Character\PlayerBuffs.pas"/>
+			<DCCReference Include="Tools\Scheduler.pas"/>
+			<DCCReference Include="Communication\WorldServer.pas"/>
+			<DCCReference Include="Server\MapleReactor.pas"/>
+			<DCCReference Include="Server\DataProvider\ReactorDataProvider.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\ReactorActionHandler.pas"/>
+			<DCCReference Include="Server\DataProvider\ShopDataProvider.pas"/>
+			<DCCReference Include="Character\BuddyList.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\SummonActionHandler.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\PlayerChatHandler.pas"/>
+			<DCCReference Include="Character\MapleParty.pas"/>
+			<DCCReference Include="Server\SpawnPoint.pas"/>
+			<DCCReference Include="Server\DataProvider\LifeDataProvider.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\PlayerGroupHandler.pas"/>
+			<DCCReference Include="MapDebug.pas">
+				<Form>frmMapDebug</Form>
+			</DCCReference>
+			<DCCReference Include="Server\CommandHandlers\MapCommands.pas"/>
+			<DCCReference Include="Server\CommandHandlers\TestCommands.pas"/>
+			<DCCReference Include="Scripting\NPCConversation.pas"/>
+			<DCCReference Include="Scripting\ScriptHelper.pas"/>
+			<DCCReference Include="Scripting\QuestScript.pas"/>
+			<DCCReference Include="Scripting\PortalScript.pas"/>
+			<DCCReference Include="Scripting\EventScript.pas"/>
+			<DCCReference Include="Character\MapleSummon.pas"/>
+			<DCCReference Include="Server\Footholds.pas"/>
+			<DCCReference Include="Server\CommandHandlers\ChecksumCommand.pas"/>
+			<DCCReference Include="Packet\PacketHandlers\PlayerInteractionHandler.pas"/>
+			<DCCReference Include="Character\Trade.pas"/>
+			<DCCReference Include="Character\BuffStat.pas"/>
+			<None Include="bin\OpcodesEMS.ini"/>
+			<None Include="bin\OpcodesV83.ini"/>
+			<None Include="bin\OpcodesV90.ini"/>
+			<None Include="bin\OpcodesV97.ini"/>
+			<None Include="bin\OpcodesV99.ini"/>
+			<None Include="bin\OpcodesV102.ini"/>
+			<BuildConfiguration Include="Basis">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="v102">
+				<Key>Cfg_5</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="v99">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="v97">
+				<Key>Cfg_4</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="v90">
+				<Key>Cfg_3</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="v83">
+				<Key>Cfg_6</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="EMSv63">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">0</VersionInfo>
+						<VersionInfo Name="MinorVer">0</VersionInfo>
+						<VersionInfo Name="Release">1</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1031</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="FileDescription">Delphi MapleStory Server</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">0.0.1.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright">Hendi</VersionInfoKeys>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">0.0.1.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<Source>
+						<Source Name="MainSource">MapleServer.dpr</Source>
+					</Source>
+					<Excluded_Packages>
+						<Excluded_Packages Name="%BDSBIN%\bcboffice2k140.bpl">Embarcadero C++Builder Office 2000-Server-Package</Excluded_Packages>
+						<Excluded_Packages Name="%BDSBIN%\bcbofficexp140.bpl">Embarcadero C++Builder Office XP-Server-Package</Excluded_Packages>
+						<Excluded_Packages Name="%BDSBIN%\dcloffice2k140.bpl">Microsoft Office 2000 Beispiele für gekapselte Komponenten für Automation Server</Excluded_Packages>
+						<Excluded_Packages Name="%BDSBIN%\dclofficexp140.bpl">Microsoft Office XP Beispiele für gekapselte Komponenten für Automation Server</Excluded_Packages>
+					</Excluded_Packages>
+				</Delphi.Personality>
+				<ModelSupport>False</ModelSupport>
+				<Platforms>
+					<Platform value="Win32">True</Platform>
+				</Platforms>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>

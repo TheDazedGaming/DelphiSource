@@ -1,0 +1,9 @@
+// Portal towards Penguin Training Center
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if not P.IsQuestFinished(21014) then
+    P.ShowInfo('The town of Rien is to the right. Take the portal on the right and go into town to meet Lilin.')
+  else
+    P.Warp(140010100, 2);
+end;

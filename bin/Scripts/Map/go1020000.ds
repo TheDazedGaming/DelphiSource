@@ -1,0 +1,6 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.LockUI(False);
+  P.DisableUI(False);
+  P.ShowMapEffect('maplemap/enter/1020000');
+end;

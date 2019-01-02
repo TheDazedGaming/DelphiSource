@@ -1,0 +1,27 @@
+(*
+    NPC Name:    Tangyoon
+    Map:         Nautilus Upper Corridor
+    Description: Takes you to the stable.
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if Status = 0 then
+    C.SendNext('The stable is off-limits for everyone else, and I''m afraid I can''t let you go there as well.')
+  else
+    C.Dispose;
+end;
+
+begin
+  Status := -1;
+end.

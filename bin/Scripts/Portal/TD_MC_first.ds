@@ -1,0 +1,9 @@
+// Portal to Mushroom Castle
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if (P.Char.Level >= 30) and (P.Char.Level <= 38) then
+    P.Warp(106020000, 1)
+  else
+    P.ShowInfo('Unable to approach due to force off the ground.');
+end;

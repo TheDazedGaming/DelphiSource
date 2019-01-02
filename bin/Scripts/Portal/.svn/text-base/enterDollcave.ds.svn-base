@@ -1,0 +1,7 @@
+// Aran only - Portal in Cave of Evil Eye III - Warps you to Francis
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if (P.Char.Job > 2000) and (P.Char.Job < 2200) then
+    P.Warp(910510200);
+end;

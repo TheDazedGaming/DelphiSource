@@ -1,0 +1,22 @@
+// Portal to enter Adventurer Training Center
+// made by ogryzek
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.IsQuestActive(1041) then
+    P.Warp(1010100, 4)
+  else
+  if P.IsQuestActive(1042) then
+    P.Warp(1010200, 4)
+  else
+  if P.IsQuestActive(1043) then
+    P.Warp(1010300, 4)
+  else
+  if P.IsQuestActive(1044) then
+    P.Warp(1010400, 4)
+  else
+  begin
+    P.ShowInfo('Only the adventurers that have been trained by Mai may enter.');
+    P.UnblockPortal;
+  end;
+end;

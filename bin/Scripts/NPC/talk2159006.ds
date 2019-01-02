@@ -1,0 +1,83 @@
+// Vita (Resistance Intro)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if C.Char.MapID = 931000011 then
+  begin
+    C.Dispose;
+    Exit;
+  end;
+
+  if (C.GetAreaInfo(23007).IndexOf('vel00=1') = 0) and (C.GetAreaInfo(23007).IndexOf('vel01=1') = 0) then
+  begin
+    case Status of
+      0: C.SendNext('Stay back!');
+      1: C.SendNextPrev('How did you get here? This place is prohibited!');
+      2: C.SendNextPrev('Who''s talking? Where are you?!', 2);
+      3: C.SendNextPrev('Look up.');
+      4:
+      begin
+        C.UpdateAreaInfo(23007, 'vel00=1');
+        C.ShowWZEffect('Effect/Direction4.img/Resistance/ClickVel', -1);
+        C.Dispose;
+      end;
+    end;
+  end
+  else if C.GetAreaInfo(23007).IndexOf('vel00=1') > 0 then  // Second time
+  begin
+    case Status of
+      0: C.SendNext('My name is #bVita#k. I''m one of #rDoctor Gelimer''s#k test subjects. But that''s not important right now. You have to get out of here before someone sees you!');
+      1: C.SendNextPrev('Wait, what are you talking about? Someone''s doing experiments on you?! And who''s Gelimer?', 2);
+      2: C.SendNextPrev('You''ve never heard of Doctor Gelimer, the Black Wings'' mad scientist? This is his lab, where he conducts experiments...on people.');
+      3: C.SendNextPrev('Experiments...on people? Are you serious?', 2);
+      4: C.SendNextPrev('Yes! And if he catches you here, he won''t be merciful. Get out of here! Quickly!');
+      5: C.SendNextPrev('What? But what about you?!', 2);
+      6: C.SendNextPrev('Shhh! Did you hear that? Someone''s coming! It''s got to be Doctor Gelimer! Oh no!');
+      7:
+      begin
+        C.UpdateAreaInfo(23007, 'vel00=2');
+        C.EndConversation;
+        C.Warp(931000011);
+        C.Dispose;
+      end;
+    end;
+  end
+  else if C.GetAreaInfo(23007).IndexOf('vel01=1') > 0 then
+  begin
+    if (Status = 4) and (Mode = 0) then
+      Status := 6
+    else if Status = 6 then
+      Status := 7;
+
+    case Status of
+      0: C.SendNext('Whew, something must have distracted them. Now''s your chance. GO!');
+      1: C.SendNextPrev('But if I flee, you''ll be left here alone...', 2);
+      2: C.SendNextPrev('Forget about me. You can''t help me. Doctor Gelimer would realize right away if I''m missing, and then he''d summon the Black Wings to look for us. No, forget me and save yourself. Please!');
+      3: C.SendNextPrev('I can''t just leave you here! And you shouldn''t give up hope so easily!', 2);
+      4: C.SendNextPrev('But it IS hopeless. I''m stuck in here. But thank you for caring. It''s been a long time since anyone''s been kind to me. But now, hurry! You must go!');
+      5: C.SendYesNo('#b(Vita closes her eyes like she''s given up. What should you do? How about trying to break open the vat?)#k');
+      6: C.SendNext('#b(You tried to hit the vat with all your might, but your hand slipped!)#k');
+      7:
+      begin
+        C.GainExp(60);
+        C.EndConversation;
+        C.Warp(931000013);
+        C.Dispose;
+      end;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

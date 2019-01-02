@@ -1,0 +1,11 @@
+// Portal to leave last Aran Tutorial map (914000300)
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.BlockPortal;
+
+  if not P.IsQuestActive(21001) then
+    P.Warp(914000220, 2)
+  else  // got Kid
+    P.Warp(914000400, 2); 
+end;

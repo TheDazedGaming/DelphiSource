@@ -1,0 +1,12 @@
+// Exiting the Free Market
+
+procedure Enter(P: TPortalScript); export;
+var
+  ReturnMap: Integer;
+begin
+  ReturnMap := P.GetSavedLocation('slFreeMarket');
+  if ReturnMap < 0 then
+    ReturnMap := 102000000;  // Perion :p
+  P.ClearSavedLocation('slFreeMarket');
+  P.Warp(ReturnMap, 'st00');
+end;

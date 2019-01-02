@@ -1,0 +1,30 @@
+// QuestID: 2186; Name: Help Me Find My Glasses (Complete only); Map: Nautilus Harbor
+
+var
+  Status: Integer;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    1: Q.SendNext('What? You found my glasses? I better put it on first, to make sure that it''s really mine. Oh, it really is mine. Thank you so much!\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n#v2030019# 5 #t2030019#s\r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0#  1000 EXP');
+    2:
+    begin
+      if Q.IsQuestActive(2186) then
+      begin
+        Q.GainItem(4031853, -1);   // take glasses
+        Q.GainItem(2030019, 5);    // give scrolls
+        Q.GainExp(1000);
+        Q.FinishQuest;
+      end;
+
+      Q.SendNextPrev('Yes...time for some fishing!');
+    end;
+    3: Q.Dispose;
+    else Q.SendOK('Script error in 2186.rops - Status: ' + Convert.ToString(Status));
+  end;
+end;

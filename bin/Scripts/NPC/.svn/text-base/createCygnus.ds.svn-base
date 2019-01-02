@@ -1,0 +1,19 @@
+(*
+    NPC Name:    Shinsoo
+    Map:         Empress' Road - Ereve
+    Description: Gives you a buff if you are a Cygnus Knight.
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if (C.Char.Job > 1000) and (C.Char.Job < 2000) then
+    C.UseItem(2022458);   // Give buff
+
+  C.SendOK('That Maple World may become stronger.');
+  C.Dispose;
+end;
+
+begin
+end.

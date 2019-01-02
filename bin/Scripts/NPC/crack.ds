@@ -1,0 +1,49 @@
+// Door of Dimension
+
+uses NPCConversation, ScriptMapleCharacter;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+var
+  M, M2: Integer;
+begin
+  if C.GetQuestData(7500) <> 'p1' then
+  begin
+    C.SendNext('It seems that there is a door that will take you to another dimension, but you can''t go in for some reason.');
+    C.Dispose;
+    Exit;
+  end;
+
+  M := -1;
+  case C.Char.Job of
+    110, 120, 130: M := 108010300;
+    210, 220, 230: M := 108010200;
+    310, 320: M := 108010100;
+    410, 420: M := 108010400;
+    510, 520: M := 108010500;
+  end;
+  M2 := M + 1;
+  // Big Bang: 1st map is the same for all jobs, second is determined by a portal-script.
+  if (M > -1) and (C.Version >= 93) then
+  begin
+    M := 910540000;
+    M2 := M + (C.Char.Job div 100) * 100;
+  end;
+
+  if M = -1 then
+    C.SendNext('It seems that there is a door that will take you to another dimension, but you can''t go in for some reason.')
+  else
+  begin
+    if (C.CountPlayersOnMap(M) > 0) or (C.CountPlayersOnMap(M2) > 0) then
+      C.SendNext('Somebody is already fighting the clone. Try again later.')
+    else
+    begin
+      C.KillAllMonsters(M2);
+      C.ForceRespawn(M2);
+      C.Warp(M);
+    end;
+  end;
+  C.Dispose;
+end;
+
+begin
+end.

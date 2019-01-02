@@ -1,0 +1,82 @@
+// QuestID: 21010 Aran Intro Quest: Puka
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  // Pressed Decline
+  if (Mode = 0) and (Status = 3) then
+  begin
+    Q.SendNext('Oh, no need to decline my offer. It''s no big deal. It''s just a potion. Well, let me know if you change your mind.');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of   
+    1: Q.SendNext('Hm, what''s a human doing on this island? Wait, it''s #p1201000#. What are you doing here, #p1201000#? And who''s that besides you? Is it someone you know, #p1201000#? What? The hero, you say?');
+    2: Q.SendNextPrev('     #i4001170#');
+    3: Q.SendNextPrev('Ah, this must be the hero you and your clan have been waiting for. Am I right, #p1201000#? Ah, I knew you weren''t just accompanying an average passerby...');
+    4: Q.SendAcceptDecline('Oh, but it seems our hero has become very weak since the Black Mage''s curse. It''s only makes sense, cosidering that the hero has been asleep for hundreds of years. #bHere, I''ll give you a HP Recovery Potion.#k.');
+    5:
+    begin
+      // Must check this, so it doesnt happen again when we press "Back" @ How do I drink the potion
+      if not Q.IsQuestActive(21010) then
+      begin
+        if Q.Char.HP >= 25 then
+          Q.Char.HP := 25;
+    
+        if not Q.HasItem(2000022) then
+          Q.GainItem(2000022, 1);
+    
+        Q.StartQuest;
+      end;
+      
+      Q.SendNext('Drink it first. Then we''ll talk.', 9);
+    end;
+    6: Q.SendNextPrev('#bHow do I drink the potion? I don''t remember...#k', 3);
+    7:
+    begin
+      Q.ShowGuideEffect(14, 10000);   // how to use items
+      Q.Dispose;
+    end;
+  end;
+end;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    1: Q.SendNext('We''ve been digging and digging inside the Ice Cave in the hope of finding a hero, but I never though I''d actually see the day... The prophecy was true! You were right, #p1201000#! Now that one of the legendary heroes has returned, we have no reason to fear the Black Mage!');
+    2: Q.SendNextPrev('Oh, I''ve kept you too long. I''m sorry, I got a little carried away. I''m sure the other Penguins feel the same way. I know you''re busy, but could you #bstop and talk to the other Penguins#k on your way to town? They would be so honoured.\r\n\r\n #fUI/UIWindow.img/QuestIcon/4/0# \r\n#i2000022# 5 #t2000022#\r\n#i2000023# 5 #t2000023#\r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 16 exp');
+    3:
+    begin
+      if Q.IsQuestActive(21010) then
+      begin
+        Q.GainItem(2000022, 5);
+        Q.GainItem(2000023, 5);
+      
+        Q.FinishQuest;
+      
+        Q.GainExp(16);
+      end;
+      
+      Q.SendNextPrev('Oh, you''ve leveled up! You may have even received some skill points. In Maple World, you can acquire 3 skill points every time you level up. Press the #bK key#k to view the Skill window.', 9);
+    end;
+    4: Q.SendNextPrev('#b(Everyone''s been so nice to me, but I just can''t remember anything. Am I really a hero? I should check my skills and see. But how do I check them?)#k', 3);
+    5:
+    begin
+      Q.ShowGuideEffect(15, 10000);  // how to skill
+      Q.Dispose;
+    end;
+  end;
+end;

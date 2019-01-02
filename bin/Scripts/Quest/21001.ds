@@ -1,0 +1,77 @@
+// QuestID: 21001; Name: Find the Missing Kid 2; NPC: Athena Pierce
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0:   // pressed Decline
+    begin
+      Q.SendNext('*Sob* Aran has declined my request!');
+      Q.Dispose;
+    end;
+    
+    // The script starts here
+    1: Q.SendAcceptDecline('*Sniff sniff* I was so scared... Please take me to Athena Pierce.');
+    
+    2:
+    begin
+      Q.StartQuest;
+      Q.Warp(914000300);
+      
+      Q.Dispose;
+    end;
+  end;
+end;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  case Status of
+    0:
+    begin   // pressed No
+      Q.SendNext('What about the child? Please give me the child.');
+      Q.Dispose;
+    end;
+    
+    // The script starts here
+    1: Q.SendYesNo('You made it back safely! What about the child?! Did you bring the child with you?!');
+    2:
+    begin
+      if Q.IsQuestActive(21001) then
+      begin
+        Q.GainItem(4001271, -1);  // remove Child
+        Q.FinishQuest;
+      
+        Q.ClearInventorySlot(1, -11);   // remove weapon o.o
+      end;
+      
+      Q.SendNext('Oh, what a relief. I''m so glad...', 9);
+    end;
+    
+    3: Q.SendNextPrev('Hurry and board the ship! We don''t have much time!', 3);
+    4: Q.SendNextPrev('We don''t have any time to waste. The Black Mage''s forces are getting closer and closer! We''re doomed if we don''t leave right right this moment!', 9);
+    5: Q.SendNextPrev('Leave, now!', 3);
+    6: Q.SendNextPrev('Aran, please! I know you want to stay and fight the Black Mage, but it''s too late! Leave it to the others and come to Victoria Island with us!', 9);
+    7: Q.SendNextPrev('No, I can''t!', 3);
+    8: Q.SendNextPrev('Athena Pierce, why don''t you leave for Victoria Island first? I promise I''ll come for you later. I''ll be alright. I must fight the Black Mage with the other heroes!', 3);
+    9:
+    begin
+      Q.LockUI(True);
+      Q.DisableUI(True);
+      
+      Q.Warp(914090010);   // Initialize Black Mage scenes
+      Q.Dispose;
+    end;
+  end;
+end;

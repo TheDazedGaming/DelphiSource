@@ -1,0 +1,6 @@
+// Called when entering the Lith Harbor Info Shop
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.Warp(104000004, 1);
+end;

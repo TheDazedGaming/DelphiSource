@@ -1,0 +1,57 @@
+(*
+    NPC Name:    Bowman Job Instructor  (Inside)
+    Map:         Ant Tunnel For Bowman (108000100)
+    Description: Bowman 2nd Job Advancement
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if Status = 0 then
+  begin
+    if C.GetItemQuantity(4031013) >= 30 then
+      C.SendNext('Ohhhhh...you collected all 30 Dark Marbles!! Wasn''t it difficult?? Alright. You''ve passed the test and for that, I''ll reward you #b#t4031012##k. Take that item and go back to Henesys.')
+    else
+      C.SendYesNo('What''s going on? Doesn''t look like you have collected 30 #b#t4031013##k, yet...If you''re having problems with it, then you can leave, come back and try it again. So...do you want to give up and get out of here?');
+  end
+  else
+  if (Status = 1) and (C.GetItemQuantity(4031013) >= 30) then
+  begin
+    C.RemoveAll(4031013);
+    C.RemoveAll(4031010);
+    C.GainItem(4031012, 1);
+    C.Warp(100000000);
+    C.Dispose;
+  end
+  else
+  if Status = 1 then
+    C.SendNext('Really... alright, I''ll let you out. Please don''t give up, though. You can always try again, so do not give up. Until then, bye...')
+  else
+  if Status = 2 then
+  begin
+    if C.Version < 93 then
+      C.Warp(106010000)
+    else
+      C.Warp(100040400);
+    C.Dispose;
+  end
+  else
+  if Status = -1 then
+  begin
+    C.SendNext('That''s right! Stop acting weak and start collecting the marbles. Talk to me when you have collected 30 #b#t4031013##k.');
+    C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

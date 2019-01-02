@@ -1,0 +1,10 @@
+// Dummy for Refugee, they don't say anything (so it doesn't say "No such script")
+
+uses NPCConversation;
+
+procedure Action(C: TNPCConversation; Mode, LastAction, Selection: Integer); export;
+begin
+  C.Dispose;
+end;
+begin
+end.

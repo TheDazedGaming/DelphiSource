@@ -1,0 +1,7 @@
+// Takes you to "Entrance to the Drill Hall"
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.PlayPortalSound;
+  P.Warp(130020000, 'east00');
+end;

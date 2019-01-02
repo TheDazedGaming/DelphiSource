@@ -1,0 +1,23 @@
+// Quest: A Student of the Resistance
+
+var
+  Status: Integer;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    1: Q.SendNext('You joined the Resistance? I knew we were short on members... Guess we''re accepting anyone these days. That #p2151001# is a lot softer than he looks.');
+    2: Q.SendNextPrev('Well, since you''re part of our group now, you should train and level up. I''ll teach you what you need to know to be a contributing member of the Resistance.');
+    3:
+    begin
+      Q.FinishQuest;
+      Q.UpdateQuest(23128, '1', False);
+      Q.Dispose;
+    end;
+  end;
+end;

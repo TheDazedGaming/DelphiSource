@@ -1,0 +1,6 @@
+// Portal to Athena Pierce ID: 100000201
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.Warp(100000201, 9);
+end;

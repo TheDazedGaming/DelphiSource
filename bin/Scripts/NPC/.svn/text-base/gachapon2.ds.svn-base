@@ -1,0 +1,37 @@
+(*
+    NPC Name: Gachapon
+    Map:      Ellinia
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0: C.SendSimple('Welcome to the Ellinia Gachapon. How may I help you?\r\n\r\n#b#L0#What is Gachapon?#l\r\n#L1#Where can you buy Gachapon Tickets?#l#k');
+    1: if Selection <> 1 then
+         C.SendNext('Play Gachapon to gain rare scrolls, equipment, chairs, mastery books, and other cool items! All you need is a #bGachapon Ticket#k to be the winner of a random mix of useful items.')
+       else
+       begin
+         C.SendNext('Gachapon Tickets are available at the #rCash Shop#k and can be purchased using NX or Maple Points. Click on the red SHOP button at the lower right hand corner of the screen to visit the #rCash Shop#k where you can purchase tickets.');
+         Status := -1;  // Show menu again
+       end;
+    2:
+    begin
+      C.SendNextPrev('You can win a variety of items from the Ellinia Gachapon, but you''ll most likely find several Magician-related items and scrolls since Ellinia is known as the town of Magicians.');
+      Status := -1;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

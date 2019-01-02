@@ -1,0 +1,42 @@
+// QuestID: 2230; Name: A Mysterious Small Egg (Complete only)
+
+var
+  Status: Integer;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  // Pressed No
+  if (Mode = 0) and (Status = 5) then
+  begin
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendSimple('Hello, traveler. You have finally come to see me. Have you fulfilled your duties?\r\n\r\n#b#L0#What duties? Who are you?#l');
+    2: Q.SendNext('You found a small egg in your pocket? That egg is your duty, your responsibility. Life is hard when you''re all by yourself. In times like this, there''s nothing quite like having a friend that will be there for you at all times. Have you heard of a #bpet#k? \r\nPeople raise pets to ease the burden, sorrow, and loneliness, because knowing that you have someone, or something in this matter, on your side will really bring a peace of mind. But everything has consequences, and with it comes responsibility...');
+    3: Q.SendNextPrev('Raising a pet requires a huge amount of responsibility. Remember, a pet is a form of life, as well, so you''ll need to feed it, name it, share your thoughts with it, and ultimately form a bond. That''s how the owners get attached to these pets.');
+    4: Q.SendNextPrev('I wanted to instill this in you, and that''s why I sent you a baby that I cherish. The egg you have brought is #bRune Snail#k, a creature that is born through the power of Mana. Since you took great care of it as you brought the egg here, the egg will hatch soon.');
+    5: Q.SendNextPrev('The Rune Snail is a pet of many skills. It''ll pick up items, feed you with potions, and do other things that will astound you. The downside is that since it was born out of power of Mana, its lifespan is very short. Once it turns into a doll, it''ll never be able to be revived.');
+    6: Q.SendYesNo('Now do you understand? Every action comes with consequences, and pets are no exception. The egg of the snail shall hatch soon.');
+    7:
+    begin
+      if Q.IsQuestActive(2230) then
+      begin
+        Q.GainItem(4032086, -1);   // take egg
+        Q.GainItem(5000054, 1);    // give Snail
+        Q.FinishQuest;
+      end;
+
+      // This snail will only be alive for #b5 hours#k.
+      Q.SendNext('This snail will be alive forever! Shower it with love. Your love will be reciprocated in the end.');
+    end;
+    8: Q.Dispose;
+    else Q.SendOK('Script error in 2230.rops - Status: ' + Convert.ToString(Status));
+  end;
+end;

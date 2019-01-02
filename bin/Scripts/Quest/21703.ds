@@ -1,0 +1,73 @@
+// QuestID: 21703 - Train or Die! 3
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Mode = 0) and (Status = 6) then
+  begin
+    Q.SendNext('I know it takes an incredible amount of strength and will to outdo your instructor, but you weren''t meant to let yourself wither away. You must move on to bigger and better things! You must do everything you can to embrace your heroic nature!');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('Your abilities are really beginning to take shape. I am surprised that an old man like me was able to help you. I''m tearing up just thinking about how happy it makes me to have been of assistance to you. *Sniff sniff*');
+    2: Q.SendNextPrev('#b(You didn''t even train that long with him... Why is he crying?)#k', 2);
+    3: Q.SendNextPrev('Alright, here''s the third and the final stage of training. Your last opponent is... #r#o9300343#s#k! Do you know anything about #o1210100#s?');
+    4: Q.SendNextPrev('Well, a little bit...', 2);
+    5: Q.SendNextPrev('They are natural warriors! They''re born with a voracious appetite for food. They devour any food that''s visible the moment they sweep by. Terrifying, isn''t it?');
+    6: Q.SendNextPrev('#b(Is that really true?)#k', 2);
+    7: Q.SendAcceptDecline('Okay, now... #bEnter the Training Center again#k, defeat #r30#k #o9300343#s, and show me what you''re made of! You''ll have to exert all your energy to defeat them! Go, go, go! Rise above me!');
+    8:
+    begin
+      if not Q.IsQuestActive(21703) then
+        Q.StartQuest;
+
+      Q.SendOK('Now go and take on those monstrous #o9300343#s!');
+    end;
+    9: Q.Dispose;
+  end;
+end;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Mode = 0) and (Status = 2) then
+  begin
+    Q.SendNext('Are you reluctant to leave your instructor? *Sniff sniff* I''m so moved, but you can''t stop here. You are destined for bigger and better things!');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('Ah, you''ve come back after defeating all 30 #o9300343#s. I knew you had it in you... Even though you have no memories and few abilities, I could see that you were different! How? Because you''re carrying around a Polearm, obviously!');
+    2: Q.SendNextPrev('#b(Is he pulling your leg?)#k', 2);
+    3: Q.SendYesNo('I have nothing more to teach you, as you''ve surpassed my level of skill. Go now! Don''t look back! This old man is happy to have served as your instructor.');
+    4:
+    begin
+      if Q.IsQuestActive(21703) then
+      begin
+        Q.FinishQuest;
+
+        Q.UpdateSkill(21000000, 0, -1, False);   // Combo Ability Skill
+        Q.GainExp(2800);
+      end;
+
+      Q.SendNext('(You remembered the #bCombo Ability#k skill! You were skeptical of the training at first, since the old man suffers from Alzheimer''s and all, but boy, was it effective!)', 2);
+      Q.ShowWZEffect('Effect/BasicEff.img/AranGetSkill', 0);
+    end;
+    5: Q.SendPrev('Now report back to #p1201000#. I know she''ll be ecstatic when she sees the progress you''ve made!');
+    6: Q.Dispose;
+  end;
+end;

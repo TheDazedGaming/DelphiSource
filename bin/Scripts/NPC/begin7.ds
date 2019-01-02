@@ -1,0 +1,76 @@
+(*
+    NPC Name:    Shanks
+    Map:         Maple Road : Southperry
+    Description: Warps you to Lith Harbour.
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+var
+  Lucas: Boolean;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  Lucas := C.HasItem(4031801);
+
+  case Status of
+   -1:
+    begin
+      C.SendNext('Hmm... I guess you still have things to do here.');
+      C.Dispose;
+    end;
+    0: C.SendYesNo('Take this ship and you''ll head off to a bigger continent. For #e150 mesos#n I''ll take you to #bVictoria Island#k. The thing is, once  you leave this place, you can''t ever come back. What do you think? Do you want to go to Victoria Island?');
+    1: if C.Char.Level < 7 then
+       begin
+         C.SendNext('Let''s see... I don''t think you are strong enough. You''ll have to be at least #bLevel 7#k to go to Victoria Island.');
+         C.Dispose;
+       end
+       else
+         if Lucas then
+           C.SendNext('Okay, now give me 150 mesos... Hey, what''s that? Is that the recommendation letter from Lucas, the chief of Amherst? Hey, you should have told me you had this. I, Shanks, recognize greatness when I see one, and since you have been recommended by Lucas, I see that you have a great, great potential as an adventurer. No way would I charge you for this trip!')
+         else
+           if C.Char.Mesos >= 150 then
+             C.SendNext('Bored of this place? Here... Give me 150 mesos first...')
+           else
+             C.SendNextPrev('What? You''re telling me you wanted to go without any money? You''re one weirdo...');
+
+    2:
+    begin
+      if (C.Char.Mesos < 150) and (not Lucas) then
+      begin
+        C.Dispose;
+        Exit;
+      end;
+
+      if Lucas then
+        C.SendNext('Since you have the recommendation letter, I won''t charge you for this. Alright, buckle up, because we''re going to head to Victoria Island right now, and it might get a bit turbulent!!')
+      else
+        C.SendNext('Awesome! #e150 mesos#n accepted! Alright, off to Victoria Island!');
+    end;
+
+    3:
+    begin
+      if Lucas then
+        C.GainItem(4031801, -1)
+      else
+        C.GainMesos(-150);
+
+      C.LockUI(True);
+      C.DisableUI(True);
+      C.Warp(2010000);    // Run goLith.rops to show the scenes
+
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

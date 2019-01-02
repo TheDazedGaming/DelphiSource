@@ -1,0 +1,15 @@
+// Edelstein Temporary Airport
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.IsQuestActive(23023) or P.IsQuestActive(23024) or P.IsQuestActive(23025) then
+  begin
+    P.ShowInfo('Schiller has appeared! Defeat him and take the Report!');
+    if P.CountPlayersOnMap(931000100) = 0 then
+      P.Warp(931000100, 1)
+    else
+      P.Warp(931000101, 1);
+  end
+  else
+    P.Warp(310000010, 1);
+end;

@@ -1,0 +1,59 @@
+// QuestID: 21101 - The Polearm-Wielding Hero (Start only)
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0:
+    begin
+      Q.SendNext('#b(You need to think about this for a second...)#k');
+      Q.Dispose;
+    end;
+    // The script starts here
+    1: Q.SendYesNo('#b(Are you certain that you were the hero that wielded the #p1201001#? Yes, you''re sure. You better grab the #p1201001# really tightly. Surely it will react to you.)#k');
+    2:
+    begin
+      Q.GainItem(1142129, 1);  // Awakened Aran Medal
+      Q.UpdateQuest(21101, '', True);  // create quest first
+      Q.SilentCompleteQuest(21101);
+
+      Q.Char.RemainingSP := (Q.Char.Level - 10) * 3;
+      Q.ChangeJob(2100);
+      Q.Char.STR := 35;
+      Q.Char.DEX := 4;
+      Q.Char.RemainingAP := (Q.Char.Level - 1) * 5 - 22;
+      Q.Char.MaxHP := Q.Char.MaxHP + 250 + Random.Next(30);   // I'm sure this is not 100% correct, but oh well
+      Q.Char.MaxMP := Q.Char.MaxMP + Random.Next(20);
+      Q.Char.SendUpdateStats;
+
+      // Add Inventory Rows
+      Q.IncreaseSlotLimit(1, 1);
+      Q.IncreaseSlotLimit(2, 1);
+      Q.IncreaseSlotLimit(3, 1);
+      Q.IncreaseSlotLimit(4, 1);
+
+      Q.UpdateSkill(20009000, 0, -1, False);
+      Q.UpdateSkill(20009000, 1, 0, False);
+      Q.ShowInfoOnScreen('You have acquired the Pig''s Weakness skill.');
+
+      Q.SendNext('#b(You might be starting to remember something...)#k', 3);
+    end;
+
+    3:
+    begin
+      Q.LockUI(True);
+      Q.DisableUI(True);
+      Q.Warp(914090100);
+      Q.Dispose;
+    end;
+
+    else Console.WriteLine('Crap (21101): ' + Convert.ToString(Status));
+  end;
+end;

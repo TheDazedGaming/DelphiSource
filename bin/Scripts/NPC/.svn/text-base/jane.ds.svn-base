@@ -1,0 +1,28 @@
+(*
+    NPC Name:    Jane
+    Map:         Victoria Road : Lith Harbor
+    Description: Alchemist, sells you items after doing her quests
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0: C.SendOK('My dream is to travel everywhere, much like you. My father, however, does not allow me to do it, because he thinks it''s very dangerous. He may say yes, though, if I show him some sort of proof that I''m not the weak girl that he thinks I am.');
+    1: C.Dispose;
+    // xxx add selling code if quests are finished
+  end;
+end;
+
+begin
+  Status := -1;
+end.

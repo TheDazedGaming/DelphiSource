@@ -1,0 +1,13 @@
+// Wild Hunter 4th Job
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.IsQuestActive(23050) then
+  begin
+    P.KillAllMonsters(931000321);
+    P.ForceRespawn(931000321);
+    P.Warp(931000321, 1);
+  end
+  else
+    P.ShowInfo('You can enter only after talking to your Job Instructor to get the corresponding quest.');
+end;

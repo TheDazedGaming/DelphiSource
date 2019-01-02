@@ -1,0 +1,84 @@
+(*
+    NPC Name: Nautilus' Mid-Sized Taxi
+    Map:      Nautilus Harbor
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status, Price, Map: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+var
+  Beginner: Boolean;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  Beginner := C.Char.Job = 0;
+
+  case Status of
+    0: C.SendNext('How''s it going? I drive the #p1092014#. If you want to go from town to town safely and fast, then ride our cab. We''ll gladly take you to your destination with an affordable price.');
+    1:
+    begin
+      if Beginner then
+        C.SendSimple('We have a special 90% discount for beginners. Choose your destination, for fees will change from place to place.\r\n#b' +
+                     '#L0# #m104000000#(120 mesos)#l\r\n' +
+                     '#L1# #m102000000#(100 mesos)#l\r\n' +
+                     '#L2# #m100000000#(100 mesos)#l\r\n' +
+                     '#L3# #m103000000#(120 mesos)#l\r\n' +
+                     '#L4# #m101000000#(100 mesos)#l')
+      else
+        C.SendSimple('Choose your destination, for fees will change from place to place.\r\n#b' +
+                     '#L0# #m104000000#(1,200 mesos)#l\r\n' +
+                     '#L1# #m102000000#(1,000 mesos)#l\r\n' +
+                     '#L2# #m100000000#(1,000 mesos)#l\r\n' +
+                     '#L3# #m103000000#(1,200 mesos)#l\r\n' +
+                     '#L4# #m101000000#(1,000 mesos)#l');
+      Status := 3;
+    end;
+
+    // Pressed "No" in (4)
+    3: 
+    begin 
+      C.SendOK('There''s a lot to see in this town, too. Come back and find me when you need to go to a different town.');
+      C.Dispose;
+    end;
+
+    4:
+    begin
+      case Selection of
+        0: begin Map := 104000000; Price := 1200; end;    // Lith Harbor
+        1: begin Map := 102000000; Price := 1000; end;    // Perion
+        2: begin Map := 100000000; Price := 1000; end;    // Henesys
+        3: begin Map := 103000000; Price := 1200; end;    // Kerning City
+        else begin Map := 101000000; Price := 1000; end;  // Ellinia
+      end;
+
+      if Beginner then
+        Price := Price div 10;
+
+      C.SendYesNo('You don''t have anything else to do here, huh? Do you really want to go to #b#m' + Convert.ToString(Map) + '##k? It''ll cost you #b' + Convert.ToString(Price) + ' mesos#k.');
+    end;
+
+    5:
+    begin
+      if C.Char.Mesos >= Price then
+      begin
+        C.GainMesos(-Price);
+        C.Warp(Map);
+        C.Dispose;
+      end
+      else
+        C.SendOK('You don''t have enough mesos. Sorry to say this, but without them, you won''t be able to ride this cab.');
+    end;
+
+    6: C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

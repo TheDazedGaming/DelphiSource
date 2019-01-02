@@ -1,0 +1,4 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  // Send SET_STANDALONE_MODE(1)
+end;

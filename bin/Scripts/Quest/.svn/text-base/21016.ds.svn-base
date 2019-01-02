@@ -1,0 +1,28 @@
+// QuestID: 21016 - Basic Training II (Start only)
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  case Status of
+    0:
+    begin
+      Q.SendNext('Are you not ready to hunt the #o0100132#s yet? Always proceed if and only if you are fully ready. There''s nothing worse than engaging in battles without sufficient preparation.');
+      Q.Dispose;
+    end;
+    1: Q.SendAcceptDecline('Shall we continue with your Basic Training? Before accepting, please make sure you have properly equipped your sword and your skills and potions are readily accessible.');
+    2:
+    begin
+      Q.StartQuest;
+      
+      Q.ShowWZEffect('Effect/OnUserEff.img/guideEffect/aranTutorial/tutorialArrow3', 1);
+      Q.Dispose;
+    end;
+  end;
+end;

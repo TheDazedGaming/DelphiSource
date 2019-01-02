@@ -1,0 +1,7 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.IsQuestFinished(1035) then
+    P.ShowWZEffect('UI/tutorial.img/23', 1)
+  else
+    P.UnblockPortal;
+end;

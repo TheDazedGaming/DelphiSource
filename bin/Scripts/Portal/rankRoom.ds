@@ -1,0 +1,15 @@
+// Portal to Max level Hall
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.PlayPortalSound;
+  case P.Char.MapID of
+    130000000: P.Warp(130000100, 5);
+    130000200: P.Warp(130000100, 4);
+    100000201: P.Warp(100000204, 'out00'); // Portal to Hall of Bowmen
+    101000003: P.Warp(101000004, 'out00'); // Portal to Hall of Magicians
+    102000003: P.Warp(102000004, 'out00'); // Portal to Hall of Warriors
+    103000003: P.Warp(103000008, 'out00'); // Portal to Hall of Thieves
+    140010100: P.Warp(140010110, 'out00'); // Portal to Palace of the Master
+  end;
+end;

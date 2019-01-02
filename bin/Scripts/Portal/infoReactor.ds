@@ -1,0 +1,10 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.IsQuestActive(1008) then
+    P.ShowWZEffect('UI/tutorial.img/22', 1)   // how to destroy reactors
+  else
+  if P.IsQuestFinished(1020) then
+    P.ShowWZEffect('UI/tutorial.img/27', 1)   // how to sit in a chair
+  else
+    P.UnblockPortal;
+end;

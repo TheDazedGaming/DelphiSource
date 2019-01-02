@@ -1,0 +1,38 @@
+// Quest: Greetings From the Young Empress
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Status = 2) and (Mode = 0) then
+  begin
+    Q.SendNext('You may be hesitant now, but I can see an incredible amount of courage behind your eyes. Close your eyes and feel the courage and passion inside of you.');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('Did you know? Maple World may look peaceful, but certain areas are filled with forces of darkness. The Black Mage and those who want to revive the Black Mage are threatening Maple World.');
+    2: Q.SendNextPrev('We can''t just sit here and do nothing while our enemies get stronger. Our own fear will only come back to haunt us.');
+    3: Q.SendAcceptDecline('But I won''t worry too much. Someone as determined as you will be able to protect Maple World from danger, right? If you are brave enough to volunteer to become one of the Knights, I know I can count on you. \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i1142065# #t1142065# - 1');
+    4:
+    begin
+      if not Q.IsQuestFinished(20015) then
+      begin
+        Q.GainItem(1142065, 1);
+        Q.StartQuest;
+        Q.FinishQuest;
+      end;
+      
+      Q.SendNext('Heehee, I knew you''d say that. But you know you still have a ways to go before you can fight for Maple World, right?');
+    end;
+    5: Q.SendPrev('#p1101002#, my Tactician, who is standing right next to me, will help you become an honorable Knight. I''ll be looking forward to your progress. I''m counting on you!');
+    6: Q.Dispose;
+  end;
+end;

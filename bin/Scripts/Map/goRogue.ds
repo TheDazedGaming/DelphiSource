@@ -1,0 +1,6 @@
+// Shows Thief Job
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowWZEffect('Effect/Direction3.img/rogue/Scene' + Convert.ToString(P.Char.Gender), -1);
+end;

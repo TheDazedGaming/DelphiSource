@@ -1,0 +1,38 @@
+// Vita (Resistance Intro)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0: C.SendNext('The experiment is going well, quite well. The endless supply of Rue is certainly speeding things along. Joining the Black Wings was a wise decision, a wise decision indeed. Muahaha!');
+    1: C.SendNextPrev('I say, you have great foresight about these things.', 4, 2159008);
+    2: C.SendNextPrev('The android the Black Wings wanted will be completed soon. Oh yes, very soon. Then, the next stage will begin! I will conduct an experiment wilder than their wildest dreams!');
+    3: C.SendNextPrev('Pardon? The next stage?', 4, 2159008);
+    4: C.SendNextPrev('Teeheehee, do you still not comprehend what I''m trying to create? Look around! Here''s a clue: it''s eons more interesting than a simple android. Eons more interesting.');
+    5: C.SendNextPrev('What?? All these test subjects... I say, sir, just what are you planning to do?', 4, 2159008);
+    6: C.SendNextPrev('Now, now, you may not understand the grandness of my experiments. I don''t expect you to. No, I don''t expect you to. Just focus on your job and make sure none of the test subjects run away.');
+    7: C.SendNextPrev('Hey... Did you hear that?');
+    8: C.SendNextPrev('Huh? Well... Now that you mention it, I do hear something. Yes, I do hear something...', 4, 2159008);
+    9:
+    begin
+      C.UpdateAreaInfo(23007, 'vel00=2;vel01=1');
+      C.LockUI(True);
+      C.TrembleEffect(0, 500);
+      C.ShowWZEffect('Effect/Direction4.img/Resistance/TalkInLab', -1);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

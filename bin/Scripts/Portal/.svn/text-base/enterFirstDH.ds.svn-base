@@ -1,0 +1,13 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.IsQuestActive(20701) then
+    P.Warp(913000000, 1)
+  else
+  if P.IsQuestActive(20702) then
+    P.Warp(913000100, 1)
+  else
+  if P.IsQuestActive(20703) then
+    P.Warp(913000200, 1)
+  else
+    P.ShowInfo('The 1st Hall can only be entered if you''re participating in Kiku''s Acclimation Training.');
+end;

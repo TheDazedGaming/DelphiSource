@@ -1,0 +1,65 @@
+// QuestID: 21766 - Suspicious John
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Mode = 0) and (Status = 5) then
+  begin
+    Q.SendNext('#p20000# is acting really strange lately!');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('Hey! Can you do me a favor? #p20000# seems a bit strange these days...', 8);
+    2: Q.SendNextPrev('What''s wrong with #b#p20000#?#k', 2);
+    3: Q.SendNextPrev('He used to scowl and whine about his arthritis until just recently, but he''s suddenly become all happy and smiley!!', 8);
+    4: Q.SendNextPrev('#bWhat''s wrong with that?? Maybe his arthritis has gotten better...#k', 2);
+    5: Q.SendNextPrev('That''s exactly what I''m talking about. How is it possible that he''s gotten better all of a sudden? On top of that, he carries around a wooden box and chuckles to himself nonstop!', 8);
+    6: Q.SendAcceptDecline('I have a feeling there is a secret behind that wooden box. Could you stealthily look into the wooden box next to #p20000#?');
+    7:
+    begin
+      if not Q.IsQuestActive(21766) then
+        Q.StartQuest;
+
+      Q.SendNext('#bFine, I''ll look into the wooden box and see what I can find.#k', 3);
+    end;
+    8: Q.SendNextPrev('Okay. This should answer the mystery of why #p20000# has been acting strange. Inspect the wooden box located next to #p20000# and let me know what you find.', 9);
+    9: Q.SendPrev('You know where #p20000# is, right? He''s to the right. Just keep going until you see where Vikin is, then head down past the hanging shark and octopus, and you''ll see John. The box should be right next to him.', 9);
+   10: Q.Dispose;
+  end;
+end;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0:
+    begin
+      Q.SendNext('I guess you haven''t found out yet. That wooden box seems really suspicious...');
+      Q.Dispose;
+    end;
+    1: Q.SendAcceptDecline('Did you find out what was in the wooden box? Tell me, tell me, tell me! \r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 200 exp');
+    2: Q.SendNext('#bThere really wasn''t anything inside. All it had were some snail shells and ingredients to treat arthritis.#k', 3);
+    3: Q.SendNextPrev('Oh? Then why has #p20000# started acting so strange? I''m so curious, I can''t stand it! Anyway, thanks for your help.', 9);
+    4:
+    begin
+      if not Q.IsQuestFinished(21766) then
+        Q.FinishQuest;
+
+      Q.SendPrev('#b(You feel bad for #p1002001#, but sometimes, ignorance is bliss.)#k', 3);
+    end;
+    5: Q.Dispose;
+  end;
+end;

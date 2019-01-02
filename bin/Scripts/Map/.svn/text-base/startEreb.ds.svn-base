@@ -1,0 +1,6 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  // After being warped out of the Cygnus Job Tutorial, reenable the UI
+  P.LockUI(False);
+  P.DisableUI(False);
+end;

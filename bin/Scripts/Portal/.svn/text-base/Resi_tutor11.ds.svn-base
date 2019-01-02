@@ -1,0 +1,5 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.BlockPortal;
+  P.InvokeNPC(2159001);
+end;

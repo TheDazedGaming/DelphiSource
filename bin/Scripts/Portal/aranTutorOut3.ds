@@ -1,0 +1,12 @@
+// aranTutorOut3 Portal to: 914000220
+
+procedure Enter(P: TPortalScript); export;
+begin
+  // Add Tutorial Skill
+  P.UpdateSkill(20000016, 0, -1, False);
+  P.UpdateRemainingSP(0);
+  P.UpdateSkill(20000016, 1, 0, False);
+
+  P.BlockPortal;
+  P.Warp(914000220, 1);
+end;

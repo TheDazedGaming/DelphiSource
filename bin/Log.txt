@@ -1,0 +1,41 @@
+15:37:10  Welcome, I'm configured for MapleStory Global v90
+15:37:10  Registered packet handlers: 78
+15:38:01  Login-Server listening on port 8484
+15:38:01  Scania-1 on port 8585
+15:38:12  Client connected to Login-Server: 127.0.0.1:54846
+15:38:22  127.0.0.1 is at the login screen now.
+15:38:32  Login: maxed
+15:38:48  Client connected to Scania-1! 127.0.0.1:54916
+15:38:48  Client disconnected from Login-Server: 127.0.0.1:54846
+15:38:49  [MapEnterScript] Executing: go50000.ds
+15:39:15  [Quest] 4, 28433
+15:39:47  [MapEnterScript] Executing: go1000000.ds
+15:40:18  [PortalScript] Executing: infoReactor.ds
+15:40:21  [PortalScript] Executing: infoReactor.ds
+15:40:35  [MapEnterScript] Executing: go1010000.ds
+15:42:06  Client connected to Login-Server: 127.0.0.1:54931
+15:42:06  Client disconnected from Scania-1: 127.0.0.1:54916
+15:42:07  127.0.0.1 is at the login screen now.
+15:42:15  Login: maxed
+15:42:22  Client connected to Login-Server: 127.0.0.1:54933
+15:42:22  Client disconnected from Login-Server: 127.0.0.1:54931
+15:44:01  Login: maxed
+15:44:03  Client disconnected from Login-Server: 127.0.0.1:54933
+15:44:03  Client connected to Scania-1! 127.0.0.1:54935
+15:44:04  [MapEnterScript] Executing: go1010000.ds
+15:44:05  [Quest] 4, 29900
+15:44:06  [Quest] Destructing conversation!
+15:44:06  [Quest] 4, 29906
+15:44:06  [Quest] Destructing conversation!
+15:44:29  [Beta] /job
+15:44:29  [Commands] Parsing the job ID failed!
+15:44:32  [Beta] /job 411
+15:44:39  [Beta] /job 412
+15:44:53  [Beta] /maxskill
+15:44:55  [Beta] /maxskills
+15:44:59  [Beta] @maxskill
+15:44:59  [Beta] @maxskills
+15:45:22  [Beta] /job 910
+15:45:36  [Beta] /skills
+15:45:44  [Beta] /item
+15:45:44  [EXCEPTION - Beta] ''/item'' ist kein gültiger Integer-Wert

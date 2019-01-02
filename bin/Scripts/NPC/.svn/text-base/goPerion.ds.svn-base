@@ -1,0 +1,50 @@
+(*
+    NPC Name:    Warrior Statue
+    Map:         Lith Harbor
+    Description: Warps you to Dances with Balrog.
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if C.Char.Job > 0 then
+  begin
+    C.SendOK('It looks like you''ve already made a job advancement! Transportation can only be used by beginners.');
+    C.Dispose;
+    Exit;
+  end;
+
+  if Selection = 1 then
+  begin
+    C.SendNext('Please talk to me again if you have any questions.');
+    C.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    0: C.SendNext('Welcome, Beginning Explorer! In Maple Story, you can choose a #rjob#k when you reach #rLv 10#k (Lv 8 for Magicians).\r\n\r\nIn other words, you''ll be choosing your own future path! \nWhen you get a job, you get to use various skills and magic which will make your experience in Maple Story more enjoyable.\n\nSo, work hard to carve your own destiny!');
+    1: C.SendNextPrev('My role is to help you become a #rWarrior.#k\r\n\r\nWarriors have powerful short-ranged attacks and high Strength, thereby making them a class that is always at the very forefront of battles. It is a job class that begins with very effective basic attack skills, and leads to a path of even greater strength once more advanced skills are acquired.');
+    2: C.SendNextPrev('Weapons used include #bone-handed swords, two-handed swords, spears,#k and #bpolearms.#k\r\n\r\nRequired Level: #rOver Lv 10#k\r\nLocation: #rWarrior''s Sanctuary#k in #bPerion#k\r\nJob Instructor: #rDances with Balrog#k');
+    3: C.SendSimple('Do you want to become a #rWarrior?#k\r\n#b#L0#Yes#l#k\r\n#b#L1#No#l#k');
+    4: C.SendSimple('In order to make the job advancement, you must visit #rDances with Balrog#k at the #rWarrior''s Sactuary#k in #bPerion.#k\n\nWould you like to be transported there now?\n-The transportation service cannot be used once you make the job advancement.-\r\n#b#L0#Yes#l#k\r\n#b#L1#No#l#k');
+    5: C.SendNext('Alright. I will now take you to the #rWarrior''s Sactuary#k in #bPerion#k.');
+    6:
+    begin
+      C.Warp(102000003, 8);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

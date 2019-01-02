@@ -1,0 +1,37 @@
+(*
+    NPC Name:    Spiegelmann
+    Map:         Some towns
+    Description: Carnival Guy :3
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (C.Char.Level >= 30) and (C.Char.Level <= 50) then
+  begin
+    case Status of
+      0: C.SendNext('Not developed yet.');
+      1: C.Dispose;
+    end;
+  end
+  else
+  begin
+    case Status of
+      0: C.SendNext('I''m sorry, only users in the range of #bLv. 30~50#k may participate in Monster Carnival.');
+      1: C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

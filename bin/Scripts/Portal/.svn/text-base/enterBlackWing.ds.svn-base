@@ -1,0 +1,9 @@
+// Entrance to Verne Mine
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if not P.IsEquipped(1003134) then
+    P.ShowInfo('You can''t enter without proof that you are a member of the Black Wings. Equip something with the Black Wings'' logo on it to enter.')
+  else
+    P.Warp(310050000, 1);
+end;

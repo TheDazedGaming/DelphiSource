@@ -1,0 +1,6 @@
+// Shows Archer Job
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowWZEffect('Effect/Direction3.img/archer/Scene' + Convert.ToString(P.Char.Gender), -1)
+end;

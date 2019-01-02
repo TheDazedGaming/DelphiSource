@@ -1,0 +1,7 @@
+// Edelstein Mansion
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.PlayPortalSound;
+  P.Warp(310000004, 1);
+end;

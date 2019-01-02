@@ -1,0 +1,37 @@
+(*
+    NPC Name:    Lakelis
+    Map:         Kerning City
+    Description: First Time Together
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if C.Char.Level >= 21 then
+  begin
+    case Status of
+      0: C.SendNext('How about you and your party members collectively beating a quest? Here you''ll find obstacles and problems where you won''t be able to beat it unless with great teamwork. If you want to try it, please tell the #bleader of your party#k to talk to me.\r\n\r\n#rRequirements: 4 Party Members, all between level 21 and 30.');
+      1: C.Dispose;
+    end;
+  end
+  else
+  begin
+    case Status of
+      0: C.SendNext('Sorry, you''re not in the level range 21~30.');
+      1: C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

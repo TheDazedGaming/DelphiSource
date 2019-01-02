@@ -1,0 +1,55 @@
+// Vita (Resistance Intro)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if C.GetAreaInfo(23007).IndexOf('vel01=1') > 0 then
+  begin
+    case Status of
+      0: C.SendNext('Whoa. Wh-what happened? The glass is broken... Did that vibration earlier break it?');
+      1: C.SendNextPrev('Now, there''s nothing stopping you right? Let''s get out of here!', 2);
+      2: C.SendNextPrev('But...');
+      3: C.SendNextPrev('Do you WANT to stay here or something?', 2);
+      4: C.SendNextPrev('Of course not!');
+      5: C.SendNextPrev('Then hurry up! Let''s go!', 2);
+      6:
+      begin
+        C.UpdateAreaInfo(23007, 'vel00=2;vel01=2');
+        C.EndConversation;
+        C.Warp(931000020, 1);
+        C.Dispose;
+      end;
+    end;
+  end
+  else if C.GetAreaInfo(23007).IndexOf('vel01=2') > 0 then
+  begin
+    case Status of
+      0: C.SendNext('It''s been...a really long time since I''ve been outside the laboratory. Where are we?');
+      1: C.SendNextPrev('This is the road that leads to Edelstein, where I live! Let''s get out of here before the Black Wings follow us.', 2);
+      2:
+      begin
+        C.UpdateAreaInfo(23007, 'vel00=2;vel01=3');
+        C.ShowWZEffect('Effect/OnUserEff.img/guideEffect/aranTutorial/tutorialArrow1', 1);
+        C.Dispose;
+      end;
+    end;
+  end
+  else
+  begin
+    C.SendOK('It''s been...a really long time since I''ve been outside the laboratory.');
+    C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

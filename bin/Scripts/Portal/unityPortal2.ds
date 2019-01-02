@@ -1,0 +1,6 @@
+// Dimensional Mirror
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.InvokeNPC(9010022);
+end;

@@ -1,0 +1,6 @@
+// Left portal in Rien
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.Warp(140010000, 2);
+end;

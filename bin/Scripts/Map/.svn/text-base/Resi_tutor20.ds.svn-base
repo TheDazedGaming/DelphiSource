@@ -1,0 +1,4 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowMapEffect('resistance/tutorialGuide');
+end;

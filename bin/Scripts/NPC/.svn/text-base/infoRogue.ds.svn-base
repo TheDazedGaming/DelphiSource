@@ -1,0 +1,40 @@
+(*
+    NPC Name:    Dark Lord
+    Map:         Maple Island
+    Description: Shows you the thief job video.
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Mode = 0) and (Status = 0) then
+  begin
+    C.SendNext('If you wish to experience what it''s like to be a Thief, come see me again.');
+    C.Dispose; 
+  end;
+
+  case Status of
+    0: C.SendNext('Thieves are a perfect blend of luck, dexterity, and power that are adept at surprise attacks against helpless enemies. A high level of avoidability and speed allows Thieves to attack enemies from various angles.');
+    1: C.SendYesNo('Would you like to experience what it''s like to be a Thief?');
+    2:
+    begin
+      C.LockUI(True);
+      C.DisableUI(True);
+      C.Warp(1020400);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

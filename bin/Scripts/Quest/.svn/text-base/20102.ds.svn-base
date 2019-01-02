@@ -1,0 +1,57 @@
+// Quest: Path of a Blaze Wizard
+
+var
+  Status: Integer;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0:
+    begin
+      Q.SendNext('Ah, are you reconsidering your decision?');
+      Q.Dispose;
+    end;
+    1: Q.SendYesNo('Ha! Have you made your decision? Are you sure? You know you can''t go back on it once you make up your mind, right? So, that means you want to become a Blaze Wizard?');
+    2: Q.SendNext('Okay, you are now a Blaze Wizard. Forgive me if I sound ecstatic, because I am! I''m so happy I get to work with another Blaze Wizard! Oh wait, before I forget, I will give you some abilities I''d like to share with you.');
+    3:
+    begin
+      if Q.Char.Job = 1000 then
+      begin
+        Q.GainItem(1372043, 1);   // Beginner Magician's Wand
+        Q.GainItem(1142066, 1);   // Training Knight Medal
+        Q.UpdateTutorialSummon(False);
+        Q.StartQuest;
+        Q.FinishQuest;
+
+        Q.UpdateSkill(10009000, 1, 0, False);
+        Q.ShowInfoOnScreen('You learned the Pig''s Weakness Skill.');
+
+        Q.Char.RemainingSP := (Q.Char.Level - 10) * 3;
+        Q.ChangeJob(1200);
+        Q.Char.STR := 4;
+        Q.Char.DEX := 4;
+        Q.Char.INT := 20;
+        Q.Char.LUK := 4;
+        Q.Char.RemainingAP := (Q.Char.Level - 1) * 6 - 7;
+        Q.Char.MaxMP := Q.Char.MaxMP + 150 + Random.Next(50);
+        Q.Char.MaxHP := Q.Char.MaxHP + 10 + Random.Next(20);
+        Q.Char.SendUpdateStats;
+        Q.IncreaseSlotLimit(1, 1);
+        Q.IncreaseSlotLimit(2, 1);
+        Q.IncreaseSlotLimit(3, 1);
+        Q.IncreaseSlotLimit(4, 1);
+      end;
+      Q.SendNextPrev('Okay, you''re now officially a Blaze Wizard. If you want to make yourself stronger, use the Stat window (S) to raise the appropriate stats. If you aren''t sure what to raise, just click on #bAuto#k. It''s especially helpful for those that are not accustomed to Magicians.');
+    end;
+    4: Q.SendNextPrev('I have also added some slots for your Equip and Etc windows. Use those slots wisely!');
+    5: Q.SendNextPrev('Oh, and I have also given you a small dose of #bSP#k, so open the #bSkill Menu#k to acquire new skills. You will only be able to raise one at a time, but if you really work at it, you will master all the skills in no time. There are some skills out there you won''t be able to acquire unless you master the basic skills first.');
+    6: Q.SendNextPrev('Unlike your time as a Noblesse, once you become a Blaze Wizard, you will have lost a portion of your EXP when you run out of HP, okay?');
+    7: Q.SendNextPrev('Now, I want you to go out there and show the world what the Cygnus Knights are made of.');
+    8: Q.Dispose;
+  end;
+end;

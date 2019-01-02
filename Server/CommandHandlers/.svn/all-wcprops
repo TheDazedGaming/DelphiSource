@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/DelphiMS/!svn/ver/415/Server/CommandHandlers
+END
+PlayerCommands.pas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/DelphiMS/!svn/ver/403/Server/CommandHandlers/PlayerCommands.pas
+END
+MapCommands.pas
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/DelphiMS/!svn/ver/342/Server/CommandHandlers/MapCommands.pas
+END
+ChecksumCommand.pas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/DelphiMS/!svn/ver/415/Server/CommandHandlers/ChecksumCommand.pas
+END
+TestCommands.pas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/DelphiMS/!svn/ver/411/Server/CommandHandlers/TestCommands.pas
+END
+WarpCommands.pas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/DelphiMS/!svn/ver/342/Server/CommandHandlers/WarpCommands.pas
+END

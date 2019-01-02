@@ -1,0 +1,7 @@
+// Takes you to Timu's Forest
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.PlayPortalSound;
+  P.Warp(130010110, 'out00');
+end;

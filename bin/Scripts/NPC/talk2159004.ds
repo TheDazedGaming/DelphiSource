@@ -1,0 +1,39 @@
+// Some child
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if C.GetAreaInfo(23999).IndexOf('exp2=1') > 0 then
+  begin
+    C.SendNext('Have you found Jun and Von yet? Von''s going to be pretty hard to find. Better keep your eyes open.');
+    C.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    0: C.SendNext('Haha, you found me. Guess I should''ve found a better hiding spot.');
+    1: C.SendNextPrev('Have you found Jun and Von yet? Von''s going to be pretty hard to find. Better keep your eyes open. \r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 5 exp');
+    2:
+    begin
+      C.GainExp(5);
+      if C.GetAreaInfo(23999) = '' then
+        C.UpdateAreaInfo(23999, 'exp2=1')
+      else
+        C.UpdateAreaInfo(23999, C.GetAreaInfo(23999) + ';exp2=1');
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

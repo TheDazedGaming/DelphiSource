@@ -1,0 +1,50 @@
+(*
+    NPC Name:    Bowman Statue
+    Map:         Lith Harbor
+    Description: Warps you to Athena Pierce.
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  if C.Char.Job > 0 then
+  begin
+    C.SendOK('It looks like you''ve already made a job advancement! Transportation can only be used by beginners.');
+    C.Dispose;
+    Exit;
+  end;
+
+  if Selection = 1 then
+  begin
+    C.SendNext('Please talk to me again if you have any questions.');
+    C.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    0: C.SendNext('Welcome, Beginning Explorer! In Maple Story, you can choose a #rjob#k when you reach #rLv 10#k (Lv 8 for Magicians).\r\n\r\nIn other words, you''ll be choosing your own future path! \nWhen you get a job, you get to use various skills and magic which will make your experience in Maple Story more enjoyable.\n\nSo, work hard to carve your own destiny!');
+    1: C.SendNextPrev('My role is to help you become a #rBowman.#k\r\n\r\nBowman specialize in Long-Ranged Attacks from the back of the battle lines, since they are deft but have limited Strength. \nBowman become stronger as they level up, employing various attack skills that make them particularly effective with long-ranged Attacks. They are also very capable hunters who can take advantage of the topography.');
+    2: C.SendNextPrev('Weapons used include the #bBow#k and #bCrossbow.#k\r\n\r\nRequired Level: #rOver Lv 10#k\r\nLocation: #rBowman Instructional School#k in #bHenesys#k\r\nJob Instructor: #rAthena Pierce#k');
+    3: C.SendSimple('Do you want to become a #rBowman?#k\r\n#b#L0#Yes#l#k\r\n#b#L1#No#l#k');
+    4: C.SendSimple('In order to make the job advancement, you must visit #rAthena Pierce#k at the #rBowman Instructional School#k in #bHenesys.#k\n\nWould you like to be transported there now?\n-The transportation service cannot be used once you make the job advancement.-\r\n#b#L0#Yes#l#k\r\n#b#L1#No#l#k');
+    5: C.SendNext('Alright. I will now take you to the #rBowman Instructional School#k in #bHenesys#k.');
+    6:
+    begin
+      C.Warp(100000201, 9);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

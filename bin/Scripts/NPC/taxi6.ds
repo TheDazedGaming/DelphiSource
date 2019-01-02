@@ -1,0 +1,107 @@
+// NPC Name: Lith Harbor Regular Cab
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status, Price, Map: Integer;
+  HasCoupon: Boolean;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+var
+  Beginner: Boolean;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  Beginner := (C.Char.Job = 0) or (C.Char.Job = 1000) or (C.Char.Job = 2000);
+
+  case Status of
+    0: C.SendNext('Hi! I drive the Lith Harbor Regular Cab. Would you like to travel to a different town? If so, try using my cab. I can take you to a different town for a cheap price.');
+    1:
+    begin
+      // Pressed Decline when having coupon
+      if Mode = 0 then
+      begin
+        C.SendNext('Hmm, I guess you have some more things to do in Lith Harbor.');
+        Status := 0;
+        Exit;
+      end;
+
+      if (C.HasItem(4032313)) and (not HasCoupon) then
+      begin
+        C.SendNextPrev('Hey, since you have a Taxi Coupon, I can take you to the town indicated on the pass for free. It looks like your destination is #bHenesys#k!');
+        HasCoupon := True;
+        Exit;
+      end;
+
+      if Beginner then
+        C.SendSimple('There''s a special 90 percent discount for beginners! Please select your destination. The prices are different depending on your destination.\r\n#b' +
+                     '#L0# #m120000000#(120 Mesos)#l\r\n' +
+                     '#L1# #m102000000#(120 Mesos)#l\r\n' +
+                     '#L2# #m100000000#(80 Mesos)#l\r\n' +
+                     '#L3# #m103000000#(100 Mesos)#l\r\n' +
+                     '#L4# #m101000000#(120 Mesos)#l')
+      else
+        C.SendSimple('Select your destination. The price is different depending on your destination.\r\n#b' +
+                     '#L0# #m120000000#(1200 Mesos)#l\r\n' +
+                     '#L1# #m102000000#(1200 Mesos)#l\r\n' +
+                     '#L2# #m100000000#(800 Mesos)#l\r\n' +
+                     '#L3# #m103000000#(1000 Mesos)#l\r\n' +
+                     '#L4# #m101000000#(1200 Mesos)#l');
+      Status := 3;
+    end;
+
+    2: C.SendAcceptDecline('Would you like to go to Henesys now?');
+
+    // Pressed "No" in (4)
+    3: 
+    begin
+      // Or pressed Accept in (2)
+      if (HasCoupon) and (Mode = 1) then
+      begin
+        C.GainItem(4032313, -1);
+        C.Warp(100000000, 6);
+      end
+      else
+        C.SendNext('There''s a lot to see in this town, too. Come back and find us when you need to go to a different town.');
+
+      C.Dispose;
+    end;
+
+    4:
+    begin
+      case Selection of
+        0: begin Map := 120000000; Price := 1200; end;    // Nautilus Harbor
+        1: begin Map := 102000000; Price := 1200; end;    // Perion
+        2: begin Map := 100000000; Price := 800; end;     // Henesys
+        3: begin Map := 103000000; Price := 1000; end;    // Kerning City
+        else begin Map := 101000000; Price := 1200; end;  // Ellinia
+      end;
+
+      if Beginner then
+        Price := Price div 10;
+
+      C.SendYesNo('You don''t have anything else to do here, huh? Do you really want to go to #b#m' + Convert.ToString(Map) + '##k? It''ll cost you #b' + Convert.ToString(Price) + ' mesos#k.');
+    end;
+
+    5:
+    begin
+      if C.Char.Mesos >= Price then
+      begin
+        C.GainMesos(-Price);
+        C.Warp(Map);
+      end
+      else
+        C.SendNext('You don''t have enough mesos. Sorry to say this, but without them, you won''t be able to ride the cab.');
+
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+  HasCoupon := False;
+end.

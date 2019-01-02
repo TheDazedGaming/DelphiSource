@@ -1,0 +1,32 @@
+// QuestID: 21719 - The Puppeteer's Invitation
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Mode = 0) and (Status = 2) then
+  begin
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('Aren''t you the one that used to be in #m101000000# until not too long ago? I finally found you! Do you know how long it took for me to finally find you?', 8);
+    2: Q.SendNextPrev('Who are you?', 2);
+    3: Q.SendAcceptDecline('Me? If you want to know, stop by my cave. I''ll even send you an invitation. You''ll be directly sent to my cave as soon as you accept. Look forward to seeing you there.');
+    4:
+    begin
+      Q.StartQuest;
+      Q.SilentCompleteQuest(21719);
+
+      Q.Warp(910510200);
+      Q.Dispose;
+    end;
+  end;
+end;

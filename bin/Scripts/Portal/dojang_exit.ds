@@ -1,0 +1,8 @@
+// Called when leaving Entrance to the Mu Lung Dojo
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.PlayPortalSound;
+  P.Warp(P.GetSavedLocation('slDimensionalMirror'));
+  P.ClearSavedLocation('slDimensionalMirror');
+end;

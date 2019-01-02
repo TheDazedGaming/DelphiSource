@@ -1,0 +1,40 @@
+(*
+    NPC Name:    Athena Pierce
+    Map:         Maple Island
+    Description: Shows you the bowman job video.
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  if (Mode = 0) and (Status = 0) then
+  begin
+    C.SendNext('If you wish to experience what it''s like to be a Bowman, come see me again.');
+    C.Dispose; 
+  end;
+
+  case Status of
+    0: C.SendNext('Bowmen are blessed with dexterity and power, taking charge of long-distance attacks, providing support for those at the front line of the battle. Very adept at using landscape as part of the arsenal.');
+    1: C.SendYesNo('Would you like to experience what it''s like to be a Bowman?');
+    2:    
+    begin
+      C.LockUI(True);
+      C.DisableUI(True);
+      C.Warp(1020300);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

@@ -1,0 +1,6 @@
+// Called when entering the portal to the Ereve Ship in Ellinia
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.Warp(101000400, 2);
+end;

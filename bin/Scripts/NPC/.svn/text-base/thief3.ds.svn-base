@@ -1,0 +1,120 @@
+// Thief 3rd Job Instructor
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+  
+procedure DoChangeJob(C: TNPCConversation);
+begin
+  case Status of
+    2: C.Dispose;
+    3: C.SendYesNo('Okay, you will now become an even stronger thief. But before that can happen, check to see if you''ve used all of your SP. You must use all of the SP you''ve earned up to Lv. 70 before you can make the 3rd job advancement. Do you wish to make the job advancement now?');
+    4:
+    begin
+      if C.Char.Job mod 10 = 0 then
+        if C.Char.RemainingSP > (C.Char.Level - 70) * 3 then
+        begin
+          C.SendNext('Hmmm... you seem to have too much SP. You can''t make the 3rd job advancement with so much SP. Use more in the 1st and 2nd advancement before returning here.');
+          C.Dispose;
+          Exit;
+        end
+        else
+          C.ChangeJob(C.Char.Job + 1);
+
+      case C.Char.Job of
+        411: C.SendNext('You have officially been anointed as a #bHermit#k from this point forward. The skill book introduces a slew of new offensive skills for Hermits, using shadows as a way of duplication and replacement. You''ll learn skills like #bShadow Meso#k (replace MP with mesos and attack monsters with the damage based on the amount of mesos thrown) and #bShadow Partner#k (create a shadow that mimics your every move, enabling you to attack twice). Use those skills to take on monsters that may have been difficult to conquer before.');
+        421: C.SendNext('You have officially been anointed as a #bChief Bandit#k from this point forward. One of the new additions to the skill book is a skill called #bBand of Thieves#k, which lets you summon fellow Bandits to attack multiple monsters at once. Chief Bandits can also utilize mesos in numerous ways, from attacking monsters (#bMeso Explosion#k, which explodes mesos on the ground) to defending yourself (#bMeso Guard#k, which decreases damage done to you).');
+      end;
+    end;
+    5: C.SendNextPrev('I''ve also given you some SP and AP, which will help you get started. You have now become a powerful thief, indeed. Remember, though, that the real world will be awaiting with even tougher obstacles. Once you feel like you cannot reach a higher place, then come see me. I''ll be here waiting.');
+    6: C.Dispose;
+  end;
+end;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  if (Status = 0) and (Mode = 0) then
+  begin
+    C.SendNext('I don''t think you are ready to face the tough challenges that lie ahead. Come see me only after you have convinced yourself of your toughness.');
+    C.Dispose;
+    Exit;
+  end;
+  
+  if (C.IsQuestFinished(7500)) and ((C.Char.Job mod 10 = 0) or (Status > 4)) then
+  begin
+    if Status <= 2 then
+      Status := 3;
+    DoChangeJob(C);
+    Exit;
+  end;
+
+  case Status of
+    0:
+    if ((C.Char.Job = 410) or (C.Char.Job = 420)) and (C.Char.Level >= 70) then
+      C.SendSimple('Can I help you?#b\r\n#L0#I want to make the 3rd job advancement#l')
+    else
+    begin
+      C.SendNext('Welcome. I''m #bArec#k the chief of all thieves.');
+      C.Dispose;
+    end;
+
+    1:
+    begin
+      if C.IsQuestNotStarted(7500) then
+        C.SendYesNo('Ah, you wish to make your 3rd job advancement? I have the power to make you stronger, but first I must test your persistence. Do you wish to take my test?')
+      else if (C.GetQuestData(7500) = 's') or (C.GetQuestData(7500) = 'p1') then
+      begin
+        C.SendNext('You don''t have #b#t4031057##k with you. Please go see #b#p1052001##k of Kerning City, pass the test and bring #b#t4031057##k back with you. Then, and only then, you will be given the second test. Best of luck to you.');
+        C.Dispose;
+      end
+      else if (C.GetQuestData(7500) = 'p2') then
+      begin
+        C.SendNext('Ah... I see that you completed the mission #b#p1052001##k gave you. I always believed that you had it in you. But I hope you have not forgotten that a second test awaits you. Before you start the second test, I''ll take the necklace you''ve brought.');
+        C.GainItem(4031057, -1);
+        C.UpdateQuest(7500, 'end1', True);
+      end
+      else if (C.GetQuestData(7500) = 'end1') then
+      begin
+        if not C.HasItem(4031058) then
+        begin
+          C.SendNext('You don''t have #b#t4031058##k with you. Please go see #bHoly Stone#k in the Holy Ground, pass the test and bring #b#t4031058##k back with you. Then, and only then, I will help you make the next leap forward. Best of luck to you.');
+          C.Dispose;
+          Exit;
+        end;
+        C.SendNext('Ah... You found the Holy Ground, I see. I... I didn''t think you would pass the second test. I will take the necklace now before your advance to your 3rd job.');
+        C.GainItem(4031058, -1);
+        C.SilentCompleteQuest(7500);
+      end;
+    end;
+
+    2:
+    begin
+      if C.IsQuestNotStarted(7500) then
+      begin
+        C.UpdateQuest(7500, 's', True);
+        C.SendNext('There are two things you must prove you possess: strength and intelligence. First I shall test your strength. Do you remember #b#p1052001##k from Kerning City, who gave you your 1st and 2nd job advancements? Go see him, and he will give you a mission. Complete that mission and bring back #b#t4031057##k from #p1052001#.');
+      end
+      else if C.GetQuestData(7500) = 'end1' then
+        C.SendNext('Now, the second test remains. If you pass this test, you''ll become a more powerful Thief. When you take the secret portal found in Sharp Cliff I in the El Nath Dungeon, you will find a small Holy Stone, which the monsters don''t dare approach. It may appear to be an average Holy Stone, but if you offer a special item, it will test your wisdom.');
+    end;
+
+    3:
+    begin
+      if C.GetQuestData(7500) = 's' then
+        C.SendNextPrev('The second test will determine your intelligence, but first pass this one and bring back #b#t4031057##k. I will let #b#p1052001##k know that you are coming. Good luck...')
+      else
+        C.SendNextPrev('Find the Holy Ground and offer a special item. If you are able to answer the questions that are asked of you truthfully and sincerely, you will receive #b#t4031058##k. If you bring the necklace to me, I will advance you into an even stronger Thief. I wish you luck.');
+    end;
+
+    4: C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

@@ -1,0 +1,36 @@
+// Quest: Are You Sure You Can Leave?
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Status = 1) and (Mode = 0) then
+  begin
+    Q.SendNext('When will you realize how weak you are... When you get yourself in trouble in Victoria Island?');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('You have finally become a Knight-in-Training. I''d like to give you a mission right away, but you still look miles away from even being able to handle a task on your own. Are you sure you can even go to Victoria Island like this?');
+    2: Q.SendAcceptDecline('It''s up to you to head over to Victoria Island, but a Knight-in-Training that can''t take care of one''s self in battles is likely to cause harm to the Empress''s impeccable reputation. As the Head Tactician of this island, I can''t let that happen, period. I want you to keep training until the right time comes.');
+    3:
+    begin
+      if not Q.IsQuestFinished(20700) then
+      begin
+        Q.StartQuest;
+        Q.FinishQuest;
+      end;
+
+      Q.SendNext('#p1102000#, the Training Instructor, will help you train into a serviceable knight. Once you reach Level 13, I''ll assign you a mission or two. So until then, keep training.');
+    end;
+    4: Q.SendPrev('Oh, and are you aware that if you strike a conversation with #p1101001#, she''ll give you a blessing? The blessing will definitely help you on your journey.');
+    5: Q.Dispose;
+  end;
+end;

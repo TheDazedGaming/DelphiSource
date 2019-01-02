@@ -1,0 +1,16 @@
+(*
+    NPC Name:    Jonathan
+    Map:         Room in Upper Nautilus
+    Description: Pirate 4th Job Skill
+*)
+
+uses NPCConversation;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  C.SendOK('Who are you to start talking to me? If you''re just bored, go bother someone else.');
+  C.Dispose;
+end;
+
+begin
+end.

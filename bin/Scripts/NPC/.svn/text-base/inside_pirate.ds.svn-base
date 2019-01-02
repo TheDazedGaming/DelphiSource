@@ -1,0 +1,50 @@
+// Kyrin (Inside Test Room)
+
+uses NPCConversation, ScriptMapleCharacter, Events;
+
+var
+  Status, Item: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+var
+  E: TEventInstance;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if Status = 0 then
+  begin
+    if C.IsQuestActive(2191) then
+      Item := 4031856
+    else
+      Item := 4031857;
+
+    if C.GetItemQuantity(Item) >= 15 then
+      C.SendNext('Ohhh... So you managed to gather up 15 #t' + Convert.ToString(Item) + '#s! Wasn''t it tough? That''s amazing... alright then, now let''s talk about The Nautilus.')
+    else
+      C.SendYesNo('Hmmm... What is it? I don''t think you have been able to gather up all #b15 #t' + Convert.ToString(Item) + '#s#k yet... If it''s too hard for you, then you can step out and try again later. Do you want to give up and step outside right now?');
+  end
+  else if (Status = 1) and (C.GetItemQuantity(Item) >= 15) then
+    C.SendNextPrev('These crystals can only be used here, so I''ll just take them back.')
+  else if Status = 1 then
+    C.SendNext('Really? Ok, I''ll take you outside right now. Please don''t give up, though. You''ll get the opportunity to try this again. Hopefully by then, you''ll be ready to handle this with ease...')
+  else if Status = 2 then
+  begin
+    E := C.Char.EventInstance;
+    C.Char.EventInstance := nil;
+    C.Warp(120000101);
+    E.Free;
+    C.Dispose;
+  end
+  else if Status = -1 then
+  begin
+    C.SendNext('Good. You''re showing me you don''t want to give up this great opportunity. When you collect #b15 #t' + Convert.ToString(Item) + '#s#k, then talk to me.');
+    C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

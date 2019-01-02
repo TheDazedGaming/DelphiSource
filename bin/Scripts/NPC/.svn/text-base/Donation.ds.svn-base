@@ -1,0 +1,17 @@
+(*
+    NPC Name:    Donation Box
+    Map:         Most towns
+    Description: Donator Medal
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if C.Char.Level < 30 then
+    C.SendNext('In small writing it said...Must be at least level 30 to donate.');
+  C.Dispose;
+end;
+
+begin
+end.

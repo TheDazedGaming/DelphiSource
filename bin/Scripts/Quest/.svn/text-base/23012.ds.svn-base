@@ -1,0 +1,52 @@
+// Quest: Path of the Wild Hunter
+
+var
+  Status: Integer;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0:
+    begin
+      Q.SendNext('Think carefully before you make your decision.');
+      Q.Dispose;
+    end;
+    1: Q.SendYesNo('I applaud your spirit! But are you certain about this? Wild Hunters are very strong, but they''re also difficult to control. You have to control your mount and attack at the same time. It requires excellent reflexes. Are you sure you''re up for a job like this?');
+    2:
+    begin
+      if Q.Char.Job = 3000 then
+      begin
+        Q.GainItem(1462092, 1);      // Beginner Crossbowman's Crossbow
+        Q.GainItem(2061000, 6000);   // Arrows
+        Q.GainItem(1142242, 1);      // Special Training Beginner
+        Q.FinishQuest;
+        Q.UpdateQuest(23977, '1', True);
+
+        Q.Char.RemainingSP := (Q.Char.Level - 10) * 3;
+        Q.ChangeJob(3300);
+        Q.Char.STR := 4;
+        Q.Char.DEX := 25;
+        Q.Char.INT := 4;
+        Q.Char.LUK := 4;
+        Q.Char.RemainingAP := (Q.Char.Level - 1) * 5 - 12;
+        Q.Char.MaxMP := Q.Char.MaxMP + 50;
+        Q.Char.MaxHP := Q.Char.MaxHP + 150;
+        Q.Char.SendUpdateStats;
+        Q.IncreaseSlotLimit(1, 1);
+        Q.IncreaseSlotLimit(2, 1);
+        Q.IncreaseSlotLimit(3, 1);
+        Q.IncreaseSlotLimit(4, 1);
+        Q.UpdateSkill(30001061, 1, 0, False);
+        Q.UpdateSkill(30001062, 1, 0, False);
+      end;
+      Q.SendNext('Well, well! Congratulations! You''re now an official member of the Resistance and a Wild Hunter. Hop on your mount, move like the wind, and slay all enemies who get in your way!');
+    end;
+    3: Q.SendNextPrev('Now, a warning. Don''t lure the Black Wings'' attention to you by telling people you''re a Wild Hunter. I''ll be your ''teacher'' from now on. This IS a school after all, right? I''ll give you special lessons to turn you into the best Wild Hunter ever!');
+    4: Q.Dispose;
+  end;
+end;

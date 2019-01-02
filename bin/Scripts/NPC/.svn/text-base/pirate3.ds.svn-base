@@ -1,0 +1,120 @@
+// Pirate 3rd Job Instructor
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+  
+procedure DoChangeJob(C: TNPCConversation);
+begin
+  case Status of
+    2: C.Dispose;
+    3: C.SendYesNo('Great! You may now become the kind of Pirate you''ve always dreamed of! With newfound power and stellar new skills, your power has endless possibilities! Before we proceed, however, please check and see if you have used up your Skill Points. You must use up all the SPs you''ve earned up to Level 70 in order for you to make the 3rd job advancement. Since you''ve already chosen which of the two Pirate paths you wanted to take in the 2nd job advancement, this will not require much thought. Do you wish to make the job advancement right now?');
+    4:
+    begin
+      if C.Char.Job mod 10 = 0 then
+        if C.Char.RemainingSP > (C.Char.Level - 70) * 3 then
+        begin
+          C.SendNext('Hmmm... you seem to have too much SP. You can''t make the 3rd job advancement with so much SP. Use more in the 1st and 2nd advancement before returning here.');
+          C.Dispose;
+          Exit;
+        end
+        else
+          C.ChangeJob(C.Char.Job + 1);
+
+      case C.Char.Job of
+        511: C.SendNext('Great! You are now a #bMarauder#k. As a Marauder, you will learn some of the most sophisticated skills related to melee-based attacks. #bEnergy Charge#k is a skill that allows you to store your power and the damage you receive into a special form of energy. Once this ball of energy is charged, you may use #bEnergy Blast#k to apply maximum damage against your enermies, and also use #bEnergy Drain#k to steal your enemy''s HP to recover your own. #bTransformation#k will allow you to transform into a superhuman being with devastating melee attacks, and while transformed, you can use #bShockwave#k to cause a mini-earthquake and inflict massive damage to your enemies.');
+        521: C.SendNext('Great! You are now an #bOutlaw#k. As an Outlaw, you will become a true pistolero, a master of every known Gun attack, as well as a few other skills to help you vanquish evil. #bBurst Fire#k is a more powerful version of Double Shot, shooting more bullets and causing more damage at the same time. You also no have the ability to summon a loyal #bOctopus#k and the swooping #bGaviota#k as your trusty allies, while attacking your enemies using #bBullseye#k. You can also use element-based attacks by using #bFlamethrower#k and #bIce Splitter#k.');
+      end;
+    end;
+    5: C.SendNextPrev('I''ve also given you some SP and AP, which will help you get started. You have now become a powerful pirate, indeed. Remember, though, that the real world will be awaiting with even tougher obstacles. Once you feel like you cannot reach a higher place, then come see me. I''ll be here waiting.');
+    6: C.Dispose;
+  end;
+end;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  if (Status = 0) and (Mode = 0) then
+  begin
+    C.SendNext('I don''t think you are ready to face the tough challenges that lie ahead. Come see me only after you have convinced yourself of your toughness.');
+    C.Dispose;
+    Exit;
+  end;
+  
+  if (C.IsQuestFinished(7500)) and ((C.Char.Job mod 10 = 0) or (Status > 4)) then
+  begin
+    if Status <= 2 then
+      Status := 3;
+    DoChangeJob(C);
+    Exit;
+  end;
+
+  case Status of
+    0:
+    if ((C.Char.Job = 510) or (C.Char.Job = 520)) and (C.Char.Level >= 70) then
+      C.SendSimple('Can I help you?#b\r\n#L0#I want to make the 3rd job advancement#l')
+    else
+    begin
+      C.SendNext('Welcome. I''m #bPedro#k the chief of all pirates.');
+      C.Dispose;
+    end;
+
+    1:
+    begin
+      if C.IsQuestNotStarted(7500) then
+        C.SendYesNo('Hmm... so you want to be a stronger pirate by making the 3rd job advancement? First I can say congrats--few have this level of dedication. I can certainly make you stronger with my powers, but I''ll need to test your strength to see if your training has been adequate. Many come professing their strength, few are actually able to prove it. Are you ready for me to test your strength?')
+      else if (C.GetQuestData(7500) = 's') or (C.GetQuestData(7500) = 'p1') then
+      begin
+        C.SendNext('You don''t have #b#t4031057##k with you. Please go see #b#p1090000##k of The Nautilus, pass the test and bring #b#t4031057##k back with you. Then, and only then, you will be given the second test. Best of luck to you.');
+        C.Dispose;
+      end
+      else if (C.GetQuestData(7500) = 'p2') then
+      begin
+        C.SendNext('So you were able to complete the task given to you by #b#p1090000##k. Nice! I knew you would be able to handle it. But it''s not over yet. You do remember that there''s a second part of the test, right? Before we move on, why don''t I take that necklace from you now.');
+        C.GainItem(4031057, -1);
+        C.UpdateQuest(7500, 'end1', True);
+      end
+      else if (C.GetQuestData(7500) = 'end1') then
+      begin
+        if not C.HasItem(4031058) then
+        begin
+          C.SendNext('You don''t have #b#t4031058##k with you. Please go see #bHoly Stone#k in the Holy Ground, pass the test and bring #b#t4031058##k back with you. Then, and only then, I will help you make the next leap forward. Best of luck to you.');
+          C.Dispose;
+          Exit;
+        end;
+        C.SendNext('Ah... You found the Holy Ground, I see. I... I didn''t think you would pass the second test. I will take the necklace now before your advance to your 3rd job.');
+        C.GainItem(4031058, -1);
+        C.SilentCompleteQuest(7500);
+      end;
+    end;
+
+    2:
+    begin
+      if C.IsQuestNotStarted(7500) then
+      begin
+        C.UpdateQuest(7500, 's', True);
+        C.SendNext('Great! Now, you will have to prove your strength and intelligence. Let me first explain the strength test. Do you remember #b#p1090000##k from The Nautilus who helped you make the 1st and 2nd advancements? Go see her and she will give you a task to fulfill. Complete that task and you will receive #b#t4031057##k from #p1090000#.');
+      end
+      else if C.GetQuestData(7500) = 'end1' then
+        C.SendNext('Now, the second test remains. If you pass this test, you''ll become a more powerful Pirate. When you take the secret portal found in Sharp Cliff I in the El Nath Dungeon, you will find a small Holy Stone, which the monsters don''t dare approach. It may appear to be an average Holy Stone, but if you offer a special item, it will test your wisdom.');
+    end;
+
+    3:
+    begin
+      if C.GetQuestData(7500) = 's' then
+        C.SendNextPrev('The second part will be to test your intelligence, however, you must pass the strength test first. After that, you will be qualified for the second test. Now... I will let #b#p1090000##k know that you are on your way, so follow this road and go see her right away. It won''t be easy, but I trust that you will be able to handle it.')
+      else
+        C.SendNextPrev('Find the Holy Ground and offer a special item. If you are able to answer the questions that are asked of you truthfully and sincerely, you will receive #b#t4031058##k. If you bring the necklace to me, I will advance you into an even stronger pirate. Best of luck to you and dress warm! Pirate gear isn''t exactly built for the cold.');
+    end;
+
+    4: C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

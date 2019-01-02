@@ -1,0 +1,389 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/DelphiMS/!svn/ver/407/Dependencies/Script%20Engine%20II
+END
+uSE2BaseTypes.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2BaseTypes.pas
+END
+uSE2ExecutionContext.pas
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/DelphiMS/!svn/ver/364/Dependencies/Script%20Engine%20II/uSE2ExecutionContext.pas
+END
+uSE2OpCode.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2OpCode.pas
+END
+uSE2Compiler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2Compiler.pas
+END
+uSE2SafeBlockMngr.pas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2SafeBlockMngr.pas
+END
+license.txt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/license.txt
+END
+uSE2Optimizer.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2Optimizer.pas
+END
+uSE2IncGuid.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncGuid.pas
+END
+uSE2Linker.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2Linker.pas
+END
+uSE2RunOperation.pas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2RunOperation.pas
+END
+uSE2UnitCacheMngr.pas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2UnitCacheMngr.pas
+END
+uSE2ScriptLibrary.pas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2ScriptLibrary.pas
+END
+uSE2Parser.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2Parser.pas
+END
+uSE2RunCall.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2RunCall.pas
+END
+uSE2IncScriptExceptions.pas
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncScriptExceptions.pas
+END
+uSE2Reader.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2Reader.pas
+END
+uSE2PerfMonitor.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2PerfMonitor.pas
+END
+uSE2CodeCompletion.pas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2CodeCompletion.pas
+END
+uSE2RunType.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2RunType.pas
+END
+uSE2IncDiagnosticsDebug.pas
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncDiagnosticsDebug.pas
+END
+uSE2IncConvert.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncConvert.pas
+END
+uSE2IncVersion.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncVersion.pas
+END
+uSE2RunTime.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/364/Dependencies/Script%20Engine%20II/uSE2RunTime.pas
+END
+uSE2IncMath.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncMath.pas
+END
+uSE2IncSyncObjs.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncSyncObjs.pas
+END
+uSE2PackageAPI.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2PackageAPI.pas
+END
+uSE2IncInfo.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncInfo.pas
+END
+uSE2ScriptImporter.pas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2ScriptImporter.pas
+END
+uSE2IncDateTime.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncDateTime.pas
+END
+uSE2NameWeaver.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2NameWeaver.pas
+END
+uSE2IncConsole.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncConsole.pas
+END
+uSE2IncTypes.pas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncTypes.pas
+END
+uSE2UnitCache.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2UnitCache.pas
+END
+uSE2Types.pas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2Types.pas
+END
+uSE2IncScriptInfo.pas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncScriptInfo.pas
+END
+uSE2IncTimeSpan.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncTimeSpan.pas
+END
+uSE2IncExceptions.pas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncExceptions.pas
+END
+uSE2Packages.pas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2Packages.pas
+END
+uSE2NativeCallList.pas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2NativeCallList.pas
+END
+uSE2DebugData.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2DebugData.pas
+END
+ScriptEngine.inc
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DelphiMS/!svn/ver/407/Dependencies/Script%20Engine%20II/ScriptEngine.inc
+END
+uSE2IncStrings.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncStrings.pas
+END
+uSE2SystemUnit.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2SystemUnit.pas
+END
+uSE2IncTimeZone.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncTimeZone.pas
+END
+uSE2IncSystemInteropWindows.pas
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncSystemInteropWindows.pas
+END
+uSE2ScriptThread.pas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2ScriptThread.pas
+END
+uSE2IncHelpers.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncHelpers.pas
+END
+uSE2PEData.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2PEData.pas
+END
+uSE2DLLMemoryManager.pas
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2DLLMemoryManager.pas
+END
+uSE2IncMultiCast.pas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncMultiCast.pas
+END
+uSE2IncKeyCodes.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncKeyCodes.pas
+END
+uSE2RunTimeClasses.pas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2RunTimeClasses.pas
+END
+uSE2MemoryManager.pas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2MemoryManager.pas
+END
+uSE2IncSystemThreading.pas
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncSystemThreading.pas
+END
+uSE2NativeScriptCall.pas
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2NativeScriptCall.pas
+END
+uSE2Consts.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2Consts.pas
+END
+uSE2UnitManager.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/364/Dependencies/Script%20Engine%20II/uSE2UnitManager.pas
+END
+uSE2Tokenizer.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2Tokenizer.pas
+END
+uSE2Errors.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2Errors.pas
+END
+uSE2ThreadMonitor.pas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2ThreadMonitor.pas
+END
+uSE2RunAccess.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2RunAccess.pas
+END
+uSE2IncClasses.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncClasses.pas
+END
+uSE2LibraryLoader.pas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2LibraryLoader.pas
+END
+uSE2IncPerformance.pas
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/DelphiMS/!svn/ver/355/Dependencies/Script%20Engine%20II/uSE2IncPerformance.pas
+END

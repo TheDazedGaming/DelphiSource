@@ -1,0 +1,16 @@
+// Script that directs the Cygnus Job Tutorial
+
+procedure Enter(P: TPortalScript); export;
+begin
+  case P.ID of  // it's the MapID, not the CharID. Varname is a bit misleading :O
+    913040100: P.ShowWZEffect('Effect/Direction.img/cygnusJobTutorial/Scene0', -1);
+    913040101: P.ShowWZEffect('Effect/Direction.img/cygnusJobTutorial/Scene1', -1);
+    913040102: P.ShowWZEffect('Effect/Direction.img/cygnusJobTutorial/Scene2', -1);
+    913040103: P.ShowWZEffect('Effect/Direction.img/cygnusJobTutorial/Scene3', -1);
+    913040104: P.ShowWZEffect('Effect/Direction.img/cygnusJobTutorial/Scene4', -1);
+    913040105: P.ShowWZEffect('Effect/Direction.img/cygnusJobTutorial/Scene5', -1);
+    913040106: P.ShowWZEffect('Effect/Direction.img/cygnusJobTutorial/Scene6', -1);
+    
+    else Console.WriteLine('Unknown MapID for cygnusJobTutorial: ' + Convert.ToString(P.ID));
+  end;
+end;

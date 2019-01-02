@@ -1,0 +1,8 @@
+// Portal for leaving map 912000000 after doing Muirhat's quest
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowInfo('Now returning to The Nautilus.');
+  P.PlayPortalSound;
+  P.Warp(120000200);
+end;

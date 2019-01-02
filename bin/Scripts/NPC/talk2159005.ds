@@ -1,0 +1,12 @@
+// Some child
+
+uses NPCConversation;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  C.SendOK('Aww, you found me. I thought I found a great spot, too.');
+  C.Dispose;
+end;
+
+begin
+end.

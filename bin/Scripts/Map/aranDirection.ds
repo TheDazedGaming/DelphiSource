@@ -1,0 +1,22 @@
+// Script that directs the Black Mage intro
+
+procedure Enter(P: TPortalScript); export;
+begin
+  case P.ID of  // it's the MapID, not the CharID. Varname is a bit misleading :O
+    914090010: P.ShowWZEffect('Effect/Direction1.img/aranTutorial/Scene0', -1);
+    914090011: if P.Char.Gender = 0 then
+                 P.ShowWZEffect('Effect/Direction1.img/aranTutorial/Scene10', -1)
+               else  // female
+                 P.ShowWZEffect('Effect/Direction1.img/aranTutorial/Scene11', -1);
+    914090012: if P.Char.Gender = 0 then
+                    P.ShowWZEffect('Effect/Direction1.img/aranTutorial/Scene20', -1)
+               else  // female
+                 P.ShowWZEffect('Effect/Direction1.img/aranTutorial/Scene21', -1);
+    914090013: P.ShowWZEffect('Effect/Direction1.img/aranTutorial/Scene3', -1);
+    
+    // Later in Rien after clicking the Polearm
+    914090100: P.ShowWZEffect('Effect/Direction1.img/aranTutorial/HandedPoleArm' + Convert.ToString(P.Char.Gender), -1);
+    
+    else Console.WriteLine('Unknown MapID for aranDirection: ' + Convert.ToString(P.ID));
+  end;
+end;

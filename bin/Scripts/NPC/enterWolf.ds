@@ -1,0 +1,23 @@
+// NPC Name: Wolf Guard
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0: C.SendNext('What is it? If you''re here to waste my time, get lost.');
+    1: C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

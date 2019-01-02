@@ -1,0 +1,31 @@
+(*
+    NPC Name:    Machine Apparatus
+    Map:         220080001 - 
+    Description: To leave Papulatus
+    Author:      SpX
+
+    TODO: Kill mobs on exit
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+   -1: C.Dispose;
+    0: C.SendYesNo('Beep... beep... you can make you escape to a safer place through me.\nBeep ... beep ... would you like to leave this place?');
+    1: C.Warp(220080000, 2);
+  end;
+end;
+
+begin
+  Status := -1;
+end.

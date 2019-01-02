@@ -1,0 +1,4 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowInfo('The only way you may enter the 3rd Hall is if you''re training for the Level 100 skills.');
+end;

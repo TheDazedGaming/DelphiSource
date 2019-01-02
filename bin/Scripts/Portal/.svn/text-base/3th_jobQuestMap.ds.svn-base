@@ -1,0 +1,4 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.Warp(910540000 + (P.Char.Job div 100) * 100, 1);
+end;

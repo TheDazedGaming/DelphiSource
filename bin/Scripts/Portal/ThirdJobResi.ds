@@ -1,0 +1,18 @@
+procedure Enter(P: TPortalScript); export;
+var
+  M: Integer;
+begin
+  if P.IsQuestActive(23033) or P.IsQuestActive(23034) or P.IsQuestActive(23035) then
+  begin
+    P.ShowInfo('Destroy the Energy Conducting Device!');
+    if P.CountPlayersOnMap(931000200) = 0 then
+      M := 931000200
+    else
+      M := 931000201;
+    P.KillAllMonsters(M);
+    P.ForceRespawn(M);
+    P.Warp(M, 1);
+  end
+  else
+    P.ShowInfo('It''s a Power Plant. It''s probably not a good idea to go inside.');
+end;

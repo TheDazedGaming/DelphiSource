@@ -1,0 +1,36 @@
+// QuestID: 21700 - New Beginnings (Start only)
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Mode = 0) and (Status = 4) then
+  begin
+    Q.SendNext('No? Are you saying you can train on your own? I''m just letting you know that you''ll get better results if you train with an instructor. You can''t live in this world alone. You must learn to get along with other people.');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('It seems like you''ve started to remember things. Your Polearm must have recognized you. This means you are surely #bAran, the wielder of Polearms#k. Is there anything else you remember? Skills you used with the Polearm perhaps? Anything?', 8);
+    2: Q.SendNextPrev('#b(You tell her that you remember a few skills.)#k', 2);
+    3: Q.SendNextPrev('That''s not a lot, but it''s progress. Our focus, then, should be to get you back to the state before you were frozen. You may have lost your memory, but I''m sure it won''t take long for you to recover the abilities that your body remembers.', 8);
+    4: Q.SendNextPrev('How do I recover my abilities?', 2);
+    5: Q.SendAcceptDecline('There is only one way to do that. Train! Train! Train! Train! If you continue to train, your body will instinctively remember its abilities. To help you through the process, I''ll introduce you to an instructor.');
+    6:
+    begin
+      if not Q.IsQuestActive(21700) then
+        Q.StartQuest;
+
+      Q.SendNext('I gave you a #bPolearm#k because I figured it would be best for you to use a weapon you''re familiar with. It will be useful in your training.');
+    end;
+    7: Q.SendPrev('You''ll find a Training Center if you exit to the #bleft#k. There, you''ll meet #b#p1202006##k. I''m a bit worried because I think he may be struggling with bouts of Alzheimer''s, but he spent a long time researching skills to help you. I''m sure you''ll learn a thing or two from him.');
+    8: Q.Dispose;
+  end;
+end;

@@ -1,0 +1,45 @@
+(*
+    NPC Name:    Kiriru
+    Map:         Victoria Road - Sky Ferry <To Ereve>
+    Description: Warps you to Ereve.
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    -1:  
+    begin
+      C.SendNext('If you''re not interested, then oh well...');  // If pressed no
+      C.Dispose; 
+    end;
+
+    0: C.SendYesNo('Oh, and... so... this ship will take you to #b#m130000000##k, the place where you''ll find crimson leaves soaking up the sun, the gentle breeze that glides past the stream, and the Empress of Maple, Cygnus. Would you like to head over to #m130000000#? \r\r\r\rThe trip costs #b1000#k Mesos.');
+    
+    1:    
+    begin
+      if C.Char.Mesos >= 1000 then
+      begin
+        C.GainMesos(-1000);
+        C.Warp(130000210);
+      end
+      else
+        C.SendOK('Hmm... Are you sure you have #b1000#k Mesos? Check your Inventory and make sure you have enough. You must pay the fee or I can''t let you get on...');
+      
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

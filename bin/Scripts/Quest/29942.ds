@@ -1,0 +1,10 @@
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  Q.ShowInfo('<Special Training Intermediate> has been rewarded.');
+  Q.ShowInfoOnScreen('<Special Training Intermediate> has been rewarded.');
+  if not Q.HasItem(1142243) then
+    Q.GainItem(1142243, 1);
+  Q.UpdateQuest(29942, '', True);
+  Q.SilentCompleteQuest(29942);
+  Q.Dispose;
+end;

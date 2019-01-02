@@ -1,0 +1,12 @@
+// Left Portal in Cold Forest 3 (914000300)
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if not P.IsQuestFinished(21012) then
+  begin
+    P.ShowInfo('You must complete the quest before proceeding to the next map.');
+    Exit;
+  end;
+
+  P.Warp(140090400, 1);
+end;

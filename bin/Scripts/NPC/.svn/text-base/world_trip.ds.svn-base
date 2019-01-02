@@ -1,0 +1,77 @@
+(*
+    NPC Name:    Spinel
+    Map:         Many towns
+    Description: World Tour Guide
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  // Warp to Mushroom Shrine
+  if C.Char.MapID <> 800000000 then
+  begin
+    case Status of
+      0:
+      begin
+        if (C.Char.Job = 0) or (C.Char.Job = 1000) or (C.Char.Job = 2000) then
+          C.SendNext('If you''re tired of the monotonous daily life, how about getting out for a change? There''s nothing quite like soaking up a new culture, learning something new by the minute! It''s time for you to get out and travel. We recommend a #bWorld Tour#k! Are you worried about the travel expense? No need to worry! The #bMaple Travel Agency#k offers first class travel accommodation for the low price of #b300 mesos#k')
+        else
+          C.SendNext('If you''re tired of the monotonous daily life, how about getting out for a change? There''s nothing quite like soaking up a new culture, learning something new by the minute! It''s time for you to get out and travel. We, at the Maple Travel Agency recommend you going on a #bWorld Tour#k! Are you worried about the travel expense? You shouldn''t be! We, the #bMaple Travel Agency#k, have carefully come up with a plan to let you travel for ONLY #b3,000 mesos!#k');
+      end;
+      1: C.SendSimple('We currently offer this place for your traveling pleasure: #bMushroom Shrine of Japan#k. I''ll be there serving you as the travel guide. Rest assured, the number of destinations will increase over time. Now, would you like to head over to the Mushroom Shrine?\r\n#b#L0# Yes, take me to Mushroom Shrine (Japan)#k#l');
+      2: C.SendNext('Would you like to travel to #bMushroom Shrine of Japan#k? If you desire to feel the essence of Japan, there''s nothing like visiting the Shrine, a Japanese cultural melting pot. Mushroom Shrine is a mythical place that serves the incomparable Mushroom God from ancient times.');
+      3: C.SendNextPrev('Check out the female shaman serving the Mushroom God, and I strongly recommend trying Takoyaki, Yakisoba, and other delicious food sold in the streets of Japan. Now, let''s head over to #bMushroom Shrine#k, a mythical place if there ever was one.');
+      4:
+      begin
+        if C.Char.Mesos >= 3000 then
+        begin
+          C.SaveLocation('slWorldTour');
+          if C.Char.Job mod 1000 = 0 then
+            C.GainMesos(-300)
+          else
+            C.GainMesos(-3000);
+          C.Warp(800000000, 5);
+          C.Dispose;
+        end
+        else
+          C.SendPrev('Please check and see if you have enough mesos to go.');
+      end;
+      5: C.Dispose;
+    end;
+  end
+  else   // Warp back
+  begin
+    case Status of
+      0: C.SendSimple('How''s the traveling? Are you enjoying it?\r\n#b#L0#Yes, I''m done with traveling. Can I go back to #m' + Convert.ToString(C.GetSavedLocation('slWorldTour')) + '#? #l\r\n#b#L1#No, I''d like to continue exploring this place.#l');
+      1:
+      begin
+        if Selection = 1 then    // Stay
+        begin
+          C.SendOK('OK. If you ever change your mind, please let me know.');
+          C.Dispose;   // the conversation is over
+        end
+        else    // Go back
+          C.SendNext('Alright. I''ll now take you back to where you were before the visit to Japan. If you ever feel like traveling again down the road, please let me know!');
+      end;
+      2:   // this is called when you press "Next"
+      begin
+        C.Warp(C.GetSavedLocation('slWorldTour'));
+        // no money is taken for returning (GMS 0.80)
+        C.Dispose;
+      end;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

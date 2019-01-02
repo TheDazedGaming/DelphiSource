@@ -1,0 +1,23 @@
+procedure Enter(P: TPortalScript); export;
+var
+  M: Integer;
+begin
+  if (P.IsQuestFinished(23046) or P.IsQuestFinished(23047) or P.IsQuestFinished(23048)) and (P.HasItem(4032743)) then
+  begin
+    case P.Char.Job of
+      3211: M := 0;
+      3311: M := 1;
+      3511: M := 2;
+    end;
+
+    if (P.CountPlayersOnMap(931000300 + M) > 0) or (P.CountPlayersOnMap(931000310 + M) > 0) or (P.CountPlayersOnMap(931000320 + M) > 0) then
+    begin
+      P.ShowInfo('You can hear someone beyond the door. Come back a little later.');
+      Exit;
+    end;
+    P.ShowInfo('Find the missing Job Instructor!');
+    P.Warp(931000300 + M);
+  end
+  else
+    P.ShowInfo('The door is locked. You must get a Key Card from Gelimer to open it.');
+end;

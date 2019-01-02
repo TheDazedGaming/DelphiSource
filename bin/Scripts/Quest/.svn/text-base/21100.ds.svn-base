@@ -1,0 +1,45 @@
+// QuestID: 21100 - The Five Heroes (Start only)
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  // Pressed Decline
+  if (Mode = 0) and (Status = 6) then
+  begin
+    Q.SendNext('What''s stopping you? I promise, I won''t be disappointed even if the #p1201001# shows no reaction to you. Please, rush over there and grab the #p1201001#. Just #bclick#k on it.');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('There isn''t much record left of the heores that fought against the Black Mage. Even in the Book of Prophecy, the only information available is that there were five of them. There is nothing about who they were or what they looked like. Is there anything you remember? Anything at all?', 8);
+    2: Q.SendNextPrev('I don''t remember a thing...', 2);
+    3: Q.SendNextPrev('As I expected. Of course, the curse of the Black Mage was strong enough to wipe out all of your memory. But even if that''s the case, there has got to be a point where the past will uncover, especially now that we are certain you are one of the heroes. I know you''ve lost your armor and weapon during the battle but... Oh, yes, yes. I almost forgot! Your #bweapon#k!', 8);
+    4: Q.SendNextPrev('My weapon?', 2);
+    5: Q.SendNextPrev('I found an incredible weapon while digging through blocks of ice a while back. I figured the weapon belonged to a hero, so I brought it to town and placed it somewhere in the center of the town. Haven''t you seen it? #bThe #p1201001##k... \r\r#i4032372#\r\rIt looks like this...', 8);
+    6: Q.SendNextPrev('Come to think of it, I did see a #p1201001# in town.', 2);
+    7: Q.SendAcceptDecline('Yes, that''s it. According to what''s been recorded, the weapon of a hero will recognize its rightful owner, and if you''re the hero that used the #p1201001#, the #p1201001# will react when you grab the #p1201001#. Please go find the #b#p1201001# and click on it.#k');
+    8:
+    begin
+      if not Q.IsQuestActive(21100) then
+      begin
+        Q.UpdateQuest(21100, '', True);  // create quest first
+        Q.FinishQuest;   // auto finish
+      end;
+
+      Q.SendOK('If the #p1201001# reacts to you, then we''ll know that you''re #bAran#k, the hero that wielded a #p1201001#.', 8);
+    end;
+    9:
+    begin
+      Q.ShowWZEffect('Effect/Direction1.img/aranTutorial/ClickPoleArm', -1);
+      Q.Dispose;
+    end;
+  end;
+end;

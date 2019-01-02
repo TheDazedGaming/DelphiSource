@@ -1,0 +1,75 @@
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status, CIndex, Sel: Integer;
+
+procedure CheckAndNext(C: TNPCConversation; Answer: Integer; NextQuestion: string);
+begin
+  if Sel <> Answer then
+  begin
+    C.SendNext('Wrong... Start again...');
+    C.Dispose;
+  end
+  else if NextQuestion <> '' then
+    C.SendSimple(NextQuestion)
+  else
+    C.SendNext('I detect nothing but the truth in your answers.\r\nYour wisdom has been proven.\r\nTake this necklace before you leave.');
+end;
+
+procedure Catalogue(C: TNPCConversation; Q1, Q2, Q3, Q4, Q5: string; A1, A2, A3, A4, A5: Integer);
+begin
+  case Status of
+    2: C.SendSimple('Here''s the first question. ' + Q1);
+    3: CheckAndNext(C, A1, 'Question number two. ' + Q2);
+    4: CheckAndNext(C, A2, 'Question number three. ' + Q3);
+    5: CheckAndNext(C, A3, 'Question number four. ' + Q4);
+    6: CheckAndNext(C, A4, 'Question number five. ' + Q5);
+    7: CheckAndNext(C, A5, '');
+    8:
+    begin
+      C.GainItem(4031058, 1);
+      C.Dispose;
+    end;
+  end;
+end;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if (C.GetQuestData(7500) <> 'end1') or (C.HasItem(4031058)) or (Mode <> 1) then
+  begin
+    C.Dispose;
+    Exit;
+  end;
+
+  Inc(Status);
+  Sel := Selection;
+
+  if Status = 0 then
+  begin
+    CIndex := Random.Next(2);
+    C.SendYesNo('... ... ...\r\nIf you want to test out your wisdom, then you''ll have to offer #bDark Crystal#k as the sacrifice ...\r\nAre you ready to offer Dark Crystal and answer a set of questions from me?');
+  end
+  else if Status = 1 then
+  begin
+    if not C.HasItem(4005004) then
+    begin
+      C.SendNext('If you want me to test your wisdom, you will have to provide a #b#t4005004##k as a sacrifice.');
+      C.Dispose;
+    end
+    else
+    begin
+      C.SendNext('Alright ... I''ll be testing your widsom here. Anwer all the questions correctly, and you will pass the test. But if you are wrong just once, then you''ll have to start over again... Okay, here we go.');
+      C.GainItem(4005004, -1);
+    end;
+  end
+  else
+    case CIndex of
+      0: Catalogue(C, 'Which NPC cannot be seen in Henesys of Victoria Island?#b\r\n#L0# #p1012101##l\r\n#L1# #p1002001##l\r\n#L2# #p1010100##l\r\n#L3# #p1012100##l\r\n#L4# #p1012102##l', 'Which of the following monsters will you NOT see in Maple Island?#b\r\n#L0# #o100101##l\r\n#L1# #o1210102##l\r\n#L2# #o130101##l\r\n#L3# #o1210101##l\r\n#L4# #o120100##l', 'Which of these items did Maya ask for the cure of her sickness?#b\r\n#L0# Incredible Medicine#l\r\n#L1# Bad Medicine#l\r\n#L2# Cure-All#l\r\n#L3# Chinese Medicine#l\r\n#L4# #t4031006##l', 'Which of the following cities is NOT part of Victoria Island?#b\r\n#L0# Kerning City#l\r\n#L1# Amherst#l\r\n#L2# Perion#l\r\n#L3# Nautilus Harbor#l\r\n#L4# Ellinia#l', 'Which monster will you NOT find in the dungeon of Victoria Island?#b\r\n#L0# #o6230100##l\r\n#L1# #o7130101##l\r\n#L2# #o5130100##l\r\n#L3# #o6400005##l\r\n#L4# #o3000000##l', 1, 3, 4, 1, 4);
+      1: Catalogue(C, 'Which of these pairings of the monster/leftover are correctly matched?#b\r\n#L0# #o3210100# - Fire Boar''s Nose#l\r\n#L1# #o4230100# - Cold Eye Eyeball#l\r\n#L2# #o1210100# - Pig''s Ear#l\r\n#L3# #o2300100# - #t4000042##l\r\n#L4# #o2230101# - Zombie Mushroom Cap#l', 'Which NPC cannot be seen in Perion?#b\r\n#L0# #p1021100##l\r\n#L1# #p1032002##l\r\n#L2# #p1022002##l\r\n#L3# #p1022003##l\r\n#L4# #p1022100##l', 'Who is the father of Alex, the runaway kid?#b\r\n#L0# #p1012005##l\r\n#L1# #p1012002##l\r\n#L2# #p12000##l\r\n#L3# #p20000##l\r\n#L4# #p1012003##l', 'When adventurers collect 30 Dark Marbles to make the 2nd job advancement, what do they receive from their respective job instructor NPCs?#b\r\n#L0# #t4031012##l\r\n#L1# Necklace of a Hero#l\r\n#L2# Pendant of a Hero#l\r\n#L3# Medal of a Hero#l\r\n#L4# Sign of a Hero#l', 'For the 1st job adv., which job fully states the job adv. requirement?#b\r\n#L0# Warrior - STR 30+#l\r\n#L1# Magician - INT 25+#l\r\n#L2# Bowman - DEX 25+#l\r\n#L3# Thief - DEX 20+#l\r\n#L4# Thief - LUK 20+#l', 3, 1, 4, 0, 2);
+      // TODO: Implement rest.
+    end;
+end;
+
+begin
+  Status := -1;
+end.

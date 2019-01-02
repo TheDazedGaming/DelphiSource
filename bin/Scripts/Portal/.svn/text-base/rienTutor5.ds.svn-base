@@ -1,0 +1,6 @@
+// Speech bubble over Lilin after walking a bit left in Cold Forest 5
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowGuideEffectWithText('You''re very close to town. I''ll head over there first since I have some things to take care of. You take your time.', 200, 4000);
+end;

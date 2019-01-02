@@ -1,0 +1,263 @@
+(*
+    NPC Name:    Dark Lord
+    Description: Thief Instructor
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status, State, Explain, JobID: Integer;
+  Job: string;
+  
+procedure SelectSecondJob(C: TNPCConversation; Sel: Integer);
+begin
+  if Status = 0 then
+  begin
+    C.SendOK('You have chosen wisely.');
+    C.Dispose;
+    Exit;
+  end;
+
+  if (Status = 2) and (Job <> '') then
+  begin
+    // Pressed no
+    C.SendNext('Really? Have to give more thought to it, huh? Take your time, take your time. This is not something you should take lightly... come talk to me once you have made your decision.');
+    C.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    2: C.SendSimple('Hmmm, have you made up your mind? Then choose the 2nd job advancement of your liking.\r\n#L0##bAssassin#k#l\r\n#L1##bBandit#k#l');
+    3:
+    begin
+      if Sel = 0 then
+      begin
+        JobID := 410;
+        Job := 'Assassin';
+      end else
+      begin
+        JobID := 420;
+        Job := 'Bandit';
+      end;
+
+      C.SendYesNo('So you want to make the second job advancement as the #b' + Job + '#k? Once you have made the decision, you can''t go back and change your mind. You ARE sure about this, right?');
+    end;
+
+    4:
+    begin
+      if C.Char.RemainingSP > (C.Char.Level - 30) * 3 then
+      begin
+        C.SendNext('Hmmm...you have too much SP...you can''t make the 2nd job advancement with that many SP in store. Use more SP on the skills on the 1st level and then come back.');
+        C.Dispose;
+        Exit;
+      end;
+
+      C.ChangeJob(JobID);
+      C.GainItem(4031012, -1);  // Take Proof of the Hero
+      C.Char.MaxHP := C.Char.MaxHP + 300 + Random.Next(50);
+      C.Char.MaxMP := C.Char.MaxMP + 150 + Random.Next(50);
+      C.IncreaseSlotLimit(2, 1);
+
+      if JobID = 410 then
+        C.SendNext('Alright, from here on out you are the #bAssassin#k. Assassins revel in shadows and darkness, waiting until the right time comes for them to stick a dagger through the enemy''s heart, suddenly and swiftly...please keep training. I''ll make you even more powerful than you are right now!')
+      else
+        C.SendNext('Alright from here on out, you''re the #bBandit#k. Bandits have quick hands and quicker feet to dominate the enemies. Please keep training. I''ll make you even more powerful than you are right now.');
+    end;
+
+    5: C.SendNext('I have just given you a book that gives you the list of skills you can acquire as a ' + Job + '. I have also added a whole row to your use inventory, along with boosting up your max HP and MP...go see for it yourself.');
+    6: C.SendNextPrev('I have also given you a little bit of #bSP#k. Open the #bSkill Menu#k located at the bottomleft corner. You''ll be able to boost up the newly-acquired 2nd level skills. A word of warning though: You can''t boost them up all at once. Some of the skills are only available after you have learned other skills. Make sure to remember that.');
+    7: C.SendNextPrev(Job + 's have to be strong. But remember that you can''t abuse that power and use it on a weakling. Please use your enormous power the right way, because...for you to use that the right way, that is much harder than just getting stronger. Find me after you have advanced much further. I''ll be waiting for you.');
+    8: C.Dispose;
+  end;
+end;
+
+procedure SecondJob(C: TNPCConversation; Sel: Integer);
+begin
+  if Explain = 2 then   // pressed "I'll choose my occupation!"
+  begin
+    SelectSecondJob(C, Sel);
+    Exit;
+  end;
+
+  if Status = 0 then
+  begin
+    if (not C.HasItem(4031012)) and (not C.HasItem(4031011)) then
+    begin
+      // hasn't got Letter and Proof of the Hero -> Start
+      State := 0;
+      C.SendYesNo('Hmmm...you seem to have gotten a whole lot stronger. You got rid of the old, weak self and and look much more like a thief now. Well, what do you think? Don''t you want to get even more powerful than that? Pass a simple test and I''ll do just that for you. Do you want to do it?');
+    end
+    else if not C.HasItem(4031012) then
+    begin
+      // has Letter but didn't go there yet
+      C.SendNext('Still haven''t met the person yet? Find #b#p1072003##k who''s around #b#m102040000#k near Kerning City. Give the letter to him and he may let you know what to do.');
+      C.Dispose;
+    end
+    else
+    begin
+      // has Proof of the Hero -> Finish
+      State := 1;
+      C.SendNext('Hmmm...so you got back here safely. I knew that test would be too easy for you. I admit, you are a great great thief. Now...I''ll make you even more powerful than you already are. But, before all that...you need to choose one of two ways. It''ll be a difficult decision for you to make, but...if you have any questions, please ask.');
+    end;
+  end
+  else if (Status = -1) and (State = 0) then
+  begin
+    // Pressed "No"
+    C.SendNext('Really? It will help you out a great deal on your journey if you get stronger fast...if you choose to change your mind in the future, please feel free to come back. Know that I''ll make you much more powerful than you are right now.');
+    C.Dispose;
+  end
+  else if (Status = 1) and (State = 0) then
+    C.SendNext('Good thinking. But, I need to make sure you are as strong as you look. It''s not a hard test, one that should be easy for you to pass. First, take this letter...make sure you don''t lose it.')
+  else if (Status = 2) and (State = 0) then
+  begin
+    C.GainItem(4031011, 1);  // Give Letter - ID different for each job class
+    C.SendNextPrev('Please take this letter to #b#p1072003##k around #b#m102040000##k near Kerning City. He''s doing the job of an instructor in place of me. Give him the letter and he''ll give you the test for me. If you want more details, hear it straight from him. I''ll be wishing you good luck.');
+  end
+  else if (Status = 3) and (State = 0) then
+    C.Dispose
+  else if (Status = 1) and (State = 1) then
+  begin
+    // Came back with proof - Ask for job
+    C.SendSimple('Alright, when you have made your decision, click on [I''ll choose my occupation!] at the very bottom...\r\n#L0##bPlease explain the characteristics of the Assassin.#k#l\r\n#L1##bPlease explain the characteristics of the Bandit.#k#l\r\n#L2##bI''ll choose my occupation!#k#l');
+  end
+  else if (Status = 2) and (State = 1) then
+  begin
+    Explain := Sel;
+    case Explain of
+      0: C.SendNext('Let me explain the role of the Assassin. Assassin is the Thief that uses throwing stars. Skills like #bClaw Mastery#k and #bCritical Throw#k will help you use your throwing stars better. Boost Claw Mastery up more and your maximum number of throwing stars increases, so it''ll be best to learn it. Please remember that.');
+      1: C.SendNext('This is what being the Bandit is all about. Bandits are thieves who specialize in using daggers. Skills like #bDagger Mastery#k and #bDagger Booster#k will help you use your dagger better. Daggers have quick attacking speed to begin with, and if you add that with a booster, then...oh my! Fast enough to scare the crap out of the monsters!');
+      2:
+      begin
+        SelectSecondJob(C, -1);
+        Exit;
+      end;
+    end;
+  end
+  else if (Status = 3) and (State = 1) then
+    case Explain of
+      0: C.SendNextPrev('I''ll explain to you one of the skills of the Assassin, #bHaste#k. It temporarily boost up you and your party members'' abilities and moving speed, perfect when facing enemies that are really fast. It''s also useful when walking to a place far far away. Wouldn''t it be much nicer to get to your destination on time as opposed to taking a whole day just to get there?');
+      1: C.SendNextPrev('I''ll explain to you what #bSteal#k does for Bandits. It gives you a certain probability to let you steal an item from an enemy. You may only steal once from one enemy, but you can keep trying until you succeed from it. The stolen item will be dropped onto the ground; make sure you pick it up first because it''s anyone''s to grab once it''s dropped.');
+    end
+  else if (Status = 4) and (State = 1) then
+  begin
+    case Explain of
+      0: C.SendNextPrev('And this is the over skill available for the Assassin, #bDrain#k. It allows you to take back a portion of the damage you dished out on an enemy and absorb it as HP! The more the damage, the more you''ll regain health...how awesome is that? Remember the most you can absorb at once is half of your maximum HP. The higher the enemy''s HP, the more you can take away.');
+      1: C.SendNextPrev('I''ll explain to you what #bSavage Blow#k does for Bandits. It uses up HP and MP to attack the enemy 6 TIMES with the dagger. The higher the skill level, the more the attacks may occur. You''ll cut up the enemy to pieces with the dagger...ooooh, isn''t it sweet? What do you think? Want to become a Bandit and feel the adrenaline rush that comes with it?');
+    end;
+  end
+  else if Status = 5 then
+    C.Dispose;
+end;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  // Pressed "No"
+  if (Status = 1) and (Mode = 0) then
+  begin
+    C.SendNext('I see...well, it''s a very important step to take, choosing your job. But don''t you want to live the fun life? let me know when you have made up your mind, ok?');
+    C.Dispose;
+    Exit;
+  end;
+
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (State = 1) or (C.GetQuestData(7500) = 's') then
+  begin
+    if Status = 0 then
+    begin
+      State := 1;
+      C.UpdateQuest(7500, 'p1', True);
+      C.SendNext('I''ve been waiting for you... #bArec#k of Ossyria told me about you, a while back. So, you''re interested in making the leap to the 3rd job advancement for thieves? To do that, I will have to test your strength to see whether you are worthy of the advancement. You will find a Door of Dimension deep inside the Cursed Temple in the heart of Victoria Island. Once inside, you''ll face my clone. Your task is to defeat him and bring the #b#t4031059##k back with you.');
+    end
+    else if Status = 1 then
+      C.SendNextPrev('Since he is a clone of me, you can expect a tough battle ahead. He uses a number of special attacking skills unlike any you have ever seen, and it is your task to successfully take him down. There is a time limit in the secret passage, so it is crucial that you defeat him fast. I wish you the best of luck, and I hope you bring the #b#t4031059##k with you.')
+    else
+      C.Dispose;
+    Exit;
+  end
+  else if (State = 2) or (C.GetQuestData(7500) = 'p1') then
+  begin
+    State := 2;
+    if C.HasItem(4031059) then
+    begin
+      C.SendNext('Nice work. You have defeated my clone and brought #b#t4031059##k back safely. You have now proven yourself worthy of the 3rd job advancement. Now, you should give this necklace to #bArec#k in Ossyria to proceed with the second part of the test. Good luck!');
+      C.UpdateQuest(7500, 'p2', True);
+      C.GainItem(4031059, -1);
+      C.GainItem(4031057, 1);
+    end
+    else
+      C.SendNext('You will find a Door of Dimension deep inside the Cursed Temple in the heart of Victoria Island. Nobody but you can go into that passage. If you go into the passage, you will meet my clone. Beat him and bring #b#t4031059##k to me.');
+    C.Dispose;
+    Exit;
+  end;
+
+  if (C.Char.Level >= 30) and (C.Char.Job = 400) then
+  begin
+    SecondJob(C, Selection);
+    Exit;
+  end
+  else if (C.Char.Level >= 30) and (C.Char.Job > 400) and (C.Char.Job < 500) then
+  begin
+    SelectSecondJob(C, Selection);
+    Exit;
+  end;
+
+  case Status of
+    0: if C.Char.Job = 0 then
+         C.SendNext('Want to be a thief? There are some standards to meet, because we can''t just accept EVERYONE in ... #bYour level should be at least 10#k. Let''s see...')
+       else
+       begin
+         C.SendNext('Exploring is good, and getting stronger is good and all... but don''t you want to enjoy living the life as you know it? How about becoming a Rouge like us and really LIVE the life? Sounds fun, isn''t it?');
+         C.Dispose;
+       end;
+    1: if C.Char.Level >= 10 then
+       begin
+         C.SendYesNo('Oh...! You look like someone that can definitely be a part of us...all you need is a little sinister mind, and...yeah...so, what do you think? Wanna be the Rouge?');
+       end
+       else
+       begin
+         C.SendNext('Hmm...you''re still a beginner...doesn''t look like you can hang out with us, yet... make yourself much stronger, THEN find me...');
+         C.Dispose;
+       end;
+    2: C.SendNext('Alright, from here on out, you are part of us! You''ll be living the life of a wanderer at first, but just be patient and soon, you''ll be living the high life. Alright, it ain''t much, but I''ll give you some of my abilities...HAAAHHH!!');
+    3:
+    begin
+      if C.Char.Job = 0 then
+      begin
+        C.Char.RemainingSP := (C.Char.Level - 10) * 3;
+        C.ChangeJob(400);
+        C.GainItem(1472061, 1);   // Beginners Garnier
+        C.GainItem(1332063, 1);      // Beginner Thief's short sword
+        C.GainItem(2070015, 3 * 1000);   // Special Subis
+        C.Char.MaxHP := C.Char.MaxHP + 100 + Random.Next(50);
+        C.Char.MaxMP := C.Char.MaxMP + 25 + Random.Next(25);
+        C.Char.HP := C.Char.MaxHP;
+        C.Char.MP := C.Char.MaxMP;
+        // Stat reset
+        C.Char.STR := 4;
+        C.Char.DEX := 25;
+        C.Char.INT := 4;
+        C.Char.LUK := 4;
+        C.Char.RemainingAP := (C.Char.Level - 1) * 5 - 12;
+        C.Char.SendUpdateStats;
+        C.IncreaseSlotLimit(1, 1);
+        C.IncreaseSlotLimit(4, 1);
+      end;
+
+      C.SendNext('I''ve just created more slots for your equipment and etc. storage. Not only that, but you''ve also gotten stronger as well. As you become part of us, and learn to enjoy life in different angles, you may one day be on top of this of darkness. I''ll be watching your every move, so don''t let me down.');
+    end;
+
+    4: C.SendNextPrev('I just gave you a little bit of #bSP#k. When you open up the #bSkill menu#k on the lower left corner of the screen, there are skills you can learn by using SP''s. One warning, though: You can''t raise it all together all at once. There are also skills you can acquire only after having learned a couple of skills first.');
+    5: C.SendNextPrev('One more warning. Once you have chosen your job, try to stay alive as much as you can. Once you reach that level, when you die, you will lose your experience level. You wouldn''t want to lose your hard-earned experience points, do you?');
+    6: C.SendNextPrev('OK! This is all I can teach you. Go to places, train and better yourself. Find me when you feel like you''ve done all you can, and need something interesting. Then, and only then, I''ll hook you up with more interesting experiences...');
+    7: C.SendNextPrev('Oh, and... if you have any questions about being the Thief, feel free to ask. I don''t know EVERYTHING, but I''ll help you out with all that I know of. Til then...');
+    8: C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

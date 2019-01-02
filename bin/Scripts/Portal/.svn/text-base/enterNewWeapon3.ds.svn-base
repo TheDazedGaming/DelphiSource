@@ -1,0 +1,13 @@
+// Mechanic 4th Job
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.IsQuestActive(23051) then
+  begin
+    P.KillAllMonsters(931000322);
+    P.ForceRespawn(931000322);
+    P.Warp(931000322, 1);
+  end
+  else
+    P.ShowInfo('You can enter only after talking to your Job Instructor to get the corresponding quest.');
+end;

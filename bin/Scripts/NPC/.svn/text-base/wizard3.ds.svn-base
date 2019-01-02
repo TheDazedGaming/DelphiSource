@@ -1,0 +1,121 @@
+// Magician 3rd Job Instructor
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure DoChangeJob(C: TNPCConversation);
+begin
+  case Status of
+    2: C.Dispose;
+    3: C.SendYesNo('Okay! Now, I''ll transform you into a much more powerful magician. Before that, however, please make sure your SP has been thoroughly used. You''ll need to use at least all the SP gained until level 70 to make the 3rd job advancement. Oh, and since you have already chosen your path of the occupation by the 2nd job advancement, you won''t have to choose again for the 3rd job advancement. Do you want to do it right now?');
+    4:
+    begin
+      if C.Char.Job mod 10 = 0 then
+        if C.Char.RemainingSP > (C.Char.Level - 70) * 3 then
+        begin
+          C.SendNext('Hmmm... you seem to have too much SP. You can''t make the 3rd job advancement with so much SP. Use more in the 1st and 2nd advancement before returning here.');
+          C.Dispose;
+          Exit;
+        end
+        else
+          C.ChangeJob(C.Char.Job + 1);
+
+      case C.Char.Job of
+        211: C.SendNext('You''re the #bMage of Fire and Poison#k from this point forward. The new skill book features new and improved fire and poison based skills, and skills such as #bElement Amplification#k (improves element-based spells) and #bSpell Booster#k (improves the overall speed of your attacking spells) will enable you to attack the monsters quickly and effectively. Defensive spells such as #bPartial Resistance#k (allows you to become stronger against certain element-based attacks) and #bSeal#k (seals up the monster) will help negate the one weakness of Mages: lack of HP.');
+        221: C.SendNext('You''re the #bMage of Ice and Lightning#k from this point forward. The new skill book features new and improved ice and lightning based skills, and skills such as #bElement Amplification#k (improves element-based spells) and #bSpell Booster#k (improves the overall speed of your attacking spells) will enable you to attack the monsters quickly and effectively. Defensive spells such as #bPartial Resistance#k (allows you to become stronger against certain element-based attacks) and #bSeal#k (seals up the monster) will help negate the one weakness of Mages: lack of HP.');
+        231: C.SendNext('You''re a #bPriest#k from here on out. The new skill book features new and improved holy spells such as #bShining Ray#k and #bSummon Dragon#k, and skills such as #bMystic Door#k (creates a door to the nearest town) and #bHoly Symbol#k (improves the EXP gained) can be vital to the party play. Off-beat spells such as #bDoom#k (turns monsters into snails) separates Priests from the rest.');
+      end;
+    end;
+    5: C.SendNextPrev('I''ve also given you some SP and AP, which will help you get started. You have now become a powerful magician, indeed. Remember, though, that the real world will be awaiting with even tougher obstacles. Once you feel like you cannot reach a higher place, then come see me. I''ll be here waiting.');
+    6: C.Dispose;
+  end;
+end;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Status = 0) and (Mode = 0) then
+  begin
+    C.SendNext('I don''t think you are ready to face the tough challenges that lie ahead. Come see me only after you have convinced yourself of your toughness.');
+    C.Dispose;
+    Exit;
+  end;
+
+  if (C.IsQuestFinished(7500)) and ((C.Char.Job mod 10 = 0) or (Status > 4)) then
+  begin
+    if Status <= 2 then
+      Status := 3;
+    DoChangeJob(C);
+    Exit;
+  end;
+
+  case Status of
+    0:
+    if ((C.Char.Job = 210) or (C.Char.Job = 220) or (C.Char.Job = 230)) and (C.Char.Level >= 70) then
+      C.SendSimple('Can I help you?#b\r\n#L0#I want to make the 3rd job advancement#l')
+    else
+    begin
+      C.SendNext('Welcome. I''m #bRobeira#k, the chief of all magicians.');
+      C.Dispose;
+    end;
+
+    1:
+    begin
+      if C.IsQuestNotStarted(7500) then
+        C.SendYesNo('Welcome. I''m #bRobeira#k the chief of all magicians, always ready to offer my knowledge and guidance to the magicians all around the world. You seem ready to take on the challenges of the 3rd job advancement, but I advise you not to get too confident. I''ve seen countless magicians come and go, failing to live up to my expectations in the process. I don''t know about you, though. Are you ready to be tested and make the 3rd job advancement?')
+      else if (C.GetQuestData(7500) = 's') or (C.GetQuestData(7500) = 'p1') then
+      begin
+        C.SendNext('You don''t have #b#t4031057##k with you. Please go see #b#p1032001##k of Ellinia, pass the test and bring #b#t4031057##k back with you. Then, and only then, you will be given the second test. Best of luck to you.');
+        C.Dispose;
+      end
+      else if (C.GetQuestData(7500) = 'p2') then
+      begin
+        C.SendNext('Great job completing the physical part of the test. I knew you could do it. Now that you have passed the first half of the test, here''s the second half. Please give me the necklace first.');
+        C.GainItem(4031057, -1);
+        C.UpdateQuest(7500, 'end1', True);
+      end
+      else if (C.GetQuestData(7500) = 'end1') then
+      begin
+        if not C.HasItem(4031058) then
+        begin
+          C.SendNext('You don''t have #b#t4031058##k with you. Please go see #bHoly Stone#k in the Holy Ground, pass the test and bring #b#t4031058##k back with you. Then, and only then, I will help you make the next leap forward. Best of luck to you.');
+          C.Dispose;
+          Exit;
+        end;
+        C.SendNext('Great job completing the mental part of the test. You have wisely answered all the questions correctly. I must say, I am quite impressed with the level of wisdom you have displayed there. Please hand me the necklace first, before we take on the next step.');
+        C.GainItem(4031058, -1);
+        C.SilentCompleteQuest(7500);
+      end;
+    end;
+
+    2:
+    begin
+      if C.IsQuestNotStarted(7500) then
+      begin
+        C.UpdateQuest(7500, 's', True);
+        C.SendNext('Good. You will be tested on two important aspects of the magician: strength and wisdom. I''ll now explain to you the physical half of the test. Remember #b#p1032001##k from Ellinia? Go see him, and he''ll give you the details on the first half of the test. Please complete the mission, and get #b#t4031057##k from #p1032001#.');
+      end
+      else if C.GetQuestData(7500) = 'end1' then
+        C.SendNext('Here''s the 2nd half of the test. This test will determine whether you are smart enough to take the next step towards greatness. There is a dark, snow-covered area called the Holy Ground at the snowfield in Ossyria, where even the monsters can''t reach. On the center of the area lies a huge stone called the Holy Stone. You''ll need to offer a special item as the sacrifice, then the Holy Stone will test your wisdom right there on the spot.');
+    end;
+
+    3:
+    begin
+      if C.GetQuestData(7500) = 's' then
+        C.SendNextPrev('The mental half of the test can only start after you pass the physical part of the test. #bThe Necklace of Strength#k will be the proof that you have indeed passed the test. I''ll let #b#p1032001##k know in advance that you''re making your way there, so get ready. It won''t be easy, but I have the utmost faith in you. Good luck.')
+      else
+        C.SendNextPrev('You''ll need to answer each and every question given to you with honesty and conviction. If you correctly answer all the questions, then the Holy Stone will formally accept you and hand you #b#t4031058##k. Bring back the necklace, and I will help you make the next leap forward. Good luck.');
+    end;
+
+    4: C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

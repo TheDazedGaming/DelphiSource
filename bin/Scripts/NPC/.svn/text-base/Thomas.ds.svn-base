@@ -1,0 +1,37 @@
+(*
+    NPC Name:    Thomas Swift
+    Map:         Henesys
+    Description: Warps you to Amoria
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if C.Char.MapID <> 680000000 then
+  begin
+    case Status of
+      0: C.SendYesNo('I can take you to Amoria Village. Are you ready to go?');
+      1: C.Warp(680000000);
+    end;
+  end
+  else
+  begin
+    case Status of
+      0: C.SendYesNo('Hey again! I can take you back to your original location. Are you ready to go?');
+      1: C.Warp(100000000);
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

@@ -1,0 +1,12 @@
+// Some child
+
+uses NPCConversation;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  C.SendOK('Just looking at a balloon makes me happy. I feel like I could float into the air, too! Hehe.');
+  C.Dispose;
+end;
+
+begin
+end.

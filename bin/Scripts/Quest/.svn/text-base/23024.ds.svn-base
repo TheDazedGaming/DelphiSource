@@ -1,0 +1,41 @@
+// Quest: Revenge and Growth [Wild Hunter]
+
+var
+  Status: Integer;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Status = 3) and (Mode = 0) then
+  begin
+    Q.SendNext('Huh? You don''t want to get stronger? Maybe I was wrong about you...');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('So you have the #t4032737#. Ha! I knew I was right about you!');
+    2: Q.SendNextPrev('This mission was supposed to go to someone else but I had it re-assigned to you. That guy from the Black Wings was the one who attacked you in the past. I gave you the mission so you could take your revenge. Two birds with one stone, eh?');
+    3: Q.SendNextPrev('To be honest though, you completed the mission more easily than I expected. You''ve really developed your skills...');
+    4: Q.SendYesNo('I originally thought it might be too soon, but you''ve proved me wrong. You''re more than ready to advance. You''re ready to enhance your powers as a Wild Hunter.');
+    5:
+    begin
+      if Q.Char.Job = 3300 then
+      begin
+        Q.GainItem(1142243, 1);      // Special Training Intermediate
+        Q.FinishQuest;
+
+        Q.ChangeJob(3310);
+        Q.Char.MaxMP := Q.Char.MaxMP + 100;
+        Q.Char.MaxHP := Q.Char.MaxHP + 200 + Random.Next(50);
+      end;
+      Q.SendNext('I''ve advanced your job. I''ve also upgraded your skills. Enjoy your new abilities!');
+    end;
+    6: Q.SendPrev('I will see you at the next lesson. Until then, keep up the good fight.');
+    7: Q.Dispose;
+  end;
+end;

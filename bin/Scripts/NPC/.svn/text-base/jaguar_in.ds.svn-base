@@ -1,0 +1,34 @@
+// Black Jack in Resistance HQ
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if not C.IsQuestFinished(23015) then
+  begin
+    C.SendNext('What is it? Don''t bother me.');
+    C.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    0: C.SendSimple('Do you want to go to the land of my brothers?\r\n#L0# Move to #m931000500##l');
+    1:
+    begin
+      C.Warp(931000500);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

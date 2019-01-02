@@ -1,0 +1,28 @@
+// NPC Name: Francis
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0: C.SendNext('I''m Francis, the Puppeteer of the Black Wings. How dare you disturb my puppets... It really upsets me, but I''ll let it slide this time. If I catch you doing it again though, I swear in the name of the Black Mage, I will make you pay for it.', 9);
+    1: C.SendNextPrev('#b(The Black Wings? Huh? Who are they? And how is all this related to the Black Mage? Hm, maybe you should report this info to Tru.)#k', 3);
+    2:
+    begin
+      C.UpdateQuest(21760, '0', False);
+      C.Warp(105070300, 3);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

@@ -1,0 +1,66 @@
+// QuestID: 21013 Aran Intro Quest: Putzki
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  // Pressed Decline
+  if (Mode = 0) and (Status = 1) then
+  begin
+    Q.SendNext('I''m sure it will come in handy during your journey. Please, don''t decline my offer.');
+    Q.Dispose;
+    Exit;
+  end;
+    
+  case Status of
+    1: Q.SendSimple('Ah, you''re the hero. I''ve been dying to meet you.  \r\n#b#L0#(Seems a bit shy...)#l');
+    2: Q.SendAcceptDecline('I have something I''ve been wanting to give you as a gift for a very long time... I know you''re busy, especially since you''re on your way to town, but will you accept my gift?');
+    3:
+    begin
+      if not Q.IsQuestActive(21013) then
+        Q.StartQuest;
+        
+      Q.SendNext('The parts of the gift have been packed inside a box nearby. Sorry to trouble you, but could you break the box and bring me a #b#t4032309##k and some #b#t4032310##k? I''ll assemble them for you right away.', 1);
+    end;
+    4:
+    begin
+      Q.ShowGuideEffect(18, 10000);   // How to break reactors
+      Q.Dispose;
+    end;
+  end;
+end;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  case Status of
+    1: Q.SendNext('Ah, you''ve brought all the components. Give me a few seconds to assemble them... Like this... And like that... and... \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i3010062# 1 #t3010062# \r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 95 exp');
+    2:
+    begin
+      if Q.IsQuestActive(21013) then
+      begin
+        Q.GainItem(3010062, 1);
+        Q.FinishQuest;
+        Q.GainExp(95);
+      end;
+      
+      Q.SendNextPrev('Here, a fully-assembled chair, just for you! I''ve always wanted to give you a chair as a gift, because I know a hero can occasionally use some good rest. Tee hee.', 1);
+    end;
+    3: Q.SendNextPrev('A hero is not invincible. A hero is human. I''m sure you will face challenges and even falter at times. But you are a hero because you have what it takes to overcome any obstacles you may encounter.', 1);
+    4:
+    begin
+      Q.ShowGuideEffect(19, 10000);   // How to use a chair
+      Q.Dispose;
+    end;
+  end;
+end;

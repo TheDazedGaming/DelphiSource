@@ -1,0 +1,12 @@
+K 10
+svn:ignore
+V 90
+FastMM_FullDebugMode.dll
+Log.txt
+LogDump.txt
+PacketLog
+RecvPackets
+Settings.ini
+__history
+
+END

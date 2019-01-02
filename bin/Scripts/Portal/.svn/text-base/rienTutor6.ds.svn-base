@@ -1,0 +1,10 @@
+// Makes Lilin Summon disappear :p
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.GetAreaInfo(21019).IndexOf('miss=o') > 0 then
+    Exit;
+
+  P.UpdateAreaInfo(21019, 'miss=o;helper=clear');
+  P.UpdateTutorialSummon(False);
+end;

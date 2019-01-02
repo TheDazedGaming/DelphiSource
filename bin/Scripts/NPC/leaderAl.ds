@@ -1,0 +1,60 @@
+(*
+    NPC Name: Captain Al
+    Map:      Lith Harbor, Orbis Park
+*)
+
+uses NPCConversation;
+
+var
+  Status, Sel: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if (Mode = 0) and (Status = 2) then
+    Selection := Sel;  // pressed Prev -- don't overwrite Sel with unassigned junk in (1)
+
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0: C.SendSimple('Hello there! I''m Al, who''s been serving as the leader of a Family for 30 years. Aren''t you curious to find out what a Family is? \r\n#b#L0# What''s a Family?#l\r\n#L1# What''s a Rep?#l\r\n#L2# What''s Rep for? #l\r\n#L3# I''d like a Medal. #l');
+    1: 
+    begin
+      Sel := Selection;
+
+      case Sel of
+        0: C.SendNext('Family is what it is, a group of people that are like family. The leader is the one person that leads that Family. Of course, the person in charge of the Family is the one responsible for taking care of his or her Family members.');
+        1: C.SendNext('Rep is a good barometer for how well the Senior takes care of the Juniors. The Senior''s primary role is to foster a nurturing environment for his or her Junior to grow well, whether it be by providing weapons, mesos, or others.');
+        2: C.SendNext('The acclaimed explorers all have their own sets of knowledge and know-how on explorations, which can only be obtained by leading their Juniors to prosperity. You tend to learn a lot more when you are on the background, teaching others, as opposed to experiencing everything first-hand. They then use their acquired techniques to enjoy benefits that others can''t even dream of. Those are called #bExplorers#k.');
+        3:
+        begin
+          // xxx add code to display real number & give medal if >= 1000
+          C.SendNext('Let''s see... so there are 0 Juniors in your Family. The medal serves as the owner of the title, and you want that? Haha... I will give you the title once your Family reaches #r1,000#k Juniors under you, although even my Family only adds up to around 300, so that won''t happen any time soon...');
+          Status := -1;
+        end;
+      end;
+    end;
+
+    2:
+    begin
+      case Sel of
+        0: C.SendNextPrev('Hmmm? What happens if the Senior doesn''t take care of the Family members? Hah... well... you''ll find out rather harshly if you decide to do that. Your Family members will soon look for a leader who is more qualified to take care of them, and jump ship.');
+        1: C.SendNextPrev('The important thing here is that #byour Rep will only go up if you''ve provided support for your Juniors#k.');
+        2: C.SendNextPrev('The higher the Rep, the more it means you are enjoying that many benefits.Use them wisely, and you''ll find yourself ahead of the pack from others. Just remember that using those Reps too often will plant a seed of doubt on others looking at the Rep level. Why? Oh that''s only because your Rep will decrease everytime you use one..');
+      end;
+    end;
+
+    3:
+    begin
+      Status := -1;   // will increase to 0 --> show menu again
+      Action(C, Mode, LastType, Selection);
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+  Sel := -1;
+end.

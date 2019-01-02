@@ -1,0 +1,41 @@
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+var
+  M: Integer;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+  begin
+    C.Dispose;
+    Exit;
+  end;
+
+  if Status = 0 then
+    C.SendYesNo('You can use the Sparkling Crystal to go back to the real world. Are you sure you want to go back?')
+  else if Status = 1 then
+  begin
+    M := -1;
+    case C.Char.Job of
+      110, 120, 130: M := 102000000;
+      210, 220, 230: M := 101000000;
+      310, 320: M := 100000000;
+      410, 420: M := 103000000;
+      510, 520: M := 120000000;
+    end;
+
+    if M = -1 then
+      C.SendNext('Could not determine return map for your job.')
+    else
+      C.Warp(M);
+    C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

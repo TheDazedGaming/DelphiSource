@@ -1,0 +1,22 @@
+procedure PlayerEntry(E: TEventInstance; C: TScriptMapleCharacter); export;
+begin
+  if C.GetQuestStatus(2191) = 1 then
+    C.ChangeMap(108000502, 0)
+  else
+    C.ChangeMap(108000500, 0);
+  E.StartClock(600);
+  E.Schedule('WarpOut', 600);
+end;
+
+procedure WarpOut(E: TEventInstance); export;
+begin
+  E.FirstPlayer.EventInstance := nil;  // prevent warp-map being taken from the EventInstance
+  E.FirstPlayer.ChangeMap(120000101, 0);
+  E.Free;
+end;
+
+function RevivePlayer(E: TEventInstance; C: TScriptMapleCharacter): Boolean; export;
+begin
+  Result := False;
+  WarpOut(E);
+end;

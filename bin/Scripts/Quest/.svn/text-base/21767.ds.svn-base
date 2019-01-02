@@ -1,0 +1,23 @@
+// QuestID: 21767 - Secrets of the Wooden Box
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    1: Q.SendNext(' (Inside the box was an unidentifiable treatment of some sort.)', 9);
+    2: Q.SendNextPrev('#bHm, there''s a medicinal substance in the box. What could this be? You better take this to John and ask him what it is.#k', 3);
+    3:
+    begin
+      Q.GainItem(4032423, 1);
+      Q.StartQuest;
+      Q.Dispose;
+    end;
+  end;
+end;

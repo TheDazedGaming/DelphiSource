@@ -1,0 +1,4 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowInfo('You may enter the 2nd Hall for the Knighthood Exam.');
+end;

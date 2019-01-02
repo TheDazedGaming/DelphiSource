@@ -1,0 +1,4 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowWZEffect('UI/tutorial.img/25', 1);
+end;

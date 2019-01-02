@@ -1,0 +1,5 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.LockUI(False);
+  P.InvokeNPC(2159006);
+end;

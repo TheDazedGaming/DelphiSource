@@ -1,0 +1,11 @@
+To compile this, do the following:
+
+1) Get Delphi 2010 or higher, I posted 2010 on KryptoDEV.
+2) After installing it, go into the Dependencies dir and copy the
+   following to your "Delphi Install Dir\lib\" dir:
+  -> All files from the DEC folder (don't copy the .svn dir)
+  -> Zeos.inc from the Zeos 7 folder, after that copy all FILES from the 5 folders in Zeos 7.
+  -> All files from the Script Engine II folder
+Note: Delphi Install Dir means C:\Program Files\Embarcadero\RAD Studio\.....\lib (well, or wherever you installed it)
+3) Open the .dproj file in Delphi and select the Build Configuration in the file tree.
+   After that press CTRL + SHIFT + F9 to compile & run the server.

@@ -1,0 +1,40 @@
+(*
+    NPC Name:    Grendel the Really Old
+    Map:         Maple Island
+    Description: Show you the Magician job video.
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Mode = 0) and (Status = 0) then
+  begin
+    C.SendNext('If you wish to experience what it''s like to be a Magician, come see me again.');
+    C.Dispose; 
+  end;
+
+  case Status of
+    0: C.SendNext('Magicians are armed with flashy element-based spells and secondary magic that aids party as a whole. After the 2nd job adv., the elemental-based magic will provide ample amount of damage to enemies of opposite element.');
+    1: C.SendYesNo('Would you like to experience what it''s like to be a Magician?');
+    2:    
+    begin
+      C.LockUI(True);
+      C.DisableUI(True);
+      C.Warp(1020200);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

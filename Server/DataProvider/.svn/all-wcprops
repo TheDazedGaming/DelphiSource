@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/DelphiMS/!svn/ver/417/Server/DataProvider
+END
+ShopDataProvider.pas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/DelphiMS/!svn/ver/269/Server/DataProvider/ShopDataProvider.pas
+END
+MapDataProvider.pas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/DelphiMS/!svn/ver/402/Server/DataProvider/MapDataProvider.pas
+END
+ItemDataProvider.pas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/DelphiMS/!svn/ver/348/Server/DataProvider/ItemDataProvider.pas
+END
+SkillDataProvider.pas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/DelphiMS/!svn/ver/417/Server/DataProvider/SkillDataProvider.pas
+END
+LifeDataProvider.pas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/DelphiMS/!svn/ver/387/Server/DataProvider/LifeDataProvider.pas
+END
+ReactorDataProvider.pas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/DelphiMS/!svn/ver/269/Server/DataProvider/ReactorDataProvider.pas
+END
+QuestDataProvider.pas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/DelphiMS/!svn/ver/269/Server/DataProvider/QuestDataProvider.pas
+END
+BuffDataProvider.pas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/DelphiMS/!svn/ver/417/Server/DataProvider/BuffDataProvider.pas
+END
+DropDataProvider.pas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/DelphiMS/!svn/ver/269/Server/DataProvider/DropDataProvider.pas
+END

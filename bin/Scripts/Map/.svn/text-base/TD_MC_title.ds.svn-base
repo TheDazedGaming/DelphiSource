@@ -1,0 +1,5 @@
+// Called when you enter Mushroom Castle
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowMapEffect('temaD/enter/mushCatle');
+end;

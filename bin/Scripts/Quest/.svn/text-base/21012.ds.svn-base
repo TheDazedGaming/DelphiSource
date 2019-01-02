@@ -1,0 +1,69 @@
+// QuestID: 21012 Aran Intro Quest: Purun
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  // Pressed Decline
+  if (Mode = 0) and (Status = 2) then
+  begin
+    Q.SendNext('Hm... You don''t think that would help? Think about it. It could help, you know...');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of   
+    1: Q.SendNext('Welcome hero! What''s that? You want to know how I knew who you were? That''s easy. I eavesdropped on some people talking loudly next to me. I''m sure the rumor has spread through the entire island already. Everyone knows that you''ve returned!');
+    2: Q.SendNextPrev('Anyway, what''s with the long face? Is something wrong? Hm? You''re not sure whether you''re really a hero or not? You lost your memory?! No way... It must be because you were trapped inside the ice for hundreds and hundreds of years.');
+    3: Q.SendAcceptDecline('Hm, how about you trying out that sword? Wouldn''t that bring back some memories? How about #bfighting some monsters#k?');
+    4:
+    begin
+      if not Q.IsQuestActive(21012) then
+        Q.StartQuest;
+        
+      Q.SendNext('It just so happens that there are a lot of #r#o9300383#s#k near here. How about defeating just #r3#k of them? It could help you remember a thing or two.', 1);
+    end;
+    5: Q.SendNextPrev('Ah, you''ve also forgotten how to use your skills? #bPlace skills in the quick slots for easy access.#k You can also place consumable items in the slots, so use the slots to your advantage.', 1);
+    6:
+    begin
+      Q.ShowGuideEffect(17, 10000);  // Quick Slot tutorial
+      Q.Dispose;
+    end;
+  end;
+end;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  case Status of
+    0: 
+    begin
+      Q.SendNext('What? You don''t want the potion?');
+      Q.Dispose;
+    end;
+    
+    // The script starts here
+    1: Q.SendYesNo('Hm... Your expression tells me that the exercise didn''t jog any memories. But don''t you worry. They''ll come back, eventually. Here, drink this potion and power up! \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i2000022# 10 #t2000022# \r\n#i2000023# 10 #t2000023# \r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 57 exp');
+    2:
+    begin
+      Q.GainItem(2000022, 10);
+      Q.GainItem(2000023, 10);
+      
+      Q.FinishQuest;
+      
+      Q.GainExp(57);
+    
+      Q.SendOK('#b(Even if you''re really the hero everyone says you are... What good are you without any skills?)#k', 2);
+    end;
+    3: Q.Dispose;
+  end;
+end;

@@ -1,0 +1,8 @@
+// Called when leaving Nett's Pyramid Entrance
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.PlayPortalSound;
+  P.Warp(P.GetSavedLocation('slDimensionalMirror'));
+  P.ClearSavedLocation('slDimensionalMirror');
+end;

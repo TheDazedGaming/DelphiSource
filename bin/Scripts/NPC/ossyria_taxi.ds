@@ -1,0 +1,36 @@
+(*
+    NPC Name:    VIP Taxi
+    Map:         Ludi
+    Description: Warps you Path of Time
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0: C.SendYesNo('Would you like to go to Path of Time? With #bVIP Taxi#k you''ll be there faster than the light. The tranportation will cost you #b25000 mesos#k.');
+    1:    
+    begin
+      if C.Char.Mesos >= 25000 then
+      begin
+        C.GainMesos(-25000);
+        C.Warp(220050300);
+      end
+      else
+        C.SendOK('Hmm... Are you sure you have #b25000#k Mesos? Check your Inventory and make sure you have enough. You must pay the fee or I can''t let you get in the taxi.');
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

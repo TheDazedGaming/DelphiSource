@@ -1,0 +1,8 @@
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  Q.ShowInfo('<Awakened Aran> has been rewarded.');
+  Q.ShowInfoOnScreen('<Awakened Aran> has been rewarded.');
+  Q.UpdateQuest(29924, '', True);
+  Q.SilentCompleteQuest(29924);
+  Q.Dispose;
+end;

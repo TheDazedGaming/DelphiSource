@@ -1,0 +1,4 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.ShowMapEffect('maplemap/enter/1010300');
+end;

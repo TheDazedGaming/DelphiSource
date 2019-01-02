@@ -1,0 +1,86 @@
+(*
+    NPC Name:    Puro
+    Map:         Rien
+    Description: Warps you Victoria Island.
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+  Amount: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  if (Mode = 0) and (Status = 0) then
+  begin
+    // has Letter and declined
+    C.SendNext('I suppose you have more things you need to take care of in Rien? Alright. I''ll let you board the ship whenever you want with Lilin''s letter, so just come find me again another time.');
+    C.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    -1:  
+    begin
+      C.SendOK('You don''t have to go if you don''t want to...');  // If pressed no in status 1. 
+      C.Dispose; 
+    end;
+
+    0:
+    begin
+      if (C.Char.Job = 0) or (C.Char.Job = 1000) or (C.Char.Job = 2000) then
+      begin
+        Amount := 80;
+        C.SendYesNo('Are you trying to leave Rien? Board this ship and I''ll take you to #bLith Harbor#k in Victoria Island for a #bfee of 80#k Mesos. Would you like to head over to Lith Harbor now? It''ll take about a minute to get there.');
+      end
+      else
+      begin
+        if not C.HasItem(4032338) then
+        begin
+          Amount := 800;
+          C.SendYesNo('Are you trying to leave Rien? Board this ship and I''ll take you to #bLith Harbor#k in Victoria Island for a #bfee of 800#k Mesos. Would you like to head over to Lith Harbor now? It''ll take about a minute to get there.');
+        end
+        else
+        begin
+          Amount := 0;
+          C.SendNext('Are you trying to leave Rien? Board this ship and I''ll take you to #bLith Harbor#k in Victoria Island for a fee of 800#k Mesos... Wait, isn''t that a letter from Lilin?');
+        end;
+      end;
+    end;
+    
+    1:    
+    begin
+      if C.HasItem(4032338) then
+      begin
+        C.SendAcceptDecline('With Lilin''s letter, you can board the ship free of cost. Would you like to head over to Lith Harbor right now? It''ll take about a minute to get there.');
+        Exit;
+      end;
+        
+      if C.Char.Mesos >= Amount then
+      begin
+        C.GainMesos(-Amount);
+        C.Warp(104000000, 18);
+      end
+      else
+        C.SendOK('Hmm... Are you sure you have #b' + Convert.ToString(Amount) + '#k Mesos? Check your Inventory and make sure you have enough. You must pay the fee or I can''t let you get on...');
+      
+      C.Dispose;
+    end;
+    
+    2:   // has Letter and accepted
+    begin
+      C.Warp(104000000, 18);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

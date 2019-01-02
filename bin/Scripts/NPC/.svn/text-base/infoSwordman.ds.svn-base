@@ -1,0 +1,40 @@
+(*
+    NPC Name:    Dances with Balrog
+    Map:         Maple Island
+    Description: Shows you the warrior job video.
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Mode = 0) and (Status = 0) then
+  begin
+    C.SendNext('If you wish to experience what it''s like to be a Warrior, come see me again.');
+    C.Dispose; 
+  end;
+
+  case Status of
+    0: C.SendNext('Warriors possess an enormous power with stamina to back it up, and they shine the brightest in melee combat situation. Regular attacks are powerful to begin with, and armed with complex skills, the job is perfect for explosive attacks.');
+    1: C.SendYesNo('Would you like to experience what it''s like to be a Warrior?');
+    2:
+    begin
+      C.LockUI(True);
+      C.DisableUI(True);
+      C.Warp(1020100);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

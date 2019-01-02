@@ -1,0 +1,8 @@
+// Free Market Entrance Portal (in almost all towns)
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.SaveLocation('slFreeMarket');
+  P.PlayPortalSound;
+  P.Warp(910000000, 'out00');
+end;

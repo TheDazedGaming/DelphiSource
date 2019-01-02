@@ -1,0 +1,173 @@
+(*
+    NPC Name:    Phil
+    Map:         Victoria Road : Lith Harbor
+    Description: Taxi (Regular)
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status, Price, Map: Integer;
+
+procedure ExplainTowns(C: TNPCConversation; Sel: Integer);
+begin
+  if (Sel = -1) and (Status = 2) then
+    C.SendSimple('There are 7 big towns here in Victoria Island. Which of those do you want to know more of?\r\n#b' +
+                 '#L0##m104000000##l\r\n' +
+                 '#L1##m102000000##l\r\n' +
+                 '#L2##m101000000##l\r\n' +
+                 '#L3##m100000000##l\r\n' +
+                 '#L4##m103000000##l\r\n' +
+                 '#L5##m120000000##l\r\n' +
+                 '#L6##m105040300##l')
+  else if (Sel = 0) or (Status = 10) then   // Lith Harbor
+  begin
+    C.SendNext('The town you are at is Lith Harbor! Alright I''ll explain to you more about #b#m104000000##k. It''s the place you landed on Victoria Island by riding The Victoria. That''s #m104000000#. A lot of beginners who just got here from Maple Island start their journey here.');
+    Status := 10;
+  end
+  else if (Sel = 1) or (Status = 14) then  // Perion
+  begin
+    C.SendNext('Alright I''ll explain to you more about #b#m102000000##k. It''s a warrior-town located at the northern-most part of Victoria Island, surrounded by rocky mountains. With an unfriendly atmosphere, only the strong survives there.');
+    Status := 14;
+  end
+  else if (Sel = 2) or (Status = 18) then  // Ellinia
+  begin
+    C.SendNext('Alright I''ll explain to you more about #b#m101000000##k. It''s a magician-town located at the fart east of Victoria Island, and covered in tall, mystic trees. You''ll find some fairies there, too; They don''t like humans in general so it''ll be best for you to be on their good side and stay quiet.');
+    Status := 18;
+  end
+  else if (Sel = 3) or (Status = 22) then  // Henesys
+  begin
+    C.SendNext('Alright I''ll explain to you more about #b#m100000000##k. It''s a bowman-town located at the southernmost part of the island, made on a flatland in the midst of a deep forest and prairies. The weather''s just right, and everything is plentiful around that town, perfect for living. Go check it out.');
+    Status := 22;
+  end
+  else if (Sel = 4) or (Status = 26) then  // Kerning City
+  begin
+    C.SendNext('Alright I''ll explain to you more about #b#m103000000##k. It''s a thief-town located at the northwest part of Victoria Island, and there are buildings up there that have just this strange feeling around them. It''s mostly covered in black clouds, but if you can go up to a really high place, you''ll be able to see a very beautiful sunset there.');
+    Status := 26;
+  end
+  else if (Sel = 5) or (Status = 30) then  // Nautilus Harbor
+  begin
+    C.SendNext('Here''s a little information on #b#m120000000##k. It''s a submarine that''s currently parked in between Ellinia and Henesys in Victoria Island. That submarine serves as home to numerous pirates. You can have just as beautiful a view of the ocean there as you do here in Lith Harbor.');
+    Status := 30;
+  end
+  else if (Sel = 6) or (Status = 34) then  // Sleepywood
+  begin
+    C.SendNext('Alright I''ll explain to you more about #b#m105040300##k. It''s a forest town located at the southeast side of Victoria Island. It''s pretty much in between #m100000000# and the ant-tunnel dungeon. There''s a hotel there, so you can rest up after a long day at the dungeon ... it''s a quiet town in general.');
+    Status := 34;
+  end;
+  
+  // More info on: Lith Harbor
+  if Status = 11 then
+    C.SendNextPrev('It''s a quiet town with the wide body of water on the back of it, thanks to the fact that the harbor is located at the west end of the island. Most of the people here are, or used to be fishermen, so they may look intimidating, but if you strike up a conversation with them, they''ll be friendly to you.')
+  else if Status = 12 then
+    C.SendNextPrev('Around town lies a beautiful prairie. Most of the monsters there are small and gentle, perfect for beginners. If you haven''t chosen your job yet, this is a good place to boost up your level.')
+  else if Status = 15 then  // Perion
+    C.SendNextPrev('Around the highland you''ll find a really skinny tree, a wild hog running around the place, and monkeys that live all over the island. There''s also a deep valley, and when you go deep into it, you''ll find a humongous dragon with the power to match his size. Better go in there very carefully, or don''t go at all.')
+  else if Status = 16 then
+    C.SendNextPrev('If you want to be a the #bWarrior#k then find #r#p1022000##k, the chief of #m102000000#. If you''re level 10 or higher, along with a good STR level, he may make you a warrior afterall. If not, better keep training yourself until you reach that level.')
+  else if Status = 19 then  // Ellinia
+    C.SendNextPrev('Near the forest you''ll find green slimes, walking mushrooms, monkeys and zombie monkeys all residing there. Walk deeper into the forest and you''ll find witches with the flying broomstick navigating the skies. A word of warning: unless you are really strong, I recommend you don''t go near them.')
+  else if Status = 20 then
+    C.SendNextPrev('If you want to be the #bMagician#k, search for #r#p1032001##k, the head wizard of #m101000000#. He may make you a wizard if you''re at or above level 8 with a decent amount of INT. If that''s not the case, you may have to hunt more and train yourself to get there.')
+  else if Status = 23 then  // Henesys
+    C.SendNextPrev('Around the prairie you''ll find weak monsters such as snails, mushrooms, and pigs. According to what I hear, though, in the deepest part of the Pig Park, which is connected to the town somewhere, you''ll find a humongous, powerful mushroom called Mushmom every now and then.')
+  else if Status = 24 then
+    C.SendNextPrev('If you want to be the #bBowman#k, you need to go see #r#p1012100##k at #m100000000#. With a level at or above 10 and a decent amount of DEX, she may make you be one afterall. If not, go train yourself, make yourself stronger, then try again.')
+  else if Status = 27 then  // Kerning City
+    C.SendNextPrev('From #m103000000#, you can go into several dungeons. You can go to a swamp where alligators and snakes are abound, or hit the subway full of ghosts and bats. At the deepest part of the underground, you''ll find Lace, who is just as big and dangerous as a dragon.')
+  else if Status = 28 then
+    C.SendNextPrev('If you want to be the #bThief#k, seek #r#p1052001##k, the heart of darkness of #m103000000#. He may well make you the thief if you''re at or above level 10 with a good amount of DEX. If not, go hunt and train yourself to reach there.')
+  else if Status = 31 then  // Nautilus Harbor
+    C.SendNextPrev('#m120000000# is parked in between Henesys and Ellinia, so if you step out just a bit, you''ll be able to enjoy the view of both towns. All the pirates you''ll meet in town are very gregarious and friendly, as well.')
+  else if Status = 32 then
+    C.SendNextPrev('If you are serious about becoming a #bPirate#k, then you better meet the captain of #m120000000#, #r#p1090000##k. If you are over Level 10 with 20 DEX, then she may let you become one. If you aren''t up to that level, then you''ll need to train harder to get there!')
+  else if Status = 35 then  // Sleepywood
+    C.SendNextPrev('In front of the hotel there''s an old buddhist monk by the name of #r#p1061000##k. Nobody knows a thing about that monk. Apparently he collects materials from the travellers and create something, but I am not too sure about the details. If you have any business going around that area, please check that out for me.')
+  else if Status = 36 then
+    C.SendNextPrev('From #m105040300#, head east and you''ll find the ant tunnel connected to the deepest part of the Victoria Island. Lots of nasty, powerful monsters abound so if you walk in thinking it''s a walk in the park, you''ll be coming out as a corpse. You need to fully prepare yourself for a rough ride before going in.')
+  else if Status = 37 then
+    C.SendNextPrev('And this is what I hear ... apparently, at #m105040300# there''s a secret entrance leading you to an unknown place. Apparently, once you move in deep, you''ll find a stack of black rocks that actually move around. I want to see that for myself in the near future ...');
+    
+  if (Status = 12) or (Status = 16) or (Status = 20) or (Status = 24) or (Status = 28) or (Status = 32) or (Status = 37) then
+    C.Dispose;
+end;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+var
+  Beginner: Boolean;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  Beginner := C.Char.Job = 0;
+
+  case Status of
+    0: C.SendNext('Do you wanna head over to some other town? With a little money involved, I can make it happen. It''s a tad expensive, but I run a special 90% discount for beginners.');
+    1: C.SendSimple('It''s understable that you may be confused about this place if this is your first time around. If you got any questions about this place, fire away. #b\r\n#L0#What kind of towns are here in Victoria Island?#l\r\n#L1#Please take me somewhere else.#l#k');
+    2: if Selection = 0 then
+         ExplainTowns(C, -1)
+       else
+       begin
+         if Beginner then
+           C.SendSimple('There''s a special 90% discount for all beginners. Alright, where would you want to go? \r\n#b' +
+                        '#L0##m102000000#(120 mesos)#l\r\n' +
+                        '#L1##m101000000#(120 mesos)#l\r\n' +
+                        '#L2##m100000000#(80 mesos)#l\r\n' +
+                        '#L3##m103000000#(100 mesos)#l\r\n' +
+                        '#L4##m120000000#(100 mesos)#l')
+         else
+           C.SendSimple('Oh you aren''t a beginner, huh? Then I''m afraid I may have to charge you full price. Where would you like to go?\r\n#b' +
+                        '#L0##m102000000#(1200 mesos)#l\r\n' +
+                        '#L1##m101000000#(1200 mesos)#l\r\n' +
+                        '#L2##m100000000#(800 mesos)#l\r\n' +
+                        '#L3##m103000000#(1000 mesos)#l\r\n' +
+                        '#L4##m120000000#(1000 mesos)#l');
+         Status := 39;
+       end;
+
+    // Pressed "No" in (40)
+    39: 
+    begin 
+      C.SendOK('There''s alot to see in this town too. Let me know if you want to go somewhere else.');
+      Status := 41;  // will increase to 42 = Dispose
+    end;
+
+    40:
+    begin
+      case Selection of
+        0: begin Map := 102000000; Price := 1200; end;    // Perion
+        1: begin Map := 101000000; Price := 1200; end;    // Ellinia
+        2: begin Map := 100000000; Price := 800; end;     // Henesys
+        3: begin Map := 103000000; Price := 1000; end;    // Kerning City
+        else begin Map := 120000000; Price := 1000; end;  // Nautilus Harbor
+      end;
+
+      if Beginner then
+        Price := Price div 10;
+
+      C.SendYesNo('I guess you don''t need to be here. Do you really want to move to #b#m' + Convert.ToString(Map) + '##k? Well it''ll cost you #b' + Convert.ToString(Price) + ' meso#k. What do you think?');
+    end;
+
+    41:
+    begin
+      if C.Char.Mesos >= Price then
+      begin
+        C.GainMesos(-Price);
+        C.Warp(Map);
+        C.Dispose;
+      end
+      else
+        C.SendOK('You don''t have enough mesos. With your abilities, you should have more than that!');
+    end;
+
+    42: C.Dispose;
+
+    else ExplainTowns(C, Selection);
+  end;
+end;
+
+begin
+  Status := -1;
+end.

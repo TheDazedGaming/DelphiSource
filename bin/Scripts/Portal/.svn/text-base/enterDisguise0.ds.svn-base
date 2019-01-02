@@ -1,0 +1,7 @@
+// Called when entering the Ereve Training Forest (I)
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.PlayPortalSound;
+  P.Warp(130010000, 3);
+end;

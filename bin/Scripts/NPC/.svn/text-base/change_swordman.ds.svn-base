@@ -1,0 +1,71 @@
+// Warrior 2nd Job Instructor (Outside)
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status, State: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if Status = 0 then
+  begin
+    if (C.HasItem(4031008)) and (not C.HasItem(4031013)) then
+    begin
+      State := 0;
+      C.SendNext('Hmmm...it is definitely the letter from #b#p1022000##k...so you came all the way here to take the test and make the 2nd job advancement as the warrior. Alright, I''ll explain the test to you. Don''t sweat it too much, it''s not that complicated.');
+    end
+    else if (C.HasItem(4031008)) and (C.HasItem(4031013)) then
+    begin
+      State := 1;
+      C.SendYesNo('So you''ve given up in the middle of this before. Don''t worry about it, because you can always retake the test. Now...do you want to go back in and try again?');
+    end
+    else if (C.Char.Job = 100) and (C.Char.Level >= 30) then
+    begin
+      C.SendNext('Do you want to be a stronger warrior? Let me take care of that for you, then. You look definitely qualified for it. For now, go see #b#p1022000##k of Perion first.');
+      C.Dispose;
+    end
+    else
+      C.Dispose;
+  end
+  else if (Status = 1) and (State = 0) then
+    C.SendNextPrev('I''ll send you to a hidden map. You''ll see monsters you don''t normally see. They look the same like the regular ones, but with a totally different attitude. They neither boost your experience level nor provide you with item.')
+  else if (Status = 2) and (State = 0) and (Mode = 1) then
+    C.SendNextPrev('You''ll be able to acquire a marble called #b#t4031013##k while knocking down those monsters. It is a special marble made out of their sinister, evil minds. Collect 30 of those, then go talk to a colleague of mine in there. That''s how you pass the test.')
+  else if (Status = 3) and (State = 0) then
+    C.SendYesNo('Once you go inside, you can''t leave until you take care of your mission. If you die, your experience level will decrease...so you better really buckle up and get ready...well, do you want to go for it now?')
+  else if ((Status = 2) and (State = 0) and (Mode = 0)) or ((Status = -1) and (State = 1) and (Mode = 0)) then
+  begin
+    // Pressed no
+    C.SendNext('I don''t think you are prepared for this. Find me when you ARE ready. There are neither portals or stores inside, so you better get 100% ready for it.');
+    C.Dispose;
+  end
+  else if (Status = 4) and (State = 0) then
+    C.SendNext('Alright I''ll let you in! Defeat the monsters inside, collect 30 Dark Marbles, then strike up a conversation with a colleague of mine inside. He''ll give you the #b#t4031013##k, the proof that you''ve passed the test. Best of luck to you.')
+  else if (Status = 5) and (State = 0) then
+  begin
+    if C.Version < 93 then
+      C.Warp(108000300)
+    else
+      C.Warp(910230000);
+    C.Dispose;
+  end
+  else if (Status = 1) and (State = 1) then
+    C.SendNext('Alright! I''ll let you in! Sorry to say this, but I have to take away all your marbles beforehand. Defeat the monsters inside, collect 30 Dark Marbles, then strike up a conversation with a colleague of mine inside. He''ll give you the #b#t4031012##k, the proof that you''ve passed the test. Best of luck to you.')
+  else if (Status = 2) and (State = 1) then
+  begin
+    C.RemoveAll(4031013);
+    if C.Version < 93 then
+      C.Warp(108000300)
+    else
+      C.Warp(910230000);
+    C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

@@ -1,0 +1,18 @@
+(*
+    
+*)
+
+procedure Enter(P: TPortalScript); export;
+var
+  EntryMap: Integer;
+begin
+    if P.HasItem(4031172) then
+        begin
+            EntryMap := 220080001;
+            P.Warp(EntryMap, 'st00');
+        end
+    else
+        begin
+            P.ShowInfo('You may not battle Papulatus at this time.');
+        end;
+end;

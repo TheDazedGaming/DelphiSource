@@ -1,0 +1,27 @@
+(*
+    NPC Name: Vikin
+    Map:      Victoria Road : Lith Harbor
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0: C.SendOK('Hey hey!!! Find the #t4031018#! I lost the map somewhere and I can''t leave without it.');
+    1: C.Dispose;
+    // xxx add code if item was found
+  end;
+end;
+
+begin
+  Status := -1;
+end.

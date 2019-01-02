@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/DelphiMS/!svn/ver/417/Packet/PacketHandlers
+END
+QuestActionHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/DelphiMS/!svn/ver/379/Packet/PacketHandlers/QuestActionHandler.pas
+END
+PlayerLoggedinHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DelphiMS/!svn/ver/349/Packet/PacketHandlers/PlayerLoggedinHandler.pas
+END
+PlayerMiscHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/DelphiMS/!svn/ver/341/Packet/PacketHandlers/PlayerMiscHandler.pas
+END
+PlayerGroupHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/DelphiMS/!svn/ver/411/Packet/PacketHandlers/PlayerGroupHandler.pas
+END
+SummonActionHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DelphiMS/!svn/ver/397/Packet/PacketHandlers/SummonActionHandler.pas
+END
+NPCActionHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/DelphiMS/!svn/ver/356/Packet/PacketHandlers/NPCActionHandler.pas
+END
+AuthenticationHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DelphiMS/!svn/ver/417/Packet/PacketHandlers/AuthenticationHandler.pas
+END
+ClientStatusHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DelphiMS/!svn/ver/410/Packet/PacketHandlers/ClientStatusHandler.pas
+END
+MonsterActionHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DelphiMS/!svn/ver/417/Packet/PacketHandlers/MonsterActionHandler.pas
+END
+PlayerStatHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/DelphiMS/!svn/ver/417/Packet/PacketHandlers/PlayerStatHandler.pas
+END
+PlayerActionHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DelphiMS/!svn/ver/417/Packet/PacketHandlers/PlayerActionHandler.pas
+END
+AfterLoginHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/DelphiMS/!svn/ver/342/Packet/PacketHandlers/AfterLoginHandler.pas
+END
+UseSkillHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/DelphiMS/!svn/ver/405/Packet/PacketHandlers/UseSkillHandler.pas
+END
+PlayerInteractionHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DelphiMS/!svn/ver/412/Packet/PacketHandlers/PlayerInteractionHandler.pas
+END
+PlayerChatHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/DelphiMS/!svn/ver/347/Packet/PacketHandlers/PlayerChatHandler.pas
+END
+ItemActionHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/DelphiMS/!svn/ver/415/Packet/PacketHandlers/ItemActionHandler.pas
+END
+ReactorActionHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DelphiMS/!svn/ver/281/Packet/PacketHandlers/ReactorActionHandler.pas
+END
+CharOperationHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DelphiMS/!svn/ver/365/Packet/PacketHandlers/CharOperationHandler.pas
+END

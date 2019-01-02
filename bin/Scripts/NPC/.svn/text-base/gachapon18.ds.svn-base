@@ -1,0 +1,26 @@
+(*
+    NPC Name: Gachapon
+    Map:      Nautilus Middle Corridor
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if Status = 0 then
+    C.SendOK('Here''s Gachapon.')
+  else
+    C.Dispose;
+end;
+
+begin
+  Status := -1;
+end.

@@ -1,0 +1,11 @@
+// First speech bubble of Aran Intro
+// Text: Where am I?
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.GetAreaInfo(21002).IndexOf('mo1=o') > 0 then
+    Exit;
+
+  P.UpdateAreaInfo(21002, 'mo1=o');
+  P.ShowWZEffect('Effect/OnUserEff.img/guideEffect/aranTutorial/legendBalloon1', 1);
+end;

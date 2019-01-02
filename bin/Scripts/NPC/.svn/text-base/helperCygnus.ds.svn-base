@@ -1,0 +1,58 @@
+(*
+  NPC: Mimo
+  Map: Ereve - Forest of Beginning (following you as summon)
+  Description: Some random noob talk :p
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, aType, Selection: Integer);
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Status = 1) and (Mode = 0) then
+    Selection := 0
+  else if Status = 2 then
+  begin
+    C.SendNextPrev('There is no need for you to check this info now. These are basics that you''ll pick up as you play. You can always ask me questions that come up after you''ve reached Lv. 10, so just relax.');
+    Exit;
+  end
+  else if Status = 3 then
+  begin
+    C.Dispose;
+    Exit;
+  end;
+
+  case Selection of
+    -1: C.SendSimple('Wait! You''ll figure this stuff out by the time you reach Lv. 10 anyway, but if you absolutely want to prepare beforehand, you may view the following information. \r\n\r\nTell me, what would you like to know?  \r\n#b#L0#About You#l \r\n#b#L1#Mini Map#l \r\n#b#L2#Quest Window#l \r\n#b#L3#Inventory#l \r\n#b#L4#Regular Attack Hunting#l \r\n#b#L5#How to Pick Up Items#l \r\n#b#L6#How to Equip Items#l \r\n#b#L7#Skill Window#l \r\n#b#L8#How to Use Quick Slots#l \r\n#b#L9#How to Break Boxes#l \r\n#b#L10#How to Sit in a Chair#l \r\n#b#L11#World Map#l \r\n#b#L12#Quest Notifications#l \r\n#b#L13#Enhancing Stats#l \r\n#b#L14#Who are the Cygnus Knights?#l');
+     0: C.SendNext('I serve under Shinsoo, the guardian of Empress Cygnus. My master, Shinsoo, has ordered me to guide everyone who comes to Maple World to join Cygnus Knights. I will be assisting and following you around until you become a Knight or reach Lv. 11. Please let me know if you have any questions.');
+     1: C.ShowGuideEffect(1, 7000);    // Minimap
+     2: C.ShowGuideEffect(2, 7000);    // Quest Window
+     3: C.ShowGuideEffect(3, 7000);    // Inventory
+     4: C.ShowGuideEffect(4, 7000);    // Attack
+     5: C.ShowGuideEffect(5, 7000);    // Picking up
+     6: C.ShowGuideEffect(6, 7000);    // Equipping
+     7: C.ShowGuideEffect(7, 7000);    // Skills
+     8: C.ShowGuideEffect(8, 7000);    // Quick Slots
+     9: C.ShowGuideEffect(9, 7000);    // Reactors
+    10: C.ShowGuideEffect(10, 7000);   // Chairs
+    11: C.ShowGuideEffect(11, 7000);   // World Map
+    12: C.ShowGuideEffect(12, 7000);   // Quests
+    13: C.ShowGuideEffect(13, 7000);   // Stats
+    14: C.SendOK('The Black Mage is trying to revive and conquer our peaceful Maple World. As a response to this threat, Empress Cygnus has formed a knighthood, now known as Cygnus Knights. You can become a Knight when you reach Lv. 10.');
+  end;
+  
+  // So that it doesn't answer the next question when pressing Next
+  if Selection > 0 then
+    C.Dispose;
+end;
+
+begin
+  Status := -1;
+end.

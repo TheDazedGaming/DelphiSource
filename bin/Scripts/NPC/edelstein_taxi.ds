@@ -1,0 +1,55 @@
+// Warps you to Verne Mines
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Status = 0) and (Mode = 0) then
+  begin
+    C.SendNext('It''s your choice.');
+    C.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    -1:
+    begin
+      C.SendNext('Let me know if you change your mind.');
+      C.Dispose;
+    end;
+    0: C.SendYesNo('Hello, welcome to the Edelstein Taxi. I can take members of the Black Wings safely and quickly to #bVerne Mines#k. And if you''re not part of the Black Wings? Well, I guess I''ll take you as long as you pay... So, are you going to the mines?');
+    1:
+    begin
+      if C.Char.Job mod 1000 = 0 then
+      begin
+        C.SendNext('You want to go to the mines? You? I''m sorry, but I can''t take a beginner like you. What are you thinking?');
+        C.Dispose;
+      end
+      else
+        C.SendYesNo('Please pay #b10000 Mesos#k to go to Verne Mines. You find that expensive? I''m sorry but discounts only apply to members of the Black Wings. So, are you willing to pay the full price and head to the mines?');
+    end;
+    2:
+    begin
+      if C.Char.Mesos < 10000 then
+        C.SendNext('You don''t have enough mesos! I told you, it costs 10000 Mesos. If you don''t have it, just walk away.')
+      else
+      begin
+        C.GainMesos(-10000);
+        C.Warp(310040200);
+      end;
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

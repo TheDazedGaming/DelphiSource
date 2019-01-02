@@ -1,0 +1,6 @@
+// Penguin Port 140020300
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.Warp(140020300, 1);
+end;

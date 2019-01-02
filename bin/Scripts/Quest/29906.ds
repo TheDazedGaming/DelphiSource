@@ -1,0 +1,10 @@
+// Training Knight Medal: Displays "You've got a title!" after getting the medal.
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  Q.ShowInfo('<Knight-in-Training> has been rewarded.');
+  Q.ShowInfoOnScreen('<Knight-in-Training> has been rewarded.');
+  Q.UpdateQuest(29906, '', True);
+  Q.SilentCompleteQuest(29906);
+  Q.Dispose;
+end;

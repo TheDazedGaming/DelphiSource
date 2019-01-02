@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/DelphiMS/!svn/ver/417/Scripting
+END
+ScriptHelper.pas
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/DelphiMS/!svn/ver/384/Scripting/ScriptHelper.pas
+END
+EventScript.pas
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/DelphiMS/!svn/ver/407/Scripting/EventScript.pas
+END
+PortalScript.pas
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/DelphiMS/!svn/ver/417/Scripting/PortalScript.pas
+END
+QuestScript.pas
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/DelphiMS/!svn/ver/374/Scripting/QuestScript.pas
+END
+NPCConversation.pas
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/DelphiMS/!svn/ver/372/Scripting/NPCConversation.pas
+END

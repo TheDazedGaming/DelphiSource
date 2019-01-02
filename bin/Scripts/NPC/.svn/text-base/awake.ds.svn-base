@@ -1,0 +1,86 @@
+(*
+  NPC: Tutorial Lilin
+  Map: Ice Cave
+  Description: Some random noob talk :p
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Explain(C: TNPCConversation; Sel: Integer);
+begin
+  case Sel of
+    -1: C.SendSimple('Is there anything you''re still curious about? If so, I''ll try to explain it better. #b#l\r\n#L0#Who am I? #l #l\r\n#L1#Where am I? #l #l\r\n#L2#Who are you?#l#l\r\n#L3#Tell me what I have to do.#l #l\r\n#L4#Tell me about my Inventory.#l #l\r\n#L5#How do I advance my skills?#l #l\r\n#L6#I want to know how to equip items.#l #l\r\n#L7#How do I use quick slots? #l #l\r\n#L8#How can I open breakable containers?#l #l\r\n#L9#I want to sit in a chair but I forgot how.#l#k');
+     0: C.SendNext('You are one of the heroes that saved Maple World from the Black Mage hundreds of years ago. You''ve lost your memory due to the curse of the Black Mage.');
+     1: C.SendNext('This island is called Rien, and this is where the Black Mage''s curse put you to sleep. It''s a small island covered in ice and snow, and the majority of the residents are Penguins.');
+     2: C.SendNext('I''m Lilin, a clan member of Rien, and I''ve been waiting for your return as the prophecy foretold. I''ll be your guide for now.');
+     3: C.SendNext('Let''s not waste any more time and just get to town. I''ll give you the details when we get there.');
+     4: C.ShowGuideEffect(14, 12000);  // Inventory
+     5: C.ShowGuideEffect(15, 12000);  // Skills
+     6: C.ShowGuideEffect(16, 12000);  // Equipping
+     7: C.ShowGuideEffect(17, 12000);  // Quick Slots
+     8: C.ShowGuideEffect(18, 12000);  // Destroy reactors
+     9: C.ShowGuideEffect(19, 12000);  // Chair
+  end;
+  
+  // So that it doesn't answer the next question when pressing Next
+  if Sel >= 0 then
+    C.Dispose;
+end;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  // Already outside the ice cave?
+  if C.Char.MapID <> 140090000 then
+  begin
+    Explain(C, Selection);
+    Exit;
+  end;
+
+  // If you talk to her the first time
+  if C.GetAreaInfo(21019).IndexOf('helper=clear') = 0 then
+  begin
+    case Status of
+      0: C.SendNext('You''ve finally awoken...!', 8);
+      1: C.SendNextPrev('And you are...?', 2);
+      2: C.SendNextPrev('The hero who fought against the Black Mage... I''ve been waiting for you to wake up!', 8);
+      3: C.SendNextPrev('Who... Who are you? And what are you talking about?', 2);
+      4: C.SendNextPrev('And who am I...? I can''t remember anything... Ouch, my head hurts!', 2);
+      5:
+      begin
+        C.UpdateAreaInfo(21019, 'helper=clear');
+        C.ShowWZEffect('Effect/Direction1.img/aranTutorial/face', -1);
+        C.ShowWZEffect('Effect/Direction1.img/aranTutorial/ClickLilin', -1);
+        C.Dispose;
+      end;
+    end;
+  end
+  else   // If you click her again
+  begin
+    case Status of
+      0: C.SendNext('Are you alright?', 8);
+      1: C.SendNextPrev('I can''t remember anything. Where am I? And who are you...?', 2);
+      2: C.SendNextPrev('Stay calm. There is no need to panic. You can''t remember anything because the curse of the Black Mage erased your memory. I''ll tell you everything you need to know...step by step.', 8);
+      3: C.SendNextPrev('You''re a hero who fought the Black Mage and saved Maple World hundreds of years ago. But at the very last moment, the curse of the Black Mage put you to sleep for a long, long time. That''s when you lost all of your memories.', 8);
+      4: C.SendNextPrev('This island is called Rien, and it''s where the Black Mage trapped you. Despite its name, this island is always covered in ice and snow because of the Black Mage''s curse. You were found deep inside the Ice Cave.', 8);
+      5: C.SendNextPrev('My name is Lilin and I belong to the clan of Rien. The Rien Clan has been waiting for a hero to return for a long time now, and we finally found you. You''ve finally returned!', 8);
+      6: C.SendNextPrev('I''ve said too much. It''s okay if you don''t really understand everything I just told you. You''ll get it eventually. For now, #byou should head to town#k. I''ll stay by your side and help you until you get there.', 8);
+      7:
+      begin
+        C.Warp(140090100, 1);
+        C.Dispose;
+      end;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

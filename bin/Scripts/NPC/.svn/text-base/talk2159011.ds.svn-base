@@ -1,0 +1,33 @@
+// Resistance chat when trying to enter hole
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    -1:
+    begin
+      C.SendNext('#b(Even Von wouldn''t hide here, right?)#k');
+      C.Dispose;
+    end;
+    0: C.SendYesNo('#b(What a suspicious hole. Maybe Von is hiding inside. Peek inside?)#k');
+    1:
+    begin
+      C.GainExp(35);
+      C.Warp(931000010);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

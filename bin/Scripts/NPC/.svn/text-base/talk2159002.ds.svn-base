@@ -1,0 +1,24 @@
+// Some child
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0: C.SendNext('If Jun''s too chicken, let''s leave him here. But why''s it have to be hide-and-seek? Let''s play something cool...');
+    1: C.SendPrev('That''s not what I said...');
+    2: C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

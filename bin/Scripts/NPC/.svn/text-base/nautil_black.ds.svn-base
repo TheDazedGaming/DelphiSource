@@ -1,0 +1,41 @@
+(*
+    NPC Name:    Muirhat
+    Map:         Nautilus Upper Corridor
+    Description: Quest
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if Status = 0 then
+  begin
+    if not C.IsQuestActive(2175) then
+    begin
+      C.SendOK('The Black Magician and his followers. Kyrin and the crew of the Nautilus. They''ll be chasing one another until one of them doesn''t exist, that''s for sure.');
+      C.Dispose;
+      Exit;
+    end;
+
+    C.SendNext('Are you ready? Good, I''ll send you to where the disciples of the Black Magician are. Look for the pigs around the area where I''ll be sending you. You''ll be able to find it by tracking them.');
+  end
+  else if Status = 1 then
+    C.SendNextPrev('When they are weakened, they''ll change back to their original state. If you find something suspicious, you must fight them until they are weak. I''ll be here awaiting your findings.')
+  else if Status = 2 then
+  begin
+    C.Warp(912000000);
+    C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

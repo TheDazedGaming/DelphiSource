@@ -1,0 +1,25 @@
+// Cygnus Intro - called for all portals in Forest of Beginning maps
+
+procedure Enter(P: TPortalScript); export;
+var
+  QID: Integer;
+begin
+  QID := 0;
+  case P.Char.MapID of
+    130030001:
+      if not P.IsQuestActive(20010) then
+      begin
+        P.ShowInfo('Please click the NPC to receive a quest.');
+        Exit;  // Don't warp
+      end;
+
+    130030002: QID := 20011;
+    130030003: QID := 20012;
+    130030004: QID := 20013;
+  end;
+
+  if (QID > 0) and (P.IsQuestActive(QID)) then
+    P.ShowInfo('Please complete the quest.')
+  else  
+    P.Warp(P.Char.MapID + 1);
+end;

@@ -1,0 +1,10 @@
+// Noblesse Medal: Displays "You've got a title!" after getting the medal.
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  Q.ShowInfo('<Noblesse> has been rewarded.');
+  Q.ShowInfoOnScreen('<Noblesse> has been rewarded.');
+  Q.UpdateQuest(29905, '', True);
+  Q.SilentCompleteQuest(29905);
+  Q.Dispose;
+end;

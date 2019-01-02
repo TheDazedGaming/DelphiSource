@@ -1,0 +1,10 @@
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  Q.ShowInfo('<Special Training Master> has been rewarded.');
+  Q.ShowInfoOnScreen('<Special Training Master> has been rewarded.');
+  if not Q.HasItem(1142246) then
+    Q.GainItem(1142246, 1);
+  Q.UpdateQuest(29945, '', True);
+  Q.SilentCompleteQuest(29945);
+  Q.Dispose;
+end;

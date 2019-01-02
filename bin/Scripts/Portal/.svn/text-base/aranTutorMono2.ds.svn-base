@@ -1,0 +1,11 @@
+// Third speech bubble of Aran Intro
+// Text: I'd better go outside and see what's going on.
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.GetAreaInfo(21002).IndexOf('mo3=o') > 0 then
+    Exit;
+
+  P.UpdateAreaInfo(21002, 'mo1=o;mo2=o;mo3=o');
+  P.ShowWZEffect('Effect/OnUserEff.img/guideEffect/aranTutorial/legendBalloon3', 1);
+end;

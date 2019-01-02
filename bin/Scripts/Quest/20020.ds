@@ -1,0 +1,56 @@
+// Quest: 5 Different Paths of Cygnus Knights
+
+var
+  Status, Sel: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Status = 3) and (Mode = 0) then
+  begin
+    Q.SendNext('Please talk to me after you''ve given this some more thought. Don''t think too hard. Whichever you choose will become your destiny.');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('You must have worked diligently, seeing how you''ve already reached Lv. 10. Very well, then. I think you''re ready to progress. You have what it takes to become a Knight-in-Training. But before anything, I''d like to ask you a question. Have you thought about what kind of Knight you would like to become?');
+    2: Q.SendNextPrev('There are 5 different paths of Cygnus Knights to choose from. The choice is completely yours, but you can''t change your mind after you''ve made your decision, so spend some time considering your options. Let me show you what you would look like if you were to become a Knight.');
+    3: Q.SendSimple('What do you think? Would you like to see yourself as a Knight first? It''s pointless if you''ve already made up your mind. \r\n#b#L0#I want to see what I would look like as a Chief Knight.#l \r\n#b#L1#No, thanks. I don''t need to see what I''d look like as a Chief Knight.');
+    4:
+    begin
+      Sel := Selection;
+      if Selection = 0 then
+        Q.SendYesNo('Would you like to see what you would look like as a Chief Knight? You will be able to select your Job after. Please talk to the Chief Knights once you decide on a path. The choice is completely yours.')
+      else
+        Q.SendYesNo('You don''t want to see a preview of yourself as a Chief Knight? Fine, then I will allow you to select the path you wish to pursue.');
+    end;
+    5:
+    begin
+      if not Q.IsQuestFinished(20020) then
+      begin
+        Q.StartQuest;
+        Q.SilentCompleteQuest(20020);
+        Q.UpdateQuest(20100, '', True);  // start
+        Q.SilentCompleteQuest(20100);
+      end;
+
+      if Sel = 0 then
+      begin
+        Q.UpdateTutorialSummon(False);
+        Q.LockUI(True);
+        Q.DisableUI(True);
+        Q.Warp(913040100);   // Warp to scenes
+        Q.Dispose;
+      end
+      else
+        Q.SendNext('You seem to know exactly which path you want to select. The only step remaining now is your final decision.');
+    end;
+    6: Q.SendPrev('The Chief Knights are waiting to the left. Listen to what they have to say and select the path you would like to pursue. You must choose your destiny.');
+    7: Q.Dispose;
+  end;
+end;

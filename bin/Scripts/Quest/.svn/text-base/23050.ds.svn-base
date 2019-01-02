@@ -1,0 +1,30 @@
+// Quest: Black Wings' New Weapon [Wild Hunter]
+
+var
+  Status: Integer;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Status = 1) and (Mode = 0) then
+  begin
+    Q.SendNext('Eh? Is there something else you need to take care of here?');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('You destroyed the Black Wing''s new weapon! I knew I was right about you! There is nothing sharper than the eyes of a bowman. I''m proud to call you a fellow member of the Resistance!');
+    2: Q.SendYesNo('I''d love nothing more than to rub what we''ve done in #p2154009#''s face, but things could get hairy if he gathers all his minions. Let''s get out of here. Use the Underground Base #t4032740# on my count. One... two... three!');
+    3:
+    begin
+      Q.FinishQuest;
+      Q.Warp(310010000);
+      Q.Dispose;
+    end;
+  end;
+end;

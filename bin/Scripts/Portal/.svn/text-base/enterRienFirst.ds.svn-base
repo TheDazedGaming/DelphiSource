@@ -1,0 +1,7 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  if not P.IsQuestFinished(21014) then
+    P.Warp(140000000, 1)   // warp directly in front of Lilin
+  else
+    P.Warp(140000000, 3);  // warp to portal at the very left
+end;

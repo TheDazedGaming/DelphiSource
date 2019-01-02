@@ -1,0 +1,13 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.IsQuestActive(21701) then
+    P.Warp(914010000, 1)
+  else
+  if P.IsQuestActive(21702) then
+    P.Warp(914010100, 1)
+  else
+  if P.IsQuestActive(21703) then
+    P.Warp(914010200, 1)
+  else
+    P.ShowInfo('You can only enter the Penguin Training Center if you are getting trained by Puo.');
+end;

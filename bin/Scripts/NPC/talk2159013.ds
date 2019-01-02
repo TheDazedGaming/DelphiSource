@@ -1,0 +1,12 @@
+// Some child
+
+uses NPCConversation;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  C.SendOK('My heart is pounding, but this is kind of exciting. We''re going to get in so much trouble if we''re caught, though.');
+  C.Dispose;
+end;
+
+begin
+end.

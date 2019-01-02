@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/DelphiMS/!svn/ver/354/Dependencies/DEC
+END
+DECHash.pas
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/DelphiMS/!svn/ver/354/Dependencies/DEC/DECHash.pas
+END
+DECFmt.pas
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/DelphiMS/!svn/ver/354/Dependencies/DEC/DECFmt.pas
+END
+Ver.inc
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/DelphiMS/!svn/ver/354/Dependencies/DEC/Ver.inc
+END
+DECData.pas
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/DelphiMS/!svn/ver/354/Dependencies/DEC/DECData.pas
+END
+DECHash.inc
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/DelphiMS/!svn/ver/354/Dependencies/DEC/DECHash.inc
+END
+DECCipher.pas
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/DelphiMS/!svn/ver/354/Dependencies/DEC/DECCipher.pas
+END
+CRC.pas
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/DelphiMS/!svn/ver/354/Dependencies/DEC/CRC.pas
+END
+DECUtil.pas
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/DelphiMS/!svn/ver/354/Dependencies/DEC/DECUtil.pas
+END
+DECRandom.pas
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/DelphiMS/!svn/ver/354/Dependencies/DEC/DECRandom.pas
+END

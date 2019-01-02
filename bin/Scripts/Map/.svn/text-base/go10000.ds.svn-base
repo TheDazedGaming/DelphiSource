@@ -1,0 +1,9 @@
+// Called when you enter map 10000, after intro scene was shown
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.LockUI(False);
+  P.DisableUI(False);
+  
+  P.ShowMapEffect('maplemap/enter/10000');
+end;

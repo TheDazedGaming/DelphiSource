@@ -1,0 +1,31 @@
+// Schiller - Resistance 2nd Job Adv.
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0: C.SendNext('Oh my. What''s this? I gave specific instructions to make sure no one else used the airport at this time... But, I say, are you a member of the Resistance?', 8);
+    1: C.SendNextPrev('#b(You are surprised Schiller doesn''t immediately recognize you. You certainly remember him.)#k', 2);
+    2: C.SendNextPrev('Come to think of it, you do look familiar... Where have I seen you before?', 8);
+    3: C.SendNextPrev('I couldn''t fight you the last time we met, but I plan to fix that today.', 2);
+    4: C.SendNextPrev('You! I remember now! You stole that one test subject! Do you have any idea how much I suffered because of that? I was demoted...five times! Now I''m stuck doing menial jobs like this. Time for you to pay, oh yes.', 8);
+    5:
+    begin
+      C.SpawnMonster(C.Char.MapID, 9001031, 224, -26, 12);
+      C.RemoveNPC(C.Char.MapID, 2159100);
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

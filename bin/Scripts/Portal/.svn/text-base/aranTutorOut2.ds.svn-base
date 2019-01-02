@@ -1,0 +1,15 @@
+// Left Portal in first Aran mob map (914000200)
+
+procedure Enter(P: TPortalScript); export;
+begin
+  // Add Tutorial Skills
+  P.UpdateSkill(20000014, 0, -1, False);
+  P.UpdateSkill(20000015, 0, -1, False);
+  P.UpdateRemainingSP(0);
+  P.UpdateSkill(20000014, 1, 0, False);
+  P.UpdateRemainingSP(0);
+  P.UpdateSkill(20000015, 1, 0, False);
+  
+  P.BlockPortal;
+  P.Warp(914000210, 1);
+end;

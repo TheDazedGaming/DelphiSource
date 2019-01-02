@@ -1,0 +1,19 @@
+// Free Market board
+
+uses NPCConversation;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if (C.IsQuestActive(23005)) and (C.GetQuestData(23006) <> '1') then
+  begin
+    C.GainItem(4032783, -1);
+    C.UpdateQuest(23006, '1', True);
+    C.SendNext('You pin the poster to the message board.');
+  end
+  else
+    C.SendOK('It''s a message board for Edelstein''s Free Market. Supposedly, anyone can put up a poster, but the board is covered with propaganda about the Black Wings.');
+  C.Dispose;
+end;
+
+begin
+end.

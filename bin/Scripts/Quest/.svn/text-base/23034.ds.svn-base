@@ -1,0 +1,37 @@
+// Quest: Destroying the Energy Conducting Device [Wild Hunter]
+
+var
+  Status: Integer;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Status = 1) and (Mode = 0) then
+  begin
+    Q.SendNext('Don''t you want stronger skills?');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('You destroyed the #o9001032#! I was right about you. Now our town won''t have to worry about energy issues for awhile. You''ve really done a great thing for Edelstein.');
+    2: Q.SendYesNo('Now that I know how much you''ve grown, I will give you the next lesson. I believe you are now strong enough to be reborn as a more powerful Wild Hunter!');
+    3:
+    begin
+      if Q.Char.Job = 3310 then
+      begin
+        Q.GainItem(1142244, 1);      // Special Training Graduate
+        Q.FinishQuest;
+
+        Q.ChangeJob(3311);
+      end;
+      Q.SendNext('You''ve been advanced. You now have a larger arsenal of skills to manage. It might not be easy, since you still have to control your mount, but I''m not worried.');
+    end;
+    4: Q.SendPrev('I''ll see you at the next lesson. Until then, continue your good fight.');
+    5: Q.Dispose;
+  end;
+end;

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/DelphiMS/!svn/ver/417/Communication
+END
+MapleClient.pas
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/DelphiMS/!svn/ver/361/Communication/MapleClient.pas
+END
+WorldServer.pas
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/DelphiMS/!svn/ver/411/Communication/WorldServer.pas
+END
+ChannelServer.pas
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/DelphiMS/!svn/ver/372/Communication/ChannelServer.pas
+END
+MapleServerHandler.pas
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/DelphiMS/!svn/ver/417/Communication/MapleServerHandler.pas
+END

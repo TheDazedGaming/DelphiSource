@@ -1,0 +1,191 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component
+END
+ZUpdateSqlEditor.lfm
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZUpdateSqlEditor.lfm
+END
+ZSqlMonitor.pas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZSqlMonitor.pas
+END
+ZROSqlEditor.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZROSqlEditor.pas
+END
+ZAbstractTable.pas
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZAbstractTable.pas
+END
+ZIBEventAlerter.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZIBEventAlerter.pas
+END
+ZConnectionGroup.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZConnectionGroup.pas
+END
+ZComponentReg.lrs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZComponentReg.lrs
+END
+ZSqlTestForm.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZSqlTestForm.pas
+END
+ZDataset.pas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZDataset.pas
+END
+ZUpdateSqlEditor.lrs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZUpdateSqlEditor.lrs
+END
+ZPgEventAlerter.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZPgEventAlerter.pas
+END
+ZComponent.inc
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZComponent.inc
+END
+ZPropertyEditor.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZPropertyEditor.pas
+END
+ZSqlProcessor.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZSqlProcessor.pas
+END
+ZConnection.pas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZConnection.pas
+END
+ZComponentReg.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZComponentReg.pas
+END
+ZDatasetUtils.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZDatasetUtils.pas
+END
+ZSequence.pas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZSequence.pas
+END
+ZUpdateSqlEditor.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZUpdateSqlEditor.pas
+END
+ZStoredProcedure.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZStoredProcedure.pas
+END
+ZSqlStrings.pas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZSqlStrings.pas
+END
+ZAbstractDataset.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZAbstractDataset.pas
+END
+ZAbstractRODataset.pas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZAbstractRODataset.pas
+END
+ZAbstractConnection.pas
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZAbstractConnection.pas
+END
+ZGroupedConnection.pas
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZGroupedConnection.pas
+END
+ZComponent.dcr
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZComponent.dcr
+END
+ZStreamBlob.pas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZStreamBlob.pas
+END
+ZUpdateSqlEditor.dfm
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZUpdateSqlEditor.dfm
+END
+ZQuerySQLEditor.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZQuerySQLEditor.pas
+END
+ZSqlMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZSqlMetadata.pas
+END
+ZSqlUpdate.pas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/component/ZSqlUpdate.pas
+END

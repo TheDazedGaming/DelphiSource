@@ -1,0 +1,8 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.GetAreaInfo(21002).IndexOf('arr0=o') > 0 then
+    Exit;
+
+  P.UpdateAreaInfo(21002, 'arr0=o;mo1=o;mo2=o;mo3=o');
+  P.ShowWZEffect('Effect/OnUserEff.img/guideEffect/aranTutorial/tutorialArrow3', 1);
+end;

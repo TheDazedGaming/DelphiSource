@@ -1,0 +1,10 @@
+// Cygnus Intro: Minimap tutorial
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.GetAreaInfo(20021).IndexOf('minimap=clear') > 0 then
+    Exit;
+
+  P.ShowGuideEffect(1, 5000);
+  P.UpdateAreaInfo(20021, 'minimap=clear;helper=clear');
+end;

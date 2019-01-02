@@ -1,0 +1,98 @@
+(*
+  NPC Name:    Francois
+  Map(s):      Ellinia (101000000)
+  Description: Makes items.
+*)
+
+uses NPCConversation;
+
+var
+  Status, MainSel: Integer;
+
+procedure MakeWand(Sel: Integer);
+begin
+
+end;
+
+procedure MakeStaff(Sel: Integer);
+begin
+
+end;
+
+procedure MakeGlove(Sel: Integer);
+begin
+
+end;
+
+procedure UpgradeGlove(Sel: Integer);
+begin
+
+end;
+
+procedure UpgradeHat(Sel: Integer);
+begin
+
+end;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+    
+  if (Mode = 0) and (Status > 1) then
+  begin
+    // Pressed "No"
+    C.SendNext('Really? You must be lacking materials. Try harder at gathering them up around town. Fortunately it looks like the monsters around the forest have various materials on their sleeves.');
+    C.Dispose;
+    Exit;
+  end;
+
+  case Status of
+   -1:
+    begin
+      C.SendNext('You don''t trust my skills, I suppose... haha... you should know that I used to be a great wizard. You still can''t believe my skills, huh...but just remember that I used to be the great magician of old...');
+      C.Dispose;
+    end;
+    
+    0: C.SendYesNo('Do you want to take a look at some items? Well... any thought of making one? I''m actually a wizard that was banished from the town because I casted an illegal magic. Because of that I''ve been hiding, doing some business here... well, that''s not really the point. Do you want to do some business with me?');
+    1: C.SendSimple('Alright ... it''s for both of our own good, right? Choose what you want to do... \r\n#b#L0#Make a wand#l\r\n#L1#Make a staff#l\r\n#L2#Make a glove#l\r\n#L3#Upgrade a glove#l\r\n#L4#Upgrade a hat#l');
+    2:
+    begin
+      MainSel := Selection;
+      case Selection of
+        0: C.SendSimple('If you gather up the materials for me, I''ll make a wand for you with my magical power. Now... what kind of a wand do you want to make?\r\n#L0##b #t1372005##k(level limit : 8, all)#l\r\n#L1##b #t1372006##k(level limit : 13, all)#l\r\n#L2##b #t1372002##k(level limit : 18, all)#l\r\n#L3##b #t1372004##k(level limit : 23, magician)#l\r\n#L4##b #t1372003##k(level limit : 28, magician)#l\r\n#L5##b #t1372001##k(level limit : 33, magician)#l\r\n#L6##b #t1372000##k(level limit : 38, magician)#l\r\n#L7##b #t1372007##k(level limit : 48, magician)#l');
+        1: C.SendSimple('If you gather up the materials for me, I''ll make a staff for you with my magical power. Now...what kind of a staff do you want to make?\r\n#L0##b#t1382000##k(level limit : 10, magician)#l\r\n#L1##b#t1382003##k(level limit : 15, magician)#l\r\n#L2##b#t1382005##k(level limit : 15, magician)#l\r\n#L3##b#t1382004##k(level limit : 20, magician)#l\r\n#L4##b#t1382002##k(level limit : 25, magician)#l\r\n#L5##b#t1382001##k(level limit : 45, magician)#l');
+        2: C.SendSimple('If you gather up the materials for me, I''ll make a glove for you using my magical powers. Now...what kind of a glove do you want to make?\r\n#L0##b #t1082019##k(level limit : 15, magician)#l\r\n#L1##b #t1082020##k(level limit : 20, magician)#l\r\n#L2##b #t1082026##k(level limit : 25, magician)#l\r\n#L3##b #t1082051##k(level limit : 30, magician)#l\r\n#L4##b #t1082054##k(level limit : 35, magician)#l\r\n#L5##b #t1082062##k(level limit : 40, magician)#l\r\n#L6##b #t1082081##k(level limit : 50, magician)#l\r\n#L7##b #t1082086##k(level limit : 60, magician)#l');
+        3: C.SendNext('So you want to upgrade a glove? Be careful, though; All the items that will be used for upgrading will be gone, and if you use an item that has been #rupgraded#k with a scroll, the effect will disappear when upgraded,  so you may want to think about it before making your decision ...');
+        4: C.SendNext('So you want to upgrade your hat? Be careful, though; All the items that will be used for upgrading will be gone, and if you use an item that has been #rupgraded#k with a scroll, the effect will disappear when upgraded, so you may want to think about it before making your decision ...');
+      end;
+    end;
+    
+    3:
+    begin
+      case MainSel of
+        0: MakeWand(Selection);
+        1: MakeStaff(Selection);
+        2: MakeGlove(Selection);
+        3: C.SendSimple('Now ... which glove do you want to upgrade?\r\n#L0##b #t1082021##k(Level limit : 20, magician)#l\r\n#L1##b #t1082022##k(Level limit : 20, magician)#l\r\n#L2##b #t1082027##k(Level limit : 25, magician)#l\r\n#L3##b #t1082028##k(Level limit : 25, magician)#l\r\n#L4##b #t1082052##k(Level limit : 30, magician)#l\r\n#L5##b #t1082053##k(Level limit : 30, magician)#l\r\n#L6##b #t1082055##k(Level limit : 35, magician)#l\r\n#L7##b #t1082056##k(Level limit : 35, magician)#l\r\n#L8##b #t1082063##k(Level limit : 40, magician)#l\r\n#L9##b #t1082064##k(Level limit : 40, magician)#l\r\n#L10##b #t1082082##k(Level limit : 50, magician)#l\r\n#L11##b #t1082080##k(Level limit : 50, magician)#l\r\n#L12##b #t1082087##k(Level limit : 60, magician)#l\r\n#L13##b #t1082088##k(Level limit : 60, magician)#l');
+        4: C.SendSimple('Alright, so which hat would you like to upgrade?\r\n#L0##b#t1002065##k(Level limit : 30, wizard)#l\r\n#L1##b#t1002013##k(level limit : 30, wizard)#l');
+      end;
+    end;
+    
+    4:
+    begin
+      case MainSel of
+        // TODO
+        3: UpgradeGlove(Selection);
+        4: UpgradeHat(Selection);
+      end;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+  MainSel := -1;
+end.

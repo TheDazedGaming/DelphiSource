@@ -1,0 +1,7 @@
+// Resistance 2nd Job Advancement
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.SpawnNPC(P.Char.MapID, 2159100, 224, -18, True);
+  P.KillAllMonsters(P.Char.MapID);
+end;

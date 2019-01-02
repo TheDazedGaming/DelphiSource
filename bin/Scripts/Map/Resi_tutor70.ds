@@ -1,0 +1,5 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  P.LockUI(True);
+  P.ShowWZEffect('Effect/Direction4.img/Resistance/TalkJ', -1);
+end;

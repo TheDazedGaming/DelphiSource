@@ -1,0 +1,10 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  if (P.Char.Job = 2100) and (P.GetAreaInfo(21019).IndexOf('ck=1') = 0) then
+  begin
+    // After being warped out of another Aran scene
+    P.UpdateAreaInfo(21019, 'miss=o;arr=o;ck=1;helper=clear');
+    P.LockUI(False);
+    P.DisableUI(False);
+  end;
+end;

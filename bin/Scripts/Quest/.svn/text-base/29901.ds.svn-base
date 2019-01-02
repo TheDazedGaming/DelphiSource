@@ -1,0 +1,30 @@
+// QuestID: 29901; Junior Adventurer Medal
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  Q.UpdateQuest(29901, '', True);  // create quest, no data
+  Q.ShowInfo('You have earned the <Junior Adventurer> title. You can receive a Medal from NPC Dalair.');
+  Q.Dispose;
+end;
+
+procedure Complete(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    1: Q.SendNext('Congratulations on earning your honorable #b<Junior Adventurer>#k title. I wish you the best of luck in your future endeavors! Keep up the good work. \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n\r\n#v1142108:##t1142108#  1 ');
+    2:
+    begin
+      Q.GainItem(1142108, 1);
+
+      Q.FinishQuest;
+      Q.Dispose;
+    end;
+  end;
+end;

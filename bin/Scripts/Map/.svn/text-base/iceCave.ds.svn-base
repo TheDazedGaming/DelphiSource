@@ -1,0 +1,15 @@
+// Executed when you arrive at the Ice Cave (Part of Aran Tutorial)
+
+procedure Enter(P: TPortalScript); export;
+begin
+  // Remove tutorial skills
+  P.UpdateSkill(20000014, -1, 0, False);
+  P.UpdateSkill(20000015, -1, 0, False);
+  P.UpdateSkill(20000016, -1, 0, False);
+  P.UpdateSkill(20000017, -1, 0, False);
+  P.UpdateSkill(20000018, -1, 0, False);
+  
+  P.LockUI(False);
+  
+  P.ShowWZEffect('Effect/Direction1.img/aranTutorial/ClickLilin', -1);
+end;

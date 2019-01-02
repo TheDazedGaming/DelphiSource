@@ -1,0 +1,10 @@
+// Portal to leave first Aran Map (914000000)
+
+procedure Enter(P: TPortalScript); export;
+begin
+  // This is quite crazy: First, they send D8 00 00, no idea what it could be
+  // Then, they send 8!! times a SpawnPlayer packet, about 2000 Byte.
+  // Sometimes I really wonder if they are bored
+  P.BlockPortal;
+  P.Warp(914000100, 1);
+end;

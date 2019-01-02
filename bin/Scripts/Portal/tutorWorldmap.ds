@@ -1,0 +1,10 @@
+// Cygnus Intro: Worldmap tutorial
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.GetAreaInfo(20021).IndexOf('worldmap=clear') > 0 then
+    Exit;
+
+  P.ShowGuideEffect(11, 10000);
+  P.UpdateAreaInfo(20021, 'minimap=clear;helper=clear;worldmap=clear');
+end;

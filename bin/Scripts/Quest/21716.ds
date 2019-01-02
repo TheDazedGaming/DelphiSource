@@ -1,0 +1,34 @@
+// QuestID: 21716 - Second Assignment, Completed!
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (Mode = 0) and (Status = 2) then
+  begin
+    Q.SendNext('What? I don''t think there are any suspects besides that kid. Please think again.');
+    Q.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    1: Q.SendNext('What did #p1032112# say?', 8);
+    2: Q.SendNextPrev('#b(You tell her what #p1032112# observed.)#k', 2);
+    3: Q.SendAcceptDecline('A kid with a puppet? That seems very suspicious. I am sure that kid is the reason the Green Mushrooms have suddenly turned violent.');
+    4:
+    begin
+      if not Q.IsQuestActive(21716) then
+        Q.StartQuest;
+
+      Q.SendNext('How dare this kid wreak havoc in the South Forest. Who knows how long it will take to restore the forest... I''ll have to devote most of my time cleaning up the mess.', 9);
+    end;
+    5: Q.SendPrev('#b(You were able to find out what caused the changes in the Green Mushrooms. You should report #p1002104# and deliver the information you''ve collected.)#k', 2);
+    6: Q.Dispose;
+  end;
+end;

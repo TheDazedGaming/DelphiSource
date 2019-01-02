@@ -1,0 +1,8 @@
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.ID = 104000000 then   // MapID
+  begin
+    P.LockUI(False);
+    P.DisableUI(False);
+  end;
+end;

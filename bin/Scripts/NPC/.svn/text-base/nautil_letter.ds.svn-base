@@ -1,0 +1,37 @@
+(*
+    NPC Name:    Trash Can
+    Map:         Nautilus Upper Corridor
+    Description: Gives you a letter, which initiates a quest.
+*)
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if Status = 0 then
+    C.SendNext('A half-written letter...maybe it''s important! Should I take a look?')
+  else if Status = 1 then
+  begin
+    if C.HasItem(4031839) then
+      C.SendOK('I''ve already picked one up. I don''t think I''ll need to pick up another one.')
+    else
+    begin
+      C.GainItem(4031839, 1);
+      C.SendOK('I can barely make this out...but it reads Kyrin.');
+    end;
+  end
+  else
+    C.Dispose;
+end;
+
+begin
+  Status := -1;
+end.

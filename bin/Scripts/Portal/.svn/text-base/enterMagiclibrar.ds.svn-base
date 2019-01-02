@@ -1,0 +1,6 @@
+// Portal for entering magic library in Ellinia - idk why you need it
+
+procedure Enter(P: TPortalScript); export;
+begin
+  P.Warp(101000003, 'jobout00');
+end;

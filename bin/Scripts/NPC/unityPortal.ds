@@ -1,0 +1,68 @@
+(*
+    NPC Name:    Dimensional Mirror
+    Description: Warps you to Mu Lung Dojo, Monster Carnival etc.
+*)
+
+uses NPCConversation, ScriptMapleCharacter;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+var
+  Msg: string;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0:
+    begin
+      if C.Char.Level < 20 then
+        C.SendMapSelection('#-1# There are no locations you can move to.')
+      else
+      begin
+        if (C.Char.Level >= 20) and (C.Char.Level <= 30) then
+          Msg := '#0# Ariant Coliseum'
+        else
+          Msg := '';
+
+        if C.Char.Level >= 25 then
+          Msg := Msg + '#1# Mu Lung Dojo';
+
+        if (C.Char.Level >= 30) and (C.Char.Level <= 50) then
+          Msg := Msg + '#2# Monster Carnival 1';
+
+        if (C.Char.Level >= 51) and (C.Char.Level <= 70) then
+          Msg := Msg + '#3# Monster Carnival 2';
+
+        if C.Char.Level >= 40 then
+          Msg := Msg + '#5# Nett''s Pyramid';
+
+        if (C.Char.Level >= 25) and (C.Char.Level <= 30) then
+          Msg := Msg + '#6# Construction Site';
+
+        C.SendMapSelection(Msg);
+      end;
+    end;
+    1:
+    begin
+      C.SaveLocation('slDimensionalMirror');
+      case Selection of
+        0: C.Warp(980010000, 3);
+        1: C.Warp(925020000);
+        2: C.Warp(980000000, 3);
+        3: C.Warp(980030000, 3);
+        5: C.Warp(926010000);
+        6: C.Warp(910320000);
+      end;
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

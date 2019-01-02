@@ -1,0 +1,38 @@
+// Some child
+
+uses NPCConversation;
+
+var
+  Status: Integer;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if C.GetAreaInfo(23999).IndexOf('exp4=1') > 0 then
+  begin
+    C.SendNext('Drats. Might as well eat another piece of candy.');
+    C.Dispose;
+    Exit;
+  end;
+
+  case Status of
+    0: C.SendNext('D''oh! You found me. But I''m tiny! Are you a professional at this game or something?\r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 3 exp');
+    1:
+    begin
+      C.GainExp(3);
+      if C.GetAreaInfo(23999) = '' then
+        C.UpdateAreaInfo(23999, 'exp4=1')
+      else
+        C.UpdateAreaInfo(23999, C.GetAreaInfo(23999) + ';exp4=1');
+      C.Dispose;
+    end;
+  end;
+end;
+
+begin
+  Status := -1;
+end.

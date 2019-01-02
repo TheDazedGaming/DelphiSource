@@ -1,0 +1,35 @@
+// QuestID: 21000; Name: Find the Missing Kid 1; NPC: Athena Pierce
+
+var
+  Status: Integer;
+
+procedure Start(Q: TQuestScriptManager; Mode, LastType, Selection: Integer); export;
+begin
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  case Status of
+    0:   // pressed Decline
+    begin
+      Q.SendNext('No, Aran... We can''t leave a kid behind. I know it''s a lot to ask, but please reconsider. Please!');
+      Q.Dispose;
+    end;
+    1: Q.SendAcceptDecline('Oh, no! I think there''s still a child in the forest! Aran, I''m very sorry, but could you rescue the child? I know you''re injured, but I don''t have anyone else to ask!');
+    2:
+    begin
+      if not Q.IsQuestActive(21000) then
+        Q.StartQuest;
+
+      Q.SendNext('#bThe child is probably lost deep inside the forest!#k We have to escape before the Black Mage finds us. You must rush into the forest and bring the child back with you!');
+    end;
+    3: Q.SendNextPrev('Don''t panic, Aran. If you wish to check the status of the quest, press #bQ#k and view the Quest window.');
+    4: Q.SendNextPrev('Please, Aran! I''m begging you. I can''t bear to lose another person to the Black Mage!');
+    5:
+    begin
+      Q.ShowWZEffect('Effect/OnUserEff.img/guideEffect/aranTutorial/tutorialArrow1', 1);
+      Q.Dispose;
+    end;
+  end;
+end;

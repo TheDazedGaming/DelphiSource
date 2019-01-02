@@ -1,0 +1,11 @@
+// Guide displayed in map: 914000220
+
+procedure Enter(P: TPortalScript); export;
+begin
+  if P.GetAreaInfo(21002).IndexOf('cmd=o') > 0 then
+    Exit;
+
+  P.ShowInfo('You can use a Command Attack by pressing both the arrow key and the attack key after a Consecutive Attack.');
+  P.UpdateAreaInfo(21002, 'cmd=o;normal=o;arr0=o;arr1=o;arr2=o;mo1=o;chain=o;mo2=o;mo3=o;mo4=o');
+  P.ShowWZEffect('Effect/OnUserEff.img/guideEffect/aranTutorial/tutorialGuide3', 1);
+end;

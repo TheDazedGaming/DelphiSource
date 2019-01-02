@@ -1,0 +1,329 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc
+END
+ZDbcMySqlStatement.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcMySqlStatement.pas
+END
+ZDbcOracleStatement.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcOracleStatement.pas
+END
+ZDbcDbLibUtils.pas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcDbLibUtils.pas
+END
+ZDbcGenericResolver.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcGenericResolver.pas
+END
+ZDbcDbLibStatement.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcDbLibStatement.pas
+END
+ZDbcCache.pas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcCache.pas
+END
+ZDbcPostgreSql.pas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcPostgreSql.pas
+END
+ZDbcASA.pas
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcASA.pas
+END
+ZDbcPostgreSqlMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcPostgreSqlMetadata.pas
+END
+ZDbcMySql.pas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcMySql.pas
+END
+ZDbc.inc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbc.inc
+END
+ZDbcASAMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcASAMetadata.pas
+END
+ZDbcOracle.pas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcOracle.pas
+END
+ZDbcMySqlMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcMySqlMetadata.pas
+END
+ZDbcOracleMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcOracleMetadata.pas
+END
+ZDbcSqLiteResultSet.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcSqLiteResultSet.pas
+END
+ZDbcAdoResultSet.pas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcAdoResultSet.pas
+END
+ZDbcASAResultSet.pas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcASAResultSet.pas
+END
+ZDbcPooled.pas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcPooled.pas
+END
+ZDbcSqLiteUtils.pas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcSqLiteUtils.pas
+END
+ZDbcIntfs.pas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcIntfs.pas
+END
+ZDbcDbLibSybaseMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcDbLibSybaseMetadata.pas
+END
+ZDbcAdoUtils.pas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcAdoUtils.pas
+END
+ZDbcASAUtils.pas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcASAUtils.pas
+END
+ZDbcLogging.pas
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcLogging.pas
+END
+ZDbcSqLiteStatement.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcSqLiteStatement.pas
+END
+ZDbcAdoStatement.pas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcAdoStatement.pas
+END
+ZDbcASAStatement.pas
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcASAStatement.pas
+END
+ZDbcResultSet.pas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcResultSet.pas
+END
+ZDbcResultSetMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcResultSetMetadata.pas
+END
+ZDbcDbLibMsSqlMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcDbLibMsSqlMetadata.pas
+END
+ZDbcConnection.pas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcConnection.pas
+END
+ZDbcUtils.pas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcUtils.pas
+END
+ZDbcSqLite.pas
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcSqLite.pas
+END
+ZDbcInterbase6.pas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcInterbase6.pas
+END
+ZDbcSqLiteMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcSqLiteMetadata.pas
+END
+ZDbcInterbase6Metadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcInterbase6Metadata.pas
+END
+ZDbcAdo.pas
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcAdo.pas
+END
+ZDbcAdoMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcAdoMetadata.pas
+END
+ZDbcStatement.pas
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcStatement.pas
+END
+ZDbcDbLib.pas
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcDbLib.pas
+END
+ZDbcInterbase6ResultSet.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcInterbase6ResultSet.pas
+END
+ZDbcPostgreSqlResultSet.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcPostgreSqlResultSet.pas
+END
+ZDbcMySqlResultSet.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcMySqlResultSet.pas
+END
+ZDbcMetadata.pas
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcMetadata.pas
+END
+ZDbcOracleResultSet.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcOracleResultSet.pas
+END
+ZDbcCachedResultSet.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcCachedResultSet.pas
+END
+ZDbcInterbase6Utils.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcInterbase6Utils.pas
+END
+ZDbcPostgreSqlUtils.pas
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcPostgreSqlUtils.pas
+END
+ZDbcMySqlUtils.pas
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcMySqlUtils.pas
+END
+ZDbcOracleUtils.pas
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcOracleUtils.pas
+END
+ZDbcInterbase6Statement.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcInterbase6Statement.pas
+END
+ZDbcDbLibResultSet.pas
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcDbLibResultSet.pas
+END
+ZDbcPostgreSqlStatement.pas
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/DelphiMS/!svn/ver/354/Dependencies/Zeos%207/dbc/ZDbcPostgreSqlStatement.pas
+END

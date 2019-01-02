@@ -1,0 +1,215 @@
+(*
+    NPC Name:    Kyrin
+    Map:         Nautilus Control Room
+    Description: Pirate instructor
+*)
+
+uses NPCConversation, ScriptMapleCharacter, Events;
+
+var
+  Status, State: Integer;
+  Requirements, HasAdvanced: Boolean;
+  Item, Job, Skill: string;
+
+procedure SecondJobStart(C: TNPCConversation);
+var
+  Brawler: Boolean;
+  Adjective: string;
+  E: TEventManager;
+begin
+  Brawler := C.IsQuestActive(2191);
+  if Status = 0 then
+  begin
+    if Brawler then
+    begin
+      Adjective := 'strong';
+      Item := '4031856';
+      Job := 'Brawler';
+      Skill := 'Flash Fist';
+    end
+    else
+    begin
+      Adjective := 'quick';
+      Item := '4031857';
+      Job := 'Gunslinger';
+      Skill := 'Double Shot';
+    end;
+    C.SendNext('Okay, now I''ll take you to the test room. Here are the instructions: defeat the Octopirates and gather #b15 #t' + Item + '#s#k. The Octopirates you''ll see here are highly trained and are very ' + Adjective + ', so I suggest you really buckle down and get ready for this.')
+  end
+  else if Status = 1 then
+    C.SendNextPrev('Oh, and for the sake of training ' + Job + 's, those Octos will not be affected unless hit with #b' + Skill + '#k. And one more thing, when you enter the test room, I''ll remove all the #t' + Item + '#s you have. Yes, you''ll be starting off from scratch.')
+  else if Status = 2 then
+  begin
+    C.RemoveAll(Convert.ToInt32(Item));
+    E := C.GetEventManager('Pirate2ndJob');
+    if E <> nil then
+      E.CreateInstance(C.Char.Name).RegisterPlayer(TObject(C.Char));
+    C.Dispose;
+  end;
+end;
+
+procedure SecondJobEnd(C: TNPCConversation);
+begin
+  HasAdvanced := True;
+  if C.IsQuestFinished(2191) then
+  begin
+    case Status of
+      0: C.SendNext('Okay, as promised, you will now become a #bBrawler#k.');
+      1:
+      begin
+        if C.Char.Job = 500 then
+        begin
+          C.ChangeJob(510);
+          C.Char.MaxHP := C.Char.MaxHP + 200 + Random.Next(50);
+          C.Char.MaxMP := C.Char.MaxMP + 150 + Random.Next(25);
+          C.IncreaseSlotLimit(2, 1);
+        end;
+        C.SendNextPrev('Okay, from here on out, you are a #bBrawler#k. Brawlers rule the world with the power of their bare fists... which means they need to train their body more than others. If you have any trouble training, I''ll be more than happy to help.');
+      end;
+      2: C.SendNextPrev('I have just given you a skill book that entails Brawler skills, you''ll find it very helpful. You have also gained additional slots for Use items, a full row in fact. I also boosted your MaxHP and MaxMP. Check it out for yourself.');
+      4: C.SendNextPrev('Brawlers need to be a powerful force, but that doesn''t mean they have the right to bully the weak. True Brawlers use their immense power in positive ways, which is much harder than just training to gain strength. I hope you follow this creed as you leave your mark in this world as a Brawler. I will see you when you have accomplished everything you can as a Brawler. I''ll be waiting for you here.');
+    end;
+  end
+  else
+  begin
+    case Status of
+      0: C.SendNext('I knew you''d pass the test! You had some impressive moves in there. Not bad at all! Now, as promised, you will now become a #bGunslinger#k.');
+      1:
+      begin
+        if C.Char.Job = 500 then
+        begin
+          C.ChangeJob(520);
+          C.Char.MaxHP := C.Char.MaxHP + 250 + Random.Next(50);
+          C.Char.MaxMP := C.Char.MaxMP + 150 + Random.Next(25);
+          C.IncreaseSlotLimit(2, 1);
+        end;
+        C.SendNextPrev('From here on out, you are a #bGunslinger#k. Gunslingers are notable for their long-range attacks with sniper-like accuracy and, of course, using Guns as their primary weapon. You should continue training to truly master your skills. If you are having trouble, I''ll be there to help.');
+      end;
+      2: C.SendNextPrev('I have just given you a skill book that entails Gunslinger skills, you''ll find it very helpful. You have also gained additional slots for Use items, a full row in fact. I also boosted your MaxHP and MaxMP. Check it out for yourself.');
+      4: C.SendNextPrev('Gunslingers are deadly at ranged combat, but that doesn''t mean they have the right to bully the weak. Gunslingers will need to use their immense power in positive ways, which is actually hard than just training to gain strength. I hope you follow this creed as you leave your mark in this world as a Gunslinger. I will see you when you have accomplished everything you can as a Gunslinger. I''ll be waiting for you here.');
+    end;
+  end;
+  
+  if Status = 3 then
+    C.SendNextPrev('I have given you a little bit of #bSP#k, so I suggest you open the #bskill menu#k right now. You''ll be able to enhance your newly-acquired 2nd Job skills. Beware that not all skills can be enhanced from the get go. There are some skills that you can only acquire after mastering basic skills.')
+  else if Status = 5 then
+    C.Dispose;
+end;
+
+procedure Action(C: TNPCConversation; Mode, LastType, Selection: Integer); export;
+begin
+  if (Status = 2) and (Mode = 0) and (Requirements) then
+  begin
+    C.SendNext('I see... Well, selecting a new job is a very important decision to make. If you are ready, then let me know!');
+    C.Dispose;
+    Exit;
+  end;
+
+  if Mode = 1 then
+    Inc(Status)
+  else
+    Dec(Status);
+
+  if (State = 1) or (C.GetQuestData(7500) = 's') then
+  begin
+    if Status = 0 then
+    begin
+      State := 1;
+      C.UpdateQuest(7500, 'p1', True);
+      C.SendNext('I''ve been waiting for you ever since I heard your name from #bPedro#k of Ossyria. Now, I need to test your strength. You will find a Door of Dimension deep inside the Cursed Temple in the heart of Victoria Island. Most people can''t enter, but I''ll let you. Once inside, you''ll face my clone. Your task is to defeat my evil twin and bring me the #b#t4031059##k.');
+    end
+    else if Status = 1 then
+      C.SendNextPrev('Since it''s my shadow, it''ll be unlike any opponent you''ve ever encountered. It''ll use various skills against you, and not only that, but since you''re fighting in another dimension, it''s probably not a good idea to stay there too long. I highly advise you to defeat the shadow as quickly as possible and leave. Remember, you''ll need to fully prepare yourself for the battle. Otherwise, you''ll have no chance. I''ll be waiting here for you... Good luck!')
+    else
+      C.Dispose;
+    Exit;
+  end
+  else if (State = 2) or (C.GetQuestData(7500) = 'p1') then
+  begin
+    State := 2;
+    if C.HasItem(4031059) then
+    begin
+      C.SendNext('I can''t believe this... You were able to defeat the shadow and brought back #b#t4031059##k...? Wow, you''ve definitely proven your strength. I think you are ready to make the 3rd job advancement. As promised, I''ll give you #b#t4031057##k for your work. Take this necklace to #bPedro#k in Ossyria to take the second test. I''ll be praying for you to make the final leap to the 3rd job advancement.');
+      C.UpdateQuest(7500, 'p2', True);
+      C.GainItem(4031059, -1);
+      C.GainItem(4031057, 1);
+    end
+    else
+      C.SendNext('You will find a Door of Dimension deep inside the Cursed Temple in the heart of Victoria Island. Nobody but you can go into that passage. If you go into the passage, you will meet my clone. Beat him and bring #b#t4031059##k to me.');
+    C.Dispose;
+    Exit;
+  end;
+
+  if (C.Char.Job = 500) or (HasAdvanced) then
+    if C.IsQuestActive(2191) or C.IsQuestActive(2192) then
+    begin
+      SecondJobStart(C);
+      Exit;
+    end
+    else if C.IsQuestFinished(2191) or C.IsQuestFinished(2192) then
+    begin
+      SecondJobEnd(C);
+      Exit;
+    end;
+
+  case Status of
+    0: C.SendSimple('Have you got something to say?\r\n#b#L0# I would like to learn more about pirates..#l');
+    1: if C.Char.Job = 0 then
+         C.SendNext('Do you wish to become a Pirate? You''ll need to meet our set of standard if you are to become one of us. I need you to be #bat least at Level 10#k. Let''s see...')
+       else
+       begin
+         C.SendNext('Don''t you want to feel the freedom eminating from the sea? Don''t you want the power, the fame, and everything else that comes with it? Then you should join us and enjoy it yourself.');
+         C.Dispose;
+       end;
+    2: if C.Char.Level < 10 then
+         C.SendNextPrev('Hmm...I don''t think you have trained enough, yet. See me when you get stronger.')
+       else
+       begin      
+         Requirements := True;
+         C.SendYesNo('You seem more than qualified! Great, are you ready to become one of us?');
+       end;
+    3: if Requirements then
+         C.SendNext('Welcome to the band of Pirates! You may have to spend some time as a wanderer at first, but better days will certainly dawn upon you, sooner than you think! In the mean time, let me share some of my abilities with you.')
+       else
+         C.Dispose;
+    4:
+    begin
+      if C.Char.Job = 0 then
+      begin
+        C.GainItem(1482014, 1);   // Scallywag Knuckler
+        C.GainItem(1492014, 1);   // Pirate's Pistol
+        C.GainItem(2330006, 600);    // Bullet for Novice Pirates
+        C.GainItem(2330006, 600);    // Bullet for Novice Pirates
+        C.GainItem(2330006, 600);    // Bullet for Novice Pirates
+        C.IncreaseSlotLimit(1, 1);
+        C.IncreaseSlotLimit(4, 1);
+        C.ChangeJob(500);
+        C.Char.RemainingSP := (C.Char.Level - 10) * 3;
+        C.Char.STR := 4;
+        C.Char.DEX := 20;
+        C.Char.INT := 4;
+        C.Char.LUK := 4;
+        C.Char.RemainingAP := (C.Char.Level - 1) * 5 - 7;
+        C.Char.SendUpdateStats;
+        // These are updated automatically when set
+        C.Char.MaxHP := C.Char.MaxHP + 150;
+        C.Char.MaxMP := C.Char.MaxMP + 50;
+        C.Char.HP := C.Char.MaxHP;
+        C.Char.MP := C.Char.MaxMP;
+      end;
+
+      C.SendNextPrev('I have just increased the number of slots for your equipment and etc. inventory. You have also gotten a bit stronger. Can you feel it? Now that you can officially call yourself a Pirate, join us in our quest for adventure and freedom!');
+    end;
+    5: C.SendNextPrev('I have just given you a little bit of #bSP#k. Look at the #bSkill menu#k to find some skills, and use your SP to learn the skills. Beware that not all skills can be enhanced from the get go. There are some skills that you can only acquire after mastering basic skills.');
+    6: C.SendNextPrev('One more thing. Now that you have graduated from the ranks of a Beginner into a Pirate, you''ll have to make sure not to die prematurely. If you do lose all your health, you''ll lose valuable EXP that you have earned. Wouldn''t it stink to lose hard-earned EXP by dying?');
+    7: C.SendNextPrev('This is all I can teach you. I have also given you some useful weapons to work with, so it''s up to you now to train with them. The world is yours for the taking, so use your resources wisely, and when you feel like you''ve reached the top, let me know. I''ll have something better for you in store...');
+    8: C.SendNextPrev('Oh, and... your stats should accurately reflect your new occupation as a Pirate. Click on #bAuto Assign#k on your stat window to make yourself into an even more formidable pirate.');
+    9: C.Dispose;
+  end;
+end;
+
+begin
+  Status := -1;
+  Requirements := False;
+  HasAdvanced := False;
+end.
